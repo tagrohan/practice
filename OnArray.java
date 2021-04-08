@@ -1,30 +1,34 @@
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class OnArray {
     public static void main(String[] args) {
-        System.out.println("working");
+        System.out.println(kthSmallest(new Integer[] { 7, 10, 4, 3, 20, 15 }, 0, 5, 3));
 
-        
-        
     }
 
+    public static int kthSmallest(Integer[] arr, int l, int r, int k) {
+       
+        StringBuffer buffer = new StringBuffer(Arrays.toString(arr));
+        List<Integer> list = Arrays.asList(arr);
+        Collections.sort(list);
+        for (int var : list) {
+            System.out.println(var);
+        }
+        return 1;
+    }
 
     public static int[] runningSum(int[] nums) {
         // 1,1,1,1,1 -> [1, 2, 3, 4, 5] = [1,1+1,1+1+1 ...]
         // System.out.println(Arrays.toString(runningSum(new int[]{1,1,1,1,1})));
         for (int i = 1; i < nums.length; i++) {
-                nums[i] += nums[i-1];
+            nums[i] += nums[i - 1];
         }
 
         return nums;
     }
-
-
-
-    
-
-
-
 
     private static void mainAndMaxInArray(int[] arr) {
         // mainAndMaxInArray(new int[] {1000, 11, 445, 1, 330, 3000});
@@ -33,11 +37,11 @@ public class OnArray {
         for (int i = 1; i < arr.length; i++) {
             if (min > arr[i]) {
                 min = arr[i];
-            }else if(max < arr[i]){
+            } else if (max < arr[i]) {
                 max = arr[i];
             }
         }
-        System.out.println(max +"::::"+ min);
+        System.out.println(max + "::::" + min);
     }
 
     private static void reverseArray(int[] arr) {
