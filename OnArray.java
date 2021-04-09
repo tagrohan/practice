@@ -3,13 +3,13 @@ import java.util.Arrays;
 public class OnArray {
     public static void main(String[] args) {
 
-        longestArithmatic(new int[] {5,4,3,2,1,2,3,4,5,6});
+        longestArithmatic(new int[] { 5, 4, 3, 2, 1, 2, 3, 4, 5, 6 });
     }
 
     // google kikstart 2020 subarray video 8.4
     // link:
     // https://codingcompetitions.withgoogle.com/kickstart/round/000000000019ff47/00000000003bf4ed#problem
-    // 10,7,4,6,8,10,11 5,5,4,5,5,5,4,5,6 9, 7, 5, 3
+    // 10,7,4,6,8,10,11 5,5,4,5,5,5,4,5,6 9,7,5,3 5,4,3,2,1,2,3,4,5,6
     private static void longestArithmatic(int[] arr) {
         int diff = arr[1] - arr[0];
         int occur = 0, maxOccur = 0;
