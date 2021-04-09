@@ -1,24 +1,32 @@
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 public class OnArray {
     public static void main(String[] args) {
-        System.out.println(kthSmallest(new Integer[] { 7, 10, 4, 3, 20, 15 }, 0, 5, 3));
-
+        subArraySum(new int[]{1,2,2});
     }
 
-    public static int kthSmallest(Integer[] arr, int l, int r, int k) {
-       
-        StringBuffer buffer = new StringBuffer(Arrays.toString(arr));
-        List<Integer> list = Arrays.asList(arr);
-        Collections.sort(list);
-        for (int var : list) {
-            System.out.println(var);
+    private static void subArraySum(int[] arr) {
+        
+        for (int i = 0; i < arr.length; i++) {
+            int sum = 0;
+            for (int j = i; j < arr.length; j++) {
+                sum += arr[j];
+                System.out.print(sum+" ");
+            }System.out.println();
         }
-        return 1;
     }
+
+    // public static int kthSmallest(Integer[] arr, int l, int r, int k) {
+    // System.out.println(kthSmallest(new Integer[] { 7, 10, 4, 3, 20, 15 }, 0, 5,
+    // 3));
+    // StringBuffer buffer = new StringBuffer(Arrays.toString(arr));
+    // List<Integer> list = Arrays.asList(arr);
+    // Collections.sort(list);
+    // for (int var : list) {
+    // System.out.println(var);
+    // }
+    // return 1;
+    // }
 
     public static int[] runningSum(int[] nums) {
         // 1,1,1,1,1 -> [1, 2, 3, 4, 5] = [1,1+1,1+1+1 ...]
