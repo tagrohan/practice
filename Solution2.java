@@ -20,10 +20,8 @@ public class Solution2 {
             int recordBreaksCount = 0;
             int previousRecord = 0;
             for (int i = 0; i < visitors.length; i++) {
-                boolean greaterThanPreviousDays = i == 0 || visitors[i] > previousRecord;
-                boolean greaterThanFollowingDay = i == visitors.length - 1 || visitors[i] > visitors[i + 1]; // short
-                                                                                                             // circuiting
-                                                                                                             // condition
+                boolean greaterThanPreviousDays = i == 0 || visitors[i] > previousRecord;  // circuit condition
+                boolean greaterThanFollowingDay = i == visitors.length - 1 || visitors[i] > visitors[i + 1]; 
                 if (greaterThanPreviousDays && greaterThanFollowingDay) {
                     recordBreaksCount++;
                 }
