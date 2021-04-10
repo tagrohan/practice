@@ -5,6 +5,6 @@ public class Testing {
     }
 
     private static void testing(int[] nums) {
-        
+        System.out.println("yo yo");
     }
 }
