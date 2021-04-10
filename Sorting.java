@@ -1,10 +1,15 @@
+
 import java.util.Arrays;
 
 public class Sorting {
     public static void main(String[] args) {
 
-        bubbleSort(new int[] { 3, 46, 6, 5, 45, 13, 42, 23, 2, 1 });
+        // bubbleSort(new int[] { 3, 46, 6, 5, 45, 13, 42, 23, 2, 1 });
+        
+
     }
+
+
 
     private static void bubbleSort(int[] arr) {
 
@@ -12,8 +17,8 @@ public class Sorting {
             for (int j = 0; j < arr.length - i; j++) {
                 if (arr[j] > arr[j + 1]) {
                     int temp = arr[j];
-                    arr[j] = arr[j+1];
-                    arr[j+1] = temp;
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
                 }
             }
         }
