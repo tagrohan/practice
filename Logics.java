@@ -1,10 +1,84 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Logics {
+
     public static void main(String[] args) {
 
+        System.out.println(lowestPositiveMissing(new int[] { 1, 2, 3, 4, 5 }, 5));
+    }
+
+    private static int lowestPositiveMissing(int arr[], int size) {
+
+        Map<Integer, Boolean> map = new LinkedHashMap<>();
+        for (int i = 1; i <= 1e6 + 2; i++) {
+            map.put(i, true);
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            if (map.get(arr[i]) != null) {
+                map.remove(arr[i]);
+            }
+        }
+        for (int i : map.keySet()) {
+            System.out.println(i);
+            break;
+        }
+
+        return -1;
+
+        // Map<Integer, Boolean> map = new LinkedHashMap<>();
+        // for (int i = 1; i < arr.length; i++) {
+        // map.put(i, true);
+        // }
+
+        // for (int i = 0; i < arr.length; i++) {
+        // if (map.get(arr[i]) != null) {
+        // map.remove(arr[i]);
+        // }
+        // }
+        // for (int i : map.keySet()) {
+        // System.out.println(i + "->" + map.get(i));
+        // break;
+        // }
+    }
+
+    private static void findSubArraySum() {
+        // mcrosoft, fb, google, visa
+        // findSubArraySum(new int[] { 1, 2, 3, 7, 5 }, 12);
+        // findSubArraySum(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 15);
+        Scanner scan = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
+
+        int t = scan.nextInt();
+        A: for (int z = 0; z < t; z++) {
+
+            int size = scan.nextInt();
+            int s = scan.nextInt();
+            int[] arr = new int[size];
+
+            for (int i = 0; i < arr.length; i++) {
+                arr[i] = scan.nextInt();
+            }
+            int sum = 0;
+            for (int i = 0; i < arr.length; i++) {
+                for (int j = i; j < arr.length; j++) {
+                    sum += arr[j];
+                    if (sum == s) {
+                        System.out.println((i + 1) + " " + (j + 1));
+                        continue A;
+                    }
+                    if (sum > s) {
+                        break;
+                    }
+                }
+                sum = 0;
+            }
+            System.out.println("not available");
+        }
     }
 
     private static void shortestMultipleOccur(int[] arr) {
