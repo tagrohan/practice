@@ -1,19 +1,40 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Logics {
 
     public static void main(String[] args) {
 
-        System.out.println(lowestPositiveMissing(new int[] { 1, 2, 3, 4, 5 }, 5));
+        removeDuplicates(new int[] { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 });
+    }
+
+    public static int removeDuplicates(int[] nums) {
+        Set<Integer> set = new LinkedHashSet<>();
+
+        for (int var : nums) {
+            set.add(var);
+        }
+
+        Object[] obj = set.toArray();
+        for (int i = 0; i < obj.length; i++) {
+            nums[i] = (int) obj[i];
+        }
+
+        return set.size();
     }
 
     private static int lowestPositiveMissing(int arr[], int size) {
 
+        // not optimized
+        // System.out.println(lowestPositiveMissing(new int[] { 1, 2, 3, 4, 5 }, 5));
         Map<Integer, Boolean> map = new LinkedHashMap<>();
         for (int i = 1; i <= 1e6 + 2; i++) {
             map.put(i, true);

@@ -1,10 +1,16 @@
 public class Testing {
 
     public static void main(String[] args) {
-        testing(new int[] { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 });
+        int a = 0, i = 4;
+        while (i > 0) {
+            a += i;
+            i /= 2;
+            System.out.println("called -> "+i);
+        }
     }
 
     private static void testing(int[] nums) {
-        System.out.println("yo yo");
+
     }
+
 }
