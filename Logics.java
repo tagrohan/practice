@@ -1,159 +1,240 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Logics {
 
-    public static void main(String[] args) {
+   public static void main(String[] args) {
 
-        removeDuplicates(new int[] { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 });
-    }
+      maxSumSubArrayKadaneAlgo(new int[]{1,4,-6,7,4});
+   }
 
-    public static int removeDuplicates(int[] nums) {
-        Set<Integer> set = new LinkedHashSet<>();
+   // kadane's algo working
+   public static void maxSumSubArrayKadaneAlgo(int[] arr) {
+//      maxSumSubArrayKadaneAlgo(new int[]{1,4,-6,7,4});
+      int max = arr[0], sum = 0;
+      for (int i = 0; i < arr.length; i++) {
+         sum += arr[i];
+         if (sum < 0) {
+            sum = 0;
+         }
+         max = Integer.max(sum, max);
+      }
+      System.out.println(max);
+   }
 
-        for (int var : nums) {
-            set.add(var);
-        }
+   // goes to O(n^2) // so we use kadane's algo (pardon misspell)
+   public static void maxSumSubArray(int[] arr) {
+      int max = arr[0], sum = 0;
+      for (int i = 0; i < arr.length; i++) {
+         for (int j = i; j < arr.length; j++) {
+            sum += arr[j];
+            max = Integer.max(sum, max);
+         }
+         sum = 0;
+      }
+      System.out.println(max);
+   }
 
-        Object[] obj = set.toArray();
-        for (int i = 0; i < obj.length; i++) {
-            nums[i] = (int) obj[i];
-        }
+   public static int removeDuplicates(int[] nums) {
+//        removeDuplicates(new int[] { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 });
+      Set<Integer> set = new LinkedHashSet<>();
 
-        return set.size();
-    }
+      for (int var : nums) {
+         set.add(var);
+      }
 
-    private static int lowestPositiveMissing(int arr[], int size) {
+      Object[] obj = set.toArray();
+      for (int i = 0; i < obj.length; i++) {
+         nums[i] = (int) obj[i];
+      }
 
-        // not optimized
-        // System.out.println(lowestPositiveMissing(new int[] { 1, 2, 3, 4, 5 }, 5));
-        Map<Integer, Boolean> map = new LinkedHashMap<>();
-        for (int i = 1; i <= 1e6 + 2; i++) {
-            map.put(i, true);
-        }
+      return set.size();
+   }
 
-        for (int i = 0; i < arr.length; i++) {
-            if (map.get(arr[i]) != null) {
-                map.remove(arr[i]);
+   private static int lowestPositiveMissing(int arr[], int size) {
+
+      // not optimized
+      // System.out.println(lowestPositiveMissing(new int[] { 1, 2, 3, 4, 5 }, 5));
+      Map<Integer, Boolean> map = new LinkedHashMap<>();
+      for (int i = 1; i <= 1e6 + 2; i++) {
+         map.put(i, true);
+      }
+
+      for (int i = 0; i < arr.length; i++) {
+         if (map.get(arr[i]) != null) {
+            map.remove(arr[i]);
+         }
+      }
+      for (int i : map.keySet()) {
+         System.out.println(i);
+         break;
+      }
+
+      return -1;
+
+      // Map<Integer, Boolean> map = new LinkedHashMap<>();
+      // for (int i = 1; i < arr.length; i++) {
+      // map.put(i, true);
+      // }
+
+      // for (int i = 0; i < arr.length; i++) {
+      // if (map.get(arr[i]) != null) {
+      // map.remove(arr[i]);
+      // }
+      // }
+      // for (int i : map.keySet()) {
+      // System.out.println(i + "->" + map.get(i));
+      // break;
+      // }
+   }
+
+   private static void findSubArraySum() {
+      // mcrosoft, fb, google, visa
+      // findSubArraySum(new int[] { 1, 2, 3, 7, 5 }, 12);
+      // findSubArraySum(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 15);
+      Scanner scan = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
+
+      int t = scan.nextInt();
+      A:
+      for (int z = 0; z < t; z++) {
+
+         int size = scan.nextInt();
+         int s = scan.nextInt();
+         int[] arr = new int[size];
+
+         for (int i = 0; i < arr.length; i++) {
+            arr[i] = scan.nextInt();
+         }
+         int sum = 0;
+         for (int i = 0; i < arr.length; i++) {
+            for (int j = i; j < arr.length; j++) {
+               sum += arr[j];
+               if (sum == s) {
+                  System.out.println((i + 1) + " " + (j + 1));
+                  continue A;
+               }
+               if (sum > s) {
+                  break;
+               }
             }
-        }
-        for (int i : map.keySet()) {
-            System.out.println(i);
+            sum = 0;
+         }
+         System.out.println("not available");
+      }
+   }
+
+   private static void shortestMultipleOccur(int[] arr) {
+
+      // occurence of a integer but if 2 found print first one
+      // shortestMultipleOccur(new int[] { 1, 5, 3, 4, 3, 5, 6 });
+      Map<Integer, Integer> map = new LinkedHashMap<>();
+
+      for (int i : arr) {
+         Integer occur = map.get(i);
+         if (occur != null) {
+            map.put(i, Integer.valueOf(occur + 1));
+         } else {
+            map.put(i, 1);
+         }
+      }
+      for (int i : map.keySet()) {
+         if (map.get(i) > 1) {
+            System.out.println(i + " -> " + map.get(i));
             break;
-        }
+         }
+      }
 
-        return -1;
+   }
 
-        // Map<Integer, Boolean> map = new LinkedHashMap<>();
-        // for (int i = 1; i < arr.length; i++) {
-        // map.put(i, true);
-        // }
+   private static void frequencyCounter() {
 
-        // for (int i = 0; i < arr.length; i++) {
-        // if (map.get(arr[i]) != null) {
-        // map.remove(arr[i]);
-        // }
-        // }
-        // for (int i : map.keySet()) {
-        // System.out.println(i + "->" + map.get(i));
-        // break;
-        // }
-    }
+      String[] str = {"look", "geeks"};
+      Map<Character, Integer> map = new HashMap<>();
 
-    private static void findSubArraySum() {
-        // mcrosoft, fb, google, visa
-        // findSubArraySum(new int[] { 1, 2, 3, 7, 5 }, 12);
-        // findSubArraySum(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 15);
-        Scanner scan = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
-
-        int t = scan.nextInt();
-        A: for (int z = 0; z < t; z++) {
-
-            int size = scan.nextInt();
-            int s = scan.nextInt();
-            int[] arr = new int[size];
-
-            for (int i = 0; i < arr.length; i++) {
-                arr[i] = scan.nextInt();
-            }
-            int sum = 0;
-            for (int i = 0; i < arr.length; i++) {
-                for (int j = i; j < arr.length; j++) {
-                    sum += arr[j];
-                    if (sum == s) {
-                        System.out.println((i + 1) + " " + (j + 1));
-                        continue A;
-                    }
-                    if (sum > s) {
-                        break;
-                    }
-                }
-                sum = 0;
-            }
-            System.out.println("not available");
-        }
-    }
-
-    private static void shortestMultipleOccur(int[] arr) {
-
-        // occurence of a integer but if 2 found print first one
-        // shortestMultipleOccur(new int[] { 1, 5, 3, 4, 3, 5, 6 });
-        Map<Integer, Integer> map = new LinkedHashMap<>();
-
-        for (int i : arr) {
-            Integer occur = map.get(i);
-            if (occur != null) {
-                map.put(i, Integer.valueOf(occur + 1));
+      for (String var : str) {
+         for (int i = 0; i < var.length(); i++) {
+            char ch = var.charAt(i);
+            Integer frequency = map.get(ch);
+            if (frequency != null) {
+               map.put(ch, Integer.valueOf(frequency + 1));
             } else {
-                map.put(i, 1);
+               map.put(ch, 1);
             }
-        }
-        for (int i : map.keySet()) {
-            if (map.get(i) > 1) {
-                System.out.println(i + " -> " + map.get(i));
-                break;
+         }
+      }
+
+      for (Character ch : map.keySet()) {
+         System.out.println(ch + " -> " + map.get(ch));
+      }
+
+      // Map<String, String> map = new HashMap<>();
+      // map.put("name", "value");
+      // map.put("ant", "ant");
+      // map.put("ant", "new value");
+
+      // for (String str : map.keySet()) {
+      // System.out.println(map.get(str));
+      // }
+
+   }
+
+   private static int[] sum(int[] arr, int target) {
+      int[] res = new int[2];
+      Map<Integer, Integer> map = new HashMap<>();
+      int first = Integer.MAX_VALUE;
+      int last = Integer.MAX_VALUE;
+      for (int i = 0; i < arr.length - 1; i++) {
+         for (int j = 1; j < arr.length; j++) {
+            if (arr[i] + arr[j] == target) {
+               last = Integer.min(last, j);
+               first = Integer.min(first, i);
+               map.put(i + 1, j + 1);
             }
-        }
+         }
+      }
+      res[0] = first;
+      res[1] = last;
+      for (int key : map.keySet()) {
+         System.out.println(key + " -> " + map.get(key));
+      }
+      if (res[0] == Integer.MAX_VALUE) {
+         return new int[2];
+      }
+      return new int[]{first, last};
+   }
 
-    }
+   private static int duplicate(int[] arr) {
+      Map<Integer, Integer> map = new LinkedHashMap<>();
 
-    private static void frequencyCounter() {
+      for (int val : arr) {
+         if (map.containsKey(val)) return val;
+         else map.put(val, 1);
+      }
+      return -1;
+   }
 
-        String[] str = { "look", "geeks" };
-        Map<Character, Integer> map = new HashMap<>();
+   public static int solve(int[] arr) {
+      Map<Integer, Integer> map = new LinkedHashMap<>();
 
-        for (String var : str) {
-            for (int i = 0; i < var.length(); i++) {
-                char ch = var.charAt(i);
-                Integer frequency = map.get(ch);
-                if (frequency != null) {
-                    map.put(ch, Integer.valueOf(frequency + 1));
-                } else {
-                    map.put(ch, 1);
-                }
-            }
-        }
+      int min = Integer.MAX_VALUE;
 
-        for (Character ch : map.keySet()) {
-            System.out.println(ch + " -> " + map.get(ch));
-        }
+      for (int val : arr) {
+         if (map.containsKey(val)) {
+            min = Integer.min(min, map.get(val));
+            map.put(val, Integer.valueOf(map.get(val) + 1));
+         } else map.put(val, 1);
+      }
 
-        // Map<String, String> map = new HashMap<>();
-        // map.put("name", "value");
-        // map.put("ant", "ant");
-        // map.put("ant", "new value");
+      System.out.println(min);
 
-        // for (String str : map.keySet()) {
-        // System.out.println(map.get(str));
-        // }
+      for (int freq : map.keySet()) {
+         if (map.get(freq) > 1) {
+            return freq;
+         }
+      }
 
-    }
+
+      return -1;
+   }
 }
