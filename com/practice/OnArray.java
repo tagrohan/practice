@@ -1,3 +1,5 @@
+package com.practice;
+
 import java.util.Arrays;
 
 public class OnArray {

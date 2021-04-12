@@ -1,3 +1,5 @@
+package com.practice;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
@@ -6,7 +8,32 @@ public class Logics {
 
    public static void main(String[] args) {
 
-      maxSumSubArrayKadaneAlgo(new int[]{1,4,-6,7,4});
+//      System.out.println(reverse(123457));
+
+   }
+
+   static String reverse(Object var) {
+      String reverse = "";
+      if(var instanceof String){
+         reverse = "string";
+      }else {
+         reverse = " integer";
+         var = (int)var + 1;
+         System.out.println(var);
+      }
+
+      return reverse;
+   }
+
+   static int kadane_algo(int[] arr) {
+      // kadane's algo for -ve numbers
+//       System.out.println(kadane_algo(new int[]{-1, -4, -6, -7, -4}));
+       int sum = arr[0], ans = arr[0], idx;
+      for (idx = 0; idx < arr.length; idx++) {
+         sum = sum = Integer.max(arr[idx], sum + arr[idx]);
+         ans = Integer.max(sum, ans);
+      }
+      return ans;
    }
 
    // kadane's algo working
