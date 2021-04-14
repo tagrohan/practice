@@ -8,8 +8,28 @@ public class Logics {
 
    public static void main(String[] args) {
 
-      System.out.println(kadane_algo(new int[]{7, 10, 4, 3, 20, 15}));
+      System.out.println(kadane_algo(new int[]{1, 4, -6, 7, 4}));
 
+   }
+
+   private static int kadaneWithIndex(int[] arr) {
+      int sum = arr[0], max = arr[0];
+      int start = 0, end = 0;
+      if (arr.length == 1) {
+         return arr[0];
+      }
+      for (int i = 1; i < arr.length; i++) {
+         sum += arr[i];
+         if (sum <= 0) {
+            start = i;
+         }
+         if (sum > max) {
+            end = i;
+         }
+      }
+
+      System.out.println((start + 1) + " " + (end + 1));
+      return max;
    }
 
 
@@ -17,15 +37,11 @@ public class Logics {
       return -1;
    }
 
-   private static int kadaneWithIndex(int[] arr) {
-
-   }
-
 
    static int kadane_algo(int[] arr) {
       // kadane's algo for -ve numbers
 
-      if (arr.length == 0) {
+      if (arr.length == 1) {
          return arr[0];
       }
       int sum = arr[0], ans = arr[0];
@@ -37,7 +53,6 @@ public class Logics {
    }
 
    public static int kthSmallest(int[] arr, int k) {
-
       Arrays.sort(arr);
       return arr[k - 1];
    }
@@ -309,7 +324,7 @@ public class Logics {
       for (int val : arr) {
          if (map.containsKey(val)) {
             min = Integer.min(min, map.get(val));
-            map.put(val, Integer.valueOf(map.get(val) + 1));
+            map.put(val, map.get(val) + 1);
          } else map.put(val, 1);
       }
 
