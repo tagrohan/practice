@@ -8,33 +8,93 @@ public class Logics {
 
    public static void main(String[] args) {
 
-//      System.out.println(reverse(123457));
+      System.out.println(kadane_algo(new int[]{7, 10, 4, 3, 20, 15}));
 
    }
 
+
+   private static int dynamicKadane(int[] arr, int toCheck) {
+      return -1;
+   }
+
+   private static int kadaneWithIndex(int[] arr) {
+
+   }
+
+
+   static int kadane_algo(int[] arr) {
+      // kadane's algo for -ve numbers
+
+      if (arr.length == 0) {
+         return arr[0];
+      }
+      int sum = arr[0], ans = arr[0];
+      for (int i = 1; i < arr.length; i++) {
+         sum = Integer.max(sum + arr[i], arr[i]);
+         ans = Integer.max(sum, ans);
+      }
+      return ans;
+   }
+
+   public static int kthSmallest(int[] arr, int k) {
+
+      Arrays.sort(arr);
+      return arr[k - 1];
+   }
+
+
+   private static void GFGDiagonal(String var) {
+      int newVal = Integer.valueOf(var);
+      int sum = 0;
+      while (newVal > 0) {
+         sum = sum * 10 + newVal % 10;
+         newVal = newVal / 10;
+      }
+      System.out.println(sum);
+
+   }
+
+
+   private static void GFG(String str) {
+      Set<Character> set = new LinkedHashSet<>();
+
+      for (char val : str.toCharArray()) {
+         if (set.contains(val)) {
+            set.remove(val);
+         } else {
+            set.add(val);
+         }
+      }
+      System.out.println(set.toArray()[0]);
+   }
+
+   private static int[] te(int[] digits) {
+      int len = digits.length - 1;
+      int sum = digits[len] + 1;
+      if (sum < 9) {
+         digits[len] += 1;
+         return digits;
+      }
+      digits[len] = 0;
+      int[] nums = new int[digits.length + 1];
+      nums[0] = 1;
+      return nums;
+   }
+
+
    static String reverse(Object var) {
       String reverse = "";
-      if(var instanceof String){
+      if (var instanceof String) {
          reverse = "string";
-      }else {
+      } else {
          reverse = " integer";
-         var = (int)var + 1;
+         var = (int) var + 1;
          System.out.println(var);
       }
 
       return reverse;
    }
 
-   static int kadane_algo(int[] arr) {
-      // kadane's algo for -ve numbers
-//       System.out.println(kadane_algo(new int[]{-1, -4, -6, -7, -4}));
-       int sum = arr[0], ans = arr[0], idx;
-      for (idx = 0; idx < arr.length; idx++) {
-         sum = sum = Integer.max(arr[idx], sum + arr[idx]);
-         ans = Integer.max(sum, ans);
-      }
-      return ans;
-   }
 
    // kadane's algo working
    public static void maxSumSubArrayKadaneAlgo(int[] arr) {
