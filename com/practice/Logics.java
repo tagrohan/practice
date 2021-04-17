@@ -8,8 +8,58 @@ public class Logics {
 
    public static void main(String[] args) {
 
-      System.out.println(kadane_algo(new int[]{1, 4, -6, 7, 4}));
+      System.out.println(occurrenceNBy2UsingMooreVoting(new int[]{3, 3, 4}));
+   }
 
+
+   private static int occurrenceNBy2UsingMooreVoting(int[] arr) {
+
+      int result = 0, count = 0;
+
+      for (int var : arr) {
+         if (count == 0) result = var;
+         count += (var == result) ? 1 : -1;
+      }
+      return result;
+
+
+      // moore voting algorithm to understand
+
+//      int result = 0, count = 0;
+//
+//      for (int var : arr) {
+//         if (count == 0) result = var;
+//         if (result == var) count += 1;
+//         else count -= 1;
+//      }
+//      return result;
+
+
+      // using moore voting here
+      // https://leetcode.com/problems/majority-element/
+      // Given an array nums of size n, return the majority element.
+
+   }
+
+   // https://leetcode.com/problems/majority-element/
+   // Given an array nums of size n, return the majority element.
+   private static int occurrenceNBy2(int[] arr) {
+      Map<Integer, Integer> map = new HashMap<>();
+
+      for (int var : arr) {
+         if (map.containsKey(var)) {
+            map.put(var, map.get(var) + 1);
+         } else {
+            map.put(var, 1);
+         }
+      }
+      int len = arr.length / 2;
+      for (int key : map.keySet()) {
+         if (map.get(key) > len) {
+            return key;
+         }
+      }
+      return -1;
    }
 
    private static int kadaneWithIndex(int[] arr) {
