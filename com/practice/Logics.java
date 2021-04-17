@@ -8,11 +8,47 @@ public class Logics {
 
    public static void main(String[] args) {
 
-      System.out.println(occurrenceNBy2UsingMooreVoting(new int[]{3, 3, 4}));
+      System.out.println(isPrime(7918));
+   }
+
+   private static void primeNumberSieveOfEratosthenes(int num) {
+      boolean[] bool = new boolean[num + 1];
+      // todo : working on it tomorrow
+//      for (int i = 0; i < ; i++) {
+//
+//      }
+   }
+
+   private static boolean isPrime(int var) {
+      for (int i = 2; i * i <= var; i++) {
+         if (var % i == 0) {
+            return false;
+         }
+      }
+      return true;
+   }
+
+   private static void primeNumberDiffMethod(int num) {
+      int isPrime = 0;
+      for (int i = 2; i < num; i++) {
+         for (int j = 2; j < num; j++) {
+            if (i % j == 0) {
+               isPrime += 1;
+               if (isPrime > 1) {
+                  break;
+               }
+            }
+         }
+         if (isPrime == 1) {
+            System.out.print(i + " ");
+         }
+         isPrime = 0;
+      }
    }
 
 
    private static int occurrenceNBy2UsingMooreVoting(int[] arr) {
+//      System.out.println(occurrenceNBy2UsingMooreVoting(new int[]{3, 3, 4}));
 
       int result = 0, count = 0;
 
