@@ -1,11 +1,22 @@
 package com.practice;
 
-import java.util.Locale;
-
 public class WorthConsidering {
 
    public static void main(String[] args) {
-      System.out.println(largeString("ma name is roha singh"));
+//      System.out.println(largeString("ma name is roha singh"));
+      int row = 5;
+      for (int i = 0; i < row; i++) {
+         for (int j = 0; j < row; j++) {
+            if (i == 0 || i == row - 1) {
+               System.out.print("*");
+            } else if (j == row - i - 1) {
+               System.out.print("*");
+            } else {
+               System.out.print(" ");
+            }
+         }
+         System.out.println();
+      }
    }
 
 
