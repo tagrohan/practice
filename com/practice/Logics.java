@@ -8,7 +8,25 @@ public class Logics {
 
    public static void main(String[] args) {
 
-      System.out.println(isPrime(7918));
+      System.out.println(Arrays.toString(sumBy1(new int[]{9,9,9,9})));
+   }
+
+   private static int[] sumBy1(int[] arr) {
+//      System.out.println(Arrays.toString(sumBy1(new int[]{9,9,9,9})));
+//      https://leetcode.com/problems/plus-one/
+      int len = arr.length;
+
+      for (int i = len - 1; i >= 0; i--) {
+         if (arr[i] < 9) {
+            arr[i] += 1;
+            return arr;
+         }
+         arr[i] = 0;
+      }
+      int[] resultArr = new int[len + 1];
+      resultArr[0] =1;
+
+      return resultArr;
    }
 
    private static void primeNumberSieveOfEratosthenes(int num) {
