@@ -7,9 +7,22 @@ import java.util.*;
 public class Logics {
 
    public static void main(String[] args) {
-
-      System.out.println(Arrays.toString(sumBy1(new int[]{9,9,9,9})));
    }
+
+
+   // insert position finding
+   private static int searchInsertPosition(int[] arr, int key) {
+//      System.out.println(searchInsertPosition(new int[]{1,3,5,6}, 2));
+
+
+      for (int i = 0; i < arr.length; i++) {
+         if (key < arr[i] || key == arr[i]) {
+            return i;
+         }
+      }
+      return arr.length;
+   }
+
 
    private static int[] sumBy1(int[] arr) {
 //      System.out.println(Arrays.toString(sumBy1(new int[]{9,9,9,9})));
@@ -24,7 +37,7 @@ public class Logics {
          arr[i] = 0;
       }
       int[] resultArr = new int[len + 1];
-      resultArr[0] =1;
+      resultArr[0] = 1;
 
       return resultArr;
    }
