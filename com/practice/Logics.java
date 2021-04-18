@@ -7,6 +7,25 @@ import java.util.*;
 public class Logics {
 
    public static void main(String[] args) {
+
+   }
+
+   // find
+   private static int searchInsertPositionUsingBinary(int[] arr, int key) {
+      System.out.println(searchInsertPositionUsingBinary(new int[]{1,3,5,6}, 3));
+      int start = 0;
+      int end = arr.length - 1;
+      while (start <= end) {
+         int mid = (start + end) / 2;
+         // If K is found                          [1,3,5,6]
+         if (arr[mid] == key)
+            return mid;
+         else if (arr[mid] < key)
+            start = mid + 1;
+         else
+            end = mid - 1;
+      }
+      return end + 1;
    }
 
 
