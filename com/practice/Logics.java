@@ -8,11 +8,32 @@ public class Logics {
 
    public static void main(String[] args) {
 
+      System.out.println(primeNumberDiffMethod2(5000000));
    }
+
+   private static int primeNumberDiffMethod2(int num) {
+      int count = 0;
+      for (int i = 2; i <= num; i++) {
+         if (isPrime(i)) {
+            count += 1;
+         }
+      }
+      return count;
+   }
+
+   private static boolean isPrime(int var) {
+      for (int i = 2; i * i <= var; i++) {
+         if (var % i == 0) {
+            return false;
+         }
+      }
+      return true;
+   }
+
 
    // find
    private static int searchInsertPositionUsingBinary(int[] arr, int key) {
-      System.out.println(searchInsertPositionUsingBinary(new int[]{1,3,5,6}, 3));
+//      System.out.println(searchInsertPositionUsingBinary(new int[]{1,3,5,6}, 3));
       int start = 0;
       int end = arr.length - 1;
       while (start <= end) {
@@ -69,14 +90,6 @@ public class Logics {
 //      }
    }
 
-   private static boolean isPrime(int var) {
-      for (int i = 2; i * i <= var; i++) {
-         if (var % i == 0) {
-            return false;
-         }
-      }
-      return true;
-   }
 
    private static void primeNumberDiffMethod(int num) {
       int isPrime = 0;
