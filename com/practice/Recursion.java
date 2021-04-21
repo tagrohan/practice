@@ -5,20 +5,21 @@ public class Recursion {
    public static void main(String[] args) {
 
 //      System.out.println(testing(new int[]{1, 2, 3, 5}, 5));
-      ID(5);
+      System.out.println(fac(10, 4));
+      System.out.println(-5 / 2);
 
    }
 
-   public static void ID(int n) {
-
-      if (n == 0) {
-         return;
+   public static int fac(int n, int pow) {
+      if (pow == 0) {
+         return 1;
       }
-
-      System.out.println(n);
-      ID(n - 1);
-      System.out.println(n);
-
+      int res = fac(n, pow / 2) * fac(n, pow / 2);
+//      int res = halfFact * halfFact;
+      if (pow % 2 == 1) {
+         res  = res * n;
+      }
+      return res;
    }
 
    // todo  linear search in array
