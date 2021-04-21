@@ -11,6 +11,16 @@ public class Logics {
       System.out.println(primeNumberDiffMethod2(5000000));
    }
 
+
+   private static void primeNumberSieveOfEratosthenes(int num) {
+      boolean[] bool = new boolean[num + 1];
+
+      for (int i = 2; i * i < num ; i++) {
+//         if()
+
+      }
+   }
+
    private static int primeNumberDiffMethod2(int num) {
       int count = 0;
       for (int i = 2; i <= num; i++) {
@@ -82,13 +92,7 @@ public class Logics {
       return resultArr;
    }
 
-   private static void primeNumberSieveOfEratosthenes(int num) {
-      boolean[] bool = new boolean[num + 1];
-      // todo : working on it tomorrow
-//      for (int i = 0; i < ; i++) {
-//
-//      }
-   }
+
 
 
    private static void primeNumberDiffMethod(int num) {

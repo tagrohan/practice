@@ -5,9 +5,36 @@ public class Recursion {
    public static void main(String[] args) {
 
 //      System.out.println(testing(new int[]{1, 2, 3, 5}, 5));
-      System.out.println(maxOfAnArray(new int[]{6, 4, 7, 8, 3, 2}, 0));
+      ID(5);
+
    }
 
+   public static void ID(int n) {
+
+      if (n == 0) {
+         return;
+      }
+
+      System.out.println(n);
+      ID(n - 1);
+      System.out.println(n);
+
+   }
+
+   // todo  linear search in array
+
+   private static int linearSearch(int[] arr, int idx, int key) {
+//      System.out.println(linearSearch(new int[]{6, 4, 7, 8, 3, 2}, 0,8));
+
+      if (arr.length - 1 == idx) {
+         return arr[idx];
+      }
+      int element = linearSearch(arr, idx + 1, key);
+      if (element == key) {
+         return idx;
+      }
+      return -1;
+   }
 
    // max of an array
    private static int maxOfAnArray(int[] arr, int idx) {
