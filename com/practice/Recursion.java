@@ -7,48 +7,21 @@ public class Recursion {
 
 //      System.out.println(testing(new int[]{1, 2, 3, 5}, 5));
 
-      towerOfHanoi(3, 11, 22, 33);
+      System.out.println(arrayTesting(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 0));
 
    }
 
+   private static int arrayTesting(int[] arr, int idx) {
 
-   // t -> tower number
-   private static void towerOfHanoi(int noOfDisk, int t1, int t2, int t3) {
-
-      if (noOfDisk == 0) {
-         return;
+      if (arr.length - 1 == idx) {
+         return arr[idx];
       }
 
-      towerOfHanoi(noOfDisk - 1, t1, t3, t2);
-      System.out.println(noOfDisk + " -> " + t1 + " to " + t2);
-      towerOfHanoi(noOfDisk - 1, t3, t2, t1);
-   }
-
-   // to understand Pre In Post in recursion
-   private static void zigzag(int n) {
-//      zigzag(2);
-      if (n == 0) {
-         return;
+      int cMax = arrayTesting(arr, idx + 1);
+      if (cMax > arr[idx]) {
+         return cMax;
       }
-      System.out.println("pre ->" + n);
-      zigzag(n - 1);
-      System.out.println("In ->" + n);
-      zigzag(n - 1);
-      System.out.println("post ->" + n);
-
-   }
-
-   // factorial with O(log n)
-   private static int fac(int n, int pow) {
-      if (pow == 0) {
-         return 1;
-      }
-      int res = fac(n, pow / 2) * fac(n, pow / 2);
-//      int res = halfFact * halfFact;
-      if (pow % 2 == 1) {
-         res = res * n;
-      }
-      return res;
+      return arr[idx];
    }
 
    // todo  linear search in array
@@ -99,11 +72,45 @@ public class Recursion {
       printArray(arr, idx - 1);
    }
 
+   // t -> tower number
+   private static void towerOfHanoi(int noOfDisk, int t1, int t2, int t3) {
+//      towerOfHanoi(3, 11, 22, 33);
 
-   public static int powerBigOLogN(int num, int pow) {
+      if (noOfDisk == 0) {
+         return;
+      }
+
+      towerOfHanoi(noOfDisk - 1, t1, t3, t2);
+      System.out.println(noOfDisk + " -> " + t1 + " to " + t2);
+      towerOfHanoi(noOfDisk - 1, t3, t2, t1);
+   }
+
+   // to understand Pre In Post in recursion
+   private static void zigzag(int n) {
+//      zigzag(2);
+      if (n == 0) {
+         return;
+      }
+      System.out.println("pre ->" + n);
+      zigzag(n - 1);
+      System.out.println("In ->" + n);
+      zigzag(n - 1);
+      System.out.println("post ->" + n);
+
+   }
 
 
-      return -1;
+   // factorial with O(log n)
+   private static int fac(int n, int pow) {
+      if (pow == 0) {
+         return 1;
+      }
+      int res = fac(n, pow / 2) * fac(n, pow / 2);
+//      int res = halfFact * halfFact;
+      if (pow % 2 == 1) {
+         res = res * n;
+      }
+      return res;
    }
 
    // power is working fine here
