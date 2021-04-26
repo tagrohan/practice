@@ -64,7 +64,7 @@ public class Logics {
    private static int searchInsertPosition(int[] arr, int key) {
 //      System.out.println(searchInsertPosition(new int[]{1,3,5,6}, 2));
 
-
+ 
       for (int i = 0; i < arr.length; i++) {
          if (key < arr[i] || key == arr[i]) {
             return i;

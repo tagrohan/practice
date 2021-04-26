@@ -7,28 +7,26 @@ import java.util.List;
 public class RecursionInArrayList {
    public static void main(String[] args) {
 
-      subsequence(
-              "abc"
-      );
+
    }
 
    // arraylist subsequence (don't forget to do it in bit manipulation as well)
    private static List<String> subsequence(String str) {
-      if (str.length() == 0) {
-         return List.of("");
-      }
-      char ch = str.charAt(0);
+//      System.out.println(Arrays.toString(subsequence("abc").toArray()));
+         if (str.length() == 0) {
+            return List.of("");
+         }
+         char ch = str.charAt(0);
 
-      List<String> subsequence = subsequence(str.substring(1));
+         List<String> subsequence = subsequence(str.substring(1));
 
-      List<String> list = new ArrayList<>();
+         List<String> list = new ArrayList<>();
 
-      for (String st : subsequence) {
-         list.add(ch + st);
-         list.add("" + st);
-      }
-      System.out.println(Arrays.toString(list.toArray()));
-      return list;
+         for (String st : subsequence) {
+            list.add(ch + st);
+            list.add("" + st);   // order is not maintained here
+         }
+         return list;
    }
 
 }
