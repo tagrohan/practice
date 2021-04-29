@@ -6,8 +6,13 @@ public class BitManipulation {
 //      System.out.println(Integer.parseInt("11110001", 2));
 //
 //      System.out.println(Integer.toBinaryString(10 & ~(1 << 1)));
-      setBitByOne(10, 2);
+      toggleBit(15, 2);
 
+   }
+
+   public static void toggleBit(int var, int k) {
+      System.out.println(Integer.toBinaryString(var));
+      System.out.println(Integer.toBinaryString(var ^ (1 << k)));
    }
 
    public static void setBitByOne(int var, int k) {
