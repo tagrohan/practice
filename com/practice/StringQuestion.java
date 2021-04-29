@@ -2,11 +2,27 @@ package com.practice;
 
 public class StringQuestion {
    public static void main(String[] args) {
-      palindrome("abcba");
       String str = "Rohan";
 
-//      System.out.println(str.substring(1,4));
 
+
+
+   }
+
+
+   private static void toggleCase(String str) {
+//      toggleCase("rOhAn"); // making upper to small and small to upper
+      StringBuilder builder = new StringBuilder(str);
+      for (int i = 0; i < str.length(); i++) {
+         char ch = builder.charAt(i);
+         if (ch >= 'a' && ch <= 'z') {
+            ch = (char) ('A' + ch - 'a');
+         } else {
+            ch = (char) ('a' + ch - 'A');
+         }
+         builder.setCharAt(i, ch);
+      }
+      System.out.println(builder.toString());
    }
 
    private static void palindrome(String str) {
