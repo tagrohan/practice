@@ -191,7 +191,7 @@ public class Logics {
    }
 
 
-   static int kadane_algo(int[] arr) {
+   private static int kadane_algo(int[] arr) {
       // kadane's algo for -ve numbers
 
       if (arr.length == 1) {
