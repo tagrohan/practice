@@ -8,14 +8,45 @@ public class Logics {
 
    public static void main(String[] args) {
 
-      System.out.println(primeNumberDiffMethod2(5000000));
+      nextGreaterElement(new int[]{13, 7, 6, 12});
+   }
+
+// i'll solve it when we are going through stack questions
+
+//   private static void nextGreaterElementON(int[] arr) {
+//      Stack<Integer> stack = new Stack<>();
+//      stack.push(arr[arr.length - 1]);
+//      for (int i = arr.length - 1; i >= 0; i--) {
+//         if (!stack.isEmpty() && stack.pop() < arr[i]) {
+//            stack.pop();
+//         } else {
+//            int ele = stack.pop();
+////            stack.push()
+//         }
+//      }
+//
+//   }
+
+   // from GFG
+   // O(N) solution using stack is available in GFG give it a look
+   private static void nextGreaterElement(int[] arr) {
+      for (int i = 0; i < arr.length; i++) {
+         int max = -1;
+         for (int j = i + 1; j < arr.length; j++) {
+            if (arr[j] > arr[i]) {
+               max = arr[j];
+               break;
+            }
+         }
+         System.out.println(max);
+      }
    }
 
 
    private static void primeNumberSieveOfEratosthenes(int num) {
       boolean[] bool = new boolean[num + 1];
 
-      for (int i = 2; i * i < num ; i++) {
+      for (int i = 2; i * i < num; i++) {
 //         if()
 
       }
@@ -64,7 +95,7 @@ public class Logics {
    private static int searchInsertPosition(int[] arr, int key) {
 //      System.out.println(searchInsertPosition(new int[]{1,3,5,6}, 2));
 
- 
+
       for (int i = 0; i < arr.length; i++) {
          if (key < arr[i] || key == arr[i]) {
             return i;
@@ -91,8 +122,6 @@ public class Logics {
 
       return resultArr;
    }
-
-
 
 
    private static void primeNumberDiffMethod(int num) {
