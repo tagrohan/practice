@@ -6,19 +6,46 @@ import java.util.List;
 
 public class RecursionInArrayList {
    public static void main(String[] args) {
-      List<String> res = getKeypadCombination(new int[]{5, 7, 3}, 3);
-      System.out.println(res.size());
-      System.out.println(Arrays.toString(res.toArray()));
+      System.out.println(Arrays.toString(getStairPaths(4).toArray()));
    }
 
-   // ex - 573
+   // get stair path with certain condition that we can only use 1 2 3 steps at a time
+   private static List<String> getStairPaths(int n) {
+//      System.out.println(Arrays.toString(getStairPaths(4).toArray()));
+      if (n == 0) {
+         return List.of("");
+      }
+      if (n < 0) {
+         return List.of();
+      }
+
+      List<String> path1 = getStairPaths(n - 1);
+      List<String> path2 = getStairPaths(n - 2);
+      List<String> path3 = getStairPaths(n - 3);
+
+      List<String> list = new ArrayList<>();
+      for (String str : path1) {
+         list.add("1" + str);
+      }
+      for (String str : path2) {
+         list.add("2" + str);
+      }
+      for (String str : path3) {
+         list.add("3" + str);
+      }
+      return list;
+   }
+
+
+   // working condition (done by myself)
    static String[] str = {"abc", "def", "ghi", "jkl", "mnop", "qrst", "uv", "wxyz", ".;", "?!"};
 
    private static List<String> getKeypadCombination(int[] arr, int idx) {
+//      List<String> res = getKeypadCombination(new int[]{5, 7, 3}, 3);
       if (idx == 0) {
          return List.of("");
       }
-      String[] sub = str[arr[idx - 1] - 1].split("");
+      String[] sub = str[arr[idx - 1] - 1].split(""); // - 1 at the last because of str start from 0 and keypad from 1
 
       List<String> toGet = getKeypadCombination(arr, idx - 1);
       List<String> list = new ArrayList<>();
