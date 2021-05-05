@@ -17,7 +17,6 @@ public class RecursionInArrayList {
       }
       List<String> horizontalPath = new ArrayList<>();
       List<String> verticalPath = new ArrayList<>();
-      ;
 
       if (col < endCol) {
          horizontalPath = getMazePath(row, col + 1, endRow, endCol);
