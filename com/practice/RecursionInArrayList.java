@@ -1,13 +1,32 @@
 package com.practice;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class RecursionInArrayList {
    public static void main(String[] args) {
-      System.out.println(Arrays.toString(getStairPaths(4).toArray()));
+//      System.out.println(Arrays.toString(getStairPaths(4).toArray()));
    }
+
+   //                                                1X1      ->            3X3
+   private static List<String> getMazePath(int row, int col, int endRow, int endCol) {
+
+      if(row == endRow && col == endCol){
+         return List.of("  ");
+      }
+
+
+      if (col < endCol) {
+         List<String> cPath = getMazePath(row, col + 1, endRow, endCol);
+      }
+      if (row < endCol) {
+         List<String> cPath2 = getMazePath(row + 1, col, endRow, endCol);
+      }
+
+
+      return List.of();
+   }
+
 
    // get stair path with certain condition that we can only use 1 2 3 steps at a time
    private static List<String> getStairPaths(int n) {

@@ -30,7 +30,7 @@ public class Matrix {
    //search in 2D matrix of ascending order elements
    private static void searchInMatrix(int[][] arr) {
       int a = -4;
-      int b = 0;
+      int b = 1;
 
       a = a + b;
       b = a - b;
