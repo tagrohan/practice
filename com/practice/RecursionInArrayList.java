@@ -1,30 +1,39 @@
 package com.practice;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RecursionInArrayList {
    public static void main(String[] args) {
-//      System.out.println(Arrays.toString(getStairPaths(4).toArray()));
+      System.out.println(Arrays.toString(getMazePath(1, 1, 3, 3).toArray()));
    }
 
    //                                                1X1      ->            3X3
    private static List<String> getMazePath(int row, int col, int endRow, int endCol) {
 
-      if(row == endRow && col == endCol){
-         return List.of("  ");
+      if (row == endRow && col == endCol) {
+         return List.of("");
       }
-
+      List<String> horizontalPath = new ArrayList<>();
+      List<String> verticalPath = new ArrayList<>();
+      ;
 
       if (col < endCol) {
-         List<String> cPath = getMazePath(row, col + 1, endRow, endCol);
+         horizontalPath = getMazePath(row, col + 1, endRow, endCol);
       }
       if (row < endCol) {
-         List<String> cPath2 = getMazePath(row + 1, col, endRow, endCol);
+         verticalPath = getMazePath(row + 1, col, endRow, endCol);
       }
+      List<String> paths = new ArrayList<>();
 
-
-      return List.of();
+      for (String hp : horizontalPath) {
+         paths.add("h" + hp);
+      }
+      for (String vp : verticalPath) {
+         paths.add("v" + vp);
+      }
+      return paths;
    }
 
 
