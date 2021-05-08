@@ -1,5 +1,6 @@
 package com.practice;
-
+// todo : it is generally called as FE faith exception style
+// https://www.youtube.com/watch?v=LgFl0hsyWP8&list=TLGGv6_bg6nVfcAwODA1MjAyMQ at 1:59
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,7 +10,7 @@ public class RecursionInArrayList {
       System.out.println(Arrays.toString(getMazePath(1, 1, 3, 3).toArray()));
    }
 
-   //                                                1X1      ->            3X3
+   //  get maze path is working perfect          1X1      ->            3X3
    private static List<String> getMazePath(int row, int col, int endRow, int endCol) {
 
       if (row == endRow && col == endCol) {
