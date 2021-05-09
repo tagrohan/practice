@@ -4,24 +4,36 @@ package com.practice;
 // https://www.youtube.com/watch?v=LgFl0hsyWP8&list=TLGGv6_bg6nVfcAwODA1MjAyMQ at 1:59
 public class RecursionOnTheWayUp {
    public static void main(String[] args) {
-      int n = 5;
-      int count = 2;
-      int iter = 1;
-      System.out.println(1);
-      for (int i = 1; i <= n; i++) {
-         for (int j = 1; j <= 2 * iter; j++) {
-            if (count % 10 != 0) {
-               System.out.print(count % 10);
-            } else {
-               System.out.print(1);
-               count += 1;
-            }
-            count += 1;
-         }
-         iter = 2 * iter;
-         System.out.println();
+//      printEncoding("123", "");
+      System.out.println(fibonacci(1000));
+   }
+
+   private static int fibonacci(int n) {
+      if (n == 0 || n == 1) {
+         return n;
+      } else {
+         return fibonacci(n - 1) + fibonacci(n - 2);
       }
 
+
+   }
+// todo have to do it later
+   private static void printEncoding(String str, String asf) {
+      if (str.length() == 0) {
+         System.out.println(asf);
+         return;
+      } else if (str.length() == 1) {
+         System.out.println((char) (64 + Integer.parseInt(str)));
+         return;
+      } else {
+         char fChar = str.charAt(0);
+         if (fChar == '0') {
+            return;
+         }
+         String ros = str.substring(1);
+         printEncoding(ros, asf + (char) (64 + Integer.parseInt(fChar + "")));
+
+      }
    }
 
 
