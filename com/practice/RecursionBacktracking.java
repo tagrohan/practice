@@ -4,7 +4,12 @@ import java.util.Arrays;
 
 public class RecursionBacktracking {
    public static void main(String[] args) {
-
+      nQueensProblem(new int[][]{
+              {0, 0, 0, 0},
+              {0, 0, 0, 0},
+              {0, 0, 0, 0},
+              {0, 0, 0, 0},
+      }, 0, "");
    }
 
    // solution is ok but won't work as recursion is very large
