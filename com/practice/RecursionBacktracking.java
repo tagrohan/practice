@@ -1,13 +1,37 @@
 package com.practice;
 
+import java.util.Arrays;
+
 public class RecursionBacktracking {
    public static void main(String[] args) {
-      nQueensProblem(new int[][]{
-              {0, 0, 0, 0},
-              {0, 0, 0, 0},
-              {0, 0, 0, 0},
-              {0, 0, 0, 0},
-      }, 0, "");
+
+   }
+
+   // solution is ok but won't work as recursion is very large
+   // so we go with some Warnsdorff’s algorithm for Knight’s tour problem in GFG
+   private static void knightTour(int[][] arr, int r, int c, int move) {
+//      knightTour(new int[8][8], 2, 1, 1);
+      if (r < 0 || c < 0 || r >= arr.length || c >= arr.length || arr[r][c] > 0) {
+         return;
+      } else if (move == arr.length * arr.length) {
+         System.out.println("and to aa gye");
+         for (int[] val : arr) {
+            System.out.println(Arrays.toString(val));
+         }
+         return;
+      }
+
+
+      arr[r][c] = move;
+      knightTour(arr, r - 2, c + 1, move + 1);
+      knightTour(arr, r - 1, c + 2, move + 1);
+      knightTour(arr, r + 1, c + 2, move + 1);
+      knightTour(arr, r + 2, c + 1, move + 1);
+      knightTour(arr, r + 2, c - 1, move + 1);
+      knightTour(arr, r + 1, c - 2, move + 1);
+      knightTour(arr, r - 1, c - 2, move + 1);
+      knightTour(arr, r - 2, c - 1, move + 1);
+      arr[r][c] = 0;
    }
 
    // working fine here
