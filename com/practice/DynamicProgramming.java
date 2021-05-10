@@ -1,8 +1,45 @@
 package com.practice;
 
+import java.util.Arrays;
+
 public class DynamicProgramming {
    public static void main(String[] args) {
-      System.out.println(fibonacciDP(10, new int[11]));
+      System.out.println(climbStairs(15));
+   }
+
+   // tabulation
+   private static int climbStairs(int n) {
+      int[] dp = new int[n + 1];
+
+      dp[0] = 1;
+      dp[1] = 1;
+      for (int i = 2; i <= n; i++) {
+         if (i == 2) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+         } else {
+            dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3];
+         }
+      }
+      System.out.println(Arrays.toString(dp));
+      return dp[n];
+   }
+
+   // memoization works fine
+   private static int climbStairs(int n, int[] dp) {
+      if (n < 0) {
+         return 0;
+      } else if (n == 0) {
+         return 1;
+      }
+      if (dp[n] > 0) {
+         return dp[n];
+      }
+
+      System.out.println("called " + n);
+      int n1 = climbStairs(n - 1, dp);
+      int n2 = climbStairs(n - 2, dp);
+      int n3 = climbStairs(n - 3, dp);
+      return dp[n] = n1 + n2 + n3;
    }
 
    private static int fibonacci(int n) {
@@ -16,7 +53,7 @@ public class DynamicProgramming {
    // dp solution of fibonacci where each time it called only one
    private static int fibonacciDP(int n, int[] dp) {
 //      System.out.println(fibonacciDP(10, new int[11]));
-      if (n == 0 || n == 1) {
+      if (n == 0 || n == 1) {  // or if(n <= 2) return 1;
          return n;
       }
       if (dp[n] > 0) {
