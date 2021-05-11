@@ -4,8 +4,11 @@ import java.util.Arrays;
 
 public class DynamicProgramming {
    public static void main(String[] args) {
-      System.out.println(climbStairs(15));
+      System.out.println(fib(10));
    }
+
+
+
 
    // tabulation
    private static int climbStairs(int n) {
@@ -63,5 +66,15 @@ public class DynamicProgramming {
       return dp[n] = fibonacciDP(n - 1, dp) + fibonacciDP(n - 2, dp);
    }
 
+   // tabulation of fibonacci is here
+   private static int fib(int n) {
+      int[] dp = new int[n + 1];
+      dp[0] = 0;
+      dp[1] = 1;
+      for (int i = 2; i <= n; i++) {
+         dp[i] = dp[i - 1] + dp[i - 2];
+      }
+      return dp[n];
+   }
 
 }
