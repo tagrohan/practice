@@ -4,10 +4,26 @@ import java.util.Arrays;
 
 public class DynamicProgramming {
    public static void main(String[] args) {
-      System.out.println(fib(10));
+      System.out.println(climbStairsWithJumps(4, 3, new int[5]));
    }
 
+   public static int climbStairsWithJumps(int n, int jump, int[] dp)  {
 
+      if (n == 0) {
+         return 1;
+      } else if (n < 0) {
+         return 0;
+      }
+
+      if (dp[n] > 0) {
+         return dp[n];
+      }
+      System.out.println("called ->" + n);
+      for (int i = 1; i <= jump; i++) {
+         dp[n] += climbStairsWithJumps(n - i, 3, dp);
+      }
+      return dp[n];
+   }
 
 
    // tabulation
