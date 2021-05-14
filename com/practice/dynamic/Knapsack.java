@@ -2,22 +2,7 @@ package com.practice.dynamic;
 
 public class Knapsack {
    public static void main(String[] args) {
-//      System.out.println(subsetSumDpTabulation(new int[]{1, 2, 3}, 5));
-      System.out.println(knapsack(new int[]{1, 3, 4, 5}, new int[]{1, 4, 5, 7}, 7, 4));
-   }
-
-   // basic recursive solution of knapsack 0/1
-   public static int knapsack(int[] wt, int[] val, int W, int n) {
-      if (n == 0 || W <= 0) {
-         return 0;
-      }
-      if (wt[n - 1] <= W) {
-         int include = val[n - 1] + knapsack(wt, val, W - wt[n - 1], n - 1);
-         int notInclude = knapsack(wt, val, W, n - 1);
-         return Integer.max(include, notInclude);
-      } else {
-         return knapsack(wt, val, W, n - 1);
-      }
+      System.out.println(subsetSum(new int[]{1, 2, 6, 4}, 8, 0, 0));
    }
 
    private static boolean subsetSum(int[] arr, int key, int sum, int idx) {
@@ -26,7 +11,6 @@ public class Knapsack {
       } else if (arr.length == idx) {
          return false;
       }
-      System.out.println("called ->" + arr[idx]);
       boolean include = subsetSum(arr, key, arr[idx] + sum, idx + 1);
       boolean notInclude = subsetSum(arr, key, sum, idx + 1);
 
@@ -72,6 +56,44 @@ public class Knapsack {
          }
       }
       return dp[arr.length][key];
+   }
+
+
+   // 0/1 Knapsack started
+   // knapsack tabulation working fine here
+   public static int knapsackDpTabulation(int[] wt, int[] val, int W, int n) {
+//      System.out.println(knapsackDpTabulation(new int[]{1, 3, 4, 5, 20, 12, 3, 2, 12, 32, 13}, new int[]{1, 4, 5, 7, 12, 2, 32, 3, 21, 23, 32}, 499, 11));
+      int[][] dp = new int[n + 1][W + 1];
+      for (int i = 1; i <= n; i++) {
+         for (int j = 1; j <= W; j++) {
+            if (i - 1 == 0 && j - 1 == 0) {
+               dp[i][j] = 0;
+            } else if (wt[i - 1] <= j) {
+               dp[i][j] = val[i - 1] + Integer.max(dp[i - 1][j - wt[i - 1]], dp[i - 1][j]);
+            } else {
+               dp[i][j] = dp[i - 1][j];
+            }
+         }
+      }
+      return dp[n][W];
+   }
+
+   // memoization Dp solution of knapsack 0/1 working fine
+   public static int knapsackDpMemoization(int[] wt, int[] val, int W, int n, int[][] dp) {
+//      System.out.println(knapsackDpMemoization(new int[]{1, 3, 4, 5, 20, 12, 3, 2, 12, 32, 13}, new int[]{1, 4, 5, 7, 12, 2, 32, 3, 21, 23, 32}, 499, 11, arr));
+      if (n == 0 || W <= 0) {
+         return 0;
+      }
+      if (dp[n][W] > 0) {
+         return dp[n][W];
+      }
+      if (wt[n - 1] <= W) {
+         int include = val[n - 1] + knapsackDpMemoization(wt, val, W - wt[n - 1], n - 1, dp);
+         int notInclude = knapsackDpMemoization(wt, val, W, n - 1, dp);
+         return dp[n][W] = Integer.max(include, notInclude);
+      } else {
+         return dp[n][W] = knapsackDpMemoization(wt, val, W, n - 1, dp);
+      }
    }
 
 }
