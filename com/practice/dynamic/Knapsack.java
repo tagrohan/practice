@@ -1,11 +1,83 @@
 package com.practice.dynamic;
+
 import java.util.Arrays;
 
 public class Knapsack {
    public static void main(String[] args) {
 
-            System.out.println(subsetSumDpTabulation(new int[]{4, 2, 7, 1, 3,}, 10));
+      System.out.println(subsetWithGivenDiff(new int[]{1, 1, 2, 3}, 1));
 
+   }
+
+   // diff is given main code is int set = (diff + sum) / 2; here we are doing
+//   (s1 + s2 = range) and (s1 - s2 = diff) now sum them up
+   private static int subsetWithGivenDiff(int[] arr, int diff) {
+//      System.out.println(subsetWithGivenDiff(new int[]{1, 1, 2, 3}, 1));
+      int sum = 0;
+      int length = arr.length;
+
+      for (int i : arr) {
+         sum += i;
+      }
+      int set = (diff + sum) / 2;
+      int[][] dp = new int[length + 1][set + 1];
+      for (int i = 0; i <= length; i++) {
+         for (int j = 0; j <= set; j++) {
+            if (i == 0) {
+               dp[i][j] = 0;
+            }
+            if (j == 0) {
+               dp[i][j] = 1;
+            }
+            if (i > 0 && j > 0) {
+               if (arr[i - 1] <= j) {
+                  dp[i][j] = dp[i - 1][j - arr[i - 1]] + dp[i - 1][j];
+               } else {
+                  dp[i][j] = dp[i - 1][j];
+               }
+            }
+         }
+      }
+      return dp[length][set];
+   }
+
+   // working fine check video no : 10 by aditya in DP or watch notes for logic man
+   // although (range - 2s1) is the formula i have used here
+   private static int subsetWithMinDiff(int[] arr) {
+      int sum = 0;
+      for (int i : arr) {
+         sum += i;
+      }
+      int n = sum / 2;
+      boolean[][] dp = new boolean[arr.length + 1][n + 1];
+      for (int i = 0; i <= arr.length; i++) {
+         for (int j = 0; j <= n; j++) {
+            if (i == 0) {
+               dp[i][j] = false;
+            }
+            if (j == 0) {
+               dp[i][j] = true;
+            }
+            if (i > 0 && j > 0) {
+               if (arr[i - 1] <= j) {
+                  dp[i][j] = dp[i - 1][j - arr[i - 1]] || dp[i - 1][j];
+               } else {
+                  dp[i][j] = dp[i - 1][j];
+               }
+            }
+         }
+      }
+//      for (boolean[] bool :
+//              dp) {
+//         System.out.println(Arrays.toString(bool));
+//      }
+      int min = Integer.MAX_VALUE;
+      for (int j = 0; j <= n; j++) {
+         if (dp[arr.length][j]) {
+            min = Integer.min(min, sum - 2 * j);
+         }
+      }
+      return min;
    }
 
    // it's working fine here based on subset sum (which based on 0/1 knapsack)
