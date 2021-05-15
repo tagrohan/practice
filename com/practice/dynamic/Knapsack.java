@@ -5,7 +5,64 @@ import java.util.Arrays;
 public class Knapsack {
    public static void main(String[] args) {
 
-      System.out.println(sumPartitionProblem(new int[]{1, 5, 11, 5}));
+      System.out.println(countOfSubsetSum(new int[]{2, 3, 5, 6, 8, 10}, 10));
+
+   }
+
+   // it's working fine here based on subset sum (which based on 0/1 knapsack)
+   private static int countOfSubsetSum(int arr[], int sum) {
+//      System.out.println(countOfSubsetSum(new int[]{2, 3, 5, 6, 8, 10}, 10));
+      int[][] dp = new int[arr.length + 1][sum + 1];
+      for (int i = 0; i <= arr.length; i++) {
+         for (int j = 0; j <= sum; j++) {
+            if (i == 0) {
+               dp[i][j] = 0;
+            }
+            if (j == 0) {
+               dp[i][j] = 1;
+            }
+            if (i > 0 && j > 0) {
+               if (arr[i - 1] <= j) {
+                  dp[i][j] = dp[i - 1][j - arr[i - 1]] + dp[i - 1][j];
+               } else {
+                  dp[i][j] = dp[i - 1][j];
+               }
+            }
+         }
+      }
+      return dp[arr.length][sum];
+   }
+
+   // working fine man validation of even odd + subsetSum makes it working
+   private static boolean sumPartitionProblemDpIncludeSubsetSum(int[] arr) {
+      int sum = 0;
+      for (int i : arr) {
+         sum += i;
+      }
+      if (sum % 2 != 0) {
+         return false;
+      } // subsetSum code start from here actually which is same to find sum n in this case
+      int n = (sum / 2);
+      boolean[][] dp = new boolean[arr.length + 1][n + 1];
+
+      for (int i = 0; i <= arr.length; i++) {
+         for (int j = 0; j <= n; j++) {
+            if (i == 0) {
+               dp[i][j] = false;
+            }
+            if (j == 0) {
+               dp[i][j] = true;
+            }
+            if (i > 0 && j > 0) {
+               if (arr[i - 1] <= j) {
+                  dp[i][j] = dp[i - 1][j - arr[i - 1]] || dp[i - 1][j];
+               } else {
+                  dp[i][j] = dp[i - 1][j];
+               }
+            }
+         }
+      }
+      return dp[arr.length][n];
    }
 
    private static boolean sumPartitionProblem(int[] arr) {
@@ -17,6 +74,8 @@ public class Knapsack {
          return false;
       }
       return subsetSumDpTabulation(arr, sum / 2);
+//      here i am using subsetSumDpTabulation() bcz now i have to find the half os sum / 2 (which is 11 in this case)
+//      and the rest of the 11 is already there (use ur brain man)
    }
 
    //   it's working fine
