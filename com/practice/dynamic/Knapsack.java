@@ -1,10 +1,43 @@
 package com.practice.dynamic;
 
+import java.util.Arrays;
+
 public class Knapsack {
    public static void main(String[] args) {
-      System.out.println(subsetSum(new int[]{1, 2, 6, 4}, 8, 0, 0));
+      System.out.println(subsetSumDpTabulation(new int[]{4, 2, 7, 1, 3,}, 10));
+
    }
 
+   //   it's working fine
+   private static boolean subsetSumDpTabulation(int[] arr, int key) {
+      boolean[][] dp = new boolean[arr.length + 1][key + 1];
+
+      for (int i = 0; i <= arr.length; i++) {
+         for (int j = 0; j <= key; j++) {
+            if (i == 0) {
+               dp[i][j] = false;
+            }
+            if (j == 0) {
+               dp[i][j] = true;
+            }
+            if (i > 1 && j > 1) {
+               if (arr[i - 1] <= j) {
+                  dp[i][j] = dp[i - 1][j - arr[i - 1]] || dp[i - 1][j];
+               } else {
+                  dp[i][j] = dp[i - 1][j];
+               }
+            }
+         }
+      }
+      for (boolean[] val :
+              dp) {
+         System.out.println(Arrays.toString(val));
+      }
+      return dp[arr.length][key];
+   }
+
+
+   // working fine
    private static boolean subsetSum(int[] arr, int key, int sum, int idx) {
       if (sum == key) {
          return true;
@@ -36,29 +69,6 @@ public class Knapsack {
       return dp[idx][sum] = include || notInclude;
    }
 
-   private static boolean subsetSumDpTabulation(int[] arr, int key) {
-      boolean[][] dp = new boolean[arr.length + 1][key + 1];
-
-      for (int i = 1; i <= arr.length; i++) {
-         for (int j = 1; j <= key; j++) {
-            if (j - 1 == 0) {
-               dp[i][j] = false;
-            }
-            if (i - 1 == 0) {
-               dp[i][j] = true;
-            }
-            if (arr[i - 1] < j) {
-               dp[i][j] = dp[i][j - arr[i - 1]] || dp[i - 1][j];
-            } else {
-               dp[i][j] = dp[i - 1][j];
-            }
-
-         }
-      }
-      return dp[arr.length][key];
-   }
-
-
    // 0/1 Knapsack started
    // knapsack tabulation working fine here
    public static int knapsackDpTabulation(int[] wt, int[] val, int W, int n) {
@@ -74,6 +84,10 @@ public class Knapsack {
                dp[i][j] = dp[i - 1][j];
             }
          }
+      }
+      for (int[] arr :
+              dp) {
+         System.out.println(Arrays.toString(arr));
       }
       return dp[n][W];
    }
