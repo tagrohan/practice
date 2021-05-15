@@ -1,4 +1,4 @@
-package com.practice;
+package com.practice.pep;
 
 // todo : it is generally called as LO level option style
 // https://www.youtube.com/watch?v=LgFl0hsyWP8&list=TLGGv6_bg6nVfcAwODA1MjAyMQ at 1:59

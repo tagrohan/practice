@@ -1,4 +1,4 @@
-package com.practice;
+package com.practice.pep;
 
 import java.util.HashMap;
 import java.util.Map;

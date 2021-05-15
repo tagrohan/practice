@@ -1,16 +1,15 @@
 package com.practice.dynamic;
-
 import java.util.Arrays;
 
 public class Knapsack {
    public static void main(String[] args) {
 
-      System.out.println(countOfSubsetSum(new int[]{2, 3, 5, 6, 8, 10}, 10));
+            System.out.println(subsetSumDpTabulation(new int[]{4, 2, 7, 1, 3,}, 10));
 
    }
 
    // it's working fine here based on subset sum (which based on 0/1 knapsack)
-   private static int countOfSubsetSum(int arr[], int sum) {
+   private static int countOfSubsetSum(int[] arr, int sum) {
 //      System.out.println(countOfSubsetSum(new int[]{2, 3, 5, 6, 8, 10}, 10));
       int[][] dp = new int[arr.length + 1][sum + 1];
       for (int i = 0; i <= arr.length; i++) {

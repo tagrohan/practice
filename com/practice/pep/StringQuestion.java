@@ -1,4 +1,4 @@
-package com.practice;
+package com.practice.pep;
 
 public class StringQuestion {
    public static void main(String[] args) {

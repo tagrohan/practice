@@ -1,4 +1,4 @@
-package com.practice;
+package com.practice.pep;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

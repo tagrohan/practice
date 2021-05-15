@@ -1,4 +1,4 @@
-package com.practice;
+package com.practice.pep;
 
 public class BitManipulation {
    public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.practice;
+package com.practice.pep;
 // todo : it is generally called as FE faith exception style
 // https://www.youtube.com/watch?v=LgFl0hsyWP8&list=TLGGv6_bg6nVfcAwODA1MjAyMQ at 1:59
 import java.util.ArrayList;
