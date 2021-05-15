@@ -4,14 +4,25 @@ import java.util.Arrays;
 
 public class Knapsack {
    public static void main(String[] args) {
-      System.out.println(subsetSumDpTabulation(new int[]{4, 2, 7, 1, 3,}, 10));
 
+      System.out.println(sumPartitionProblem(new int[]{1, 5, 11, 5}));
+   }
+
+   private static boolean sumPartitionProblem(int[] arr) {
+      int sum = 0;
+      for (int i : arr) {
+         sum += i;
+      }
+      if (sum % 2 != 0) {
+         return false;
+      }
+      return subsetSumDpTabulation(arr, sum / 2);
    }
 
    //   it's working fine
    private static boolean subsetSumDpTabulation(int[] arr, int key) {
+//      System.out.println(subsetSumDpTabulation(new int[]{4, 2, 7, 1, 3,}, 10));
       boolean[][] dp = new boolean[arr.length + 1][key + 1];
-
       for (int i = 0; i <= arr.length; i++) {
          for (int j = 0; j <= key; j++) {
             if (i == 0) {
@@ -35,7 +46,6 @@ public class Knapsack {
       }
       return dp[arr.length][key];
    }
-
 
    // working fine
    private static boolean subsetSum(int[] arr, int key, int sum, int idx) {
