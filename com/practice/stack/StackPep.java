@@ -1,10 +1,50 @@
 package com.practice.stack;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 public class StackPep {
    public static void main(String[] args) {
 
+   }
+
+   // same as greatest with > check one below
+   private static int[] nextSmallestElement(int[] arr) {
+//      System.out.println(Arrays.toString(nextSmallestElement(new int[]{2, 4, 7, 1, 5})));
+      Stack<Integer> stack = new Stack<>();
+      int[] res = new int[arr.length];
+      for (int i = arr.length - 1; i >= 0; i--) {
+         while (!stack.isEmpty() && stack.peek() > arr[i]) {
+            stack.pop();
+         }
+         res[i] = stack.isEmpty() ? -1 : stack.peek();
+//         if (stack.isEmpty()) {
+//            res[i] = -1;
+//         } else {
+//            res[i] = stack.peek();
+//         }
+         stack.push(arr[i]);
+      }
+      return res;
+   }
+
+   // done in by myself man
+   private static int[] nextGreatestElement(int[] arr) {
+//      System.out.println(Arrays.toString(nextGreatestElement(new int[]{2, 5, 9, 3, 1, 12, 6, 8, 7})));
+      Stack<Integer> stack = new Stack<>();
+      int[] res = new int[arr.length];
+      for (int i = arr.length - 1; i >= 0; i--) {
+         while (!stack.isEmpty() && stack.peek() < arr[i]) {
+            stack.pop();
+         }
+         if (stack.isEmpty()) {
+            res[i] = -1;
+         } else {
+            res[i] = stack.peek();
+         }
+         stack.push(arr[i]);
+      }
+      return res;
    }
 
    private static boolean balanceBrackets(String regex) {
