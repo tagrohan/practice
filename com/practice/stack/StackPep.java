@@ -5,7 +5,29 @@ import java.util.Stack;
 
 public class StackPep {
    public static void main(String[] args) {
+//      System.out.println(Arrays.toString(stockSpan(new int[]{2, 5, 9, 3, 1, 12, 6, 8, 7})));
+   }
 
+   // here we check for prev greatest from current position
+   private static int[] stockSpan(int[] arr) {
+//      System.out.println(Arrays.toString(stockSpan(new int[]{2, 5, 9, 3, 1, 12, 6, 8, 7})));
+      Stack<Integer> stack = new Stack<>();
+      int[] res = new int[arr.length];
+
+      for (int i = 0; i < arr.length; i++) {
+         int howMuchPop = 1;
+         while (!stack.isEmpty() && stack.peek() < arr[i]) {
+            stack.pop();
+            howMuchPop += 1;
+         }
+         if (stack.isEmpty()) {
+            res[i] = i + 1;
+         } else {
+            res[i] = howMuchPop;
+         }
+         stack.push(arr[i]);
+      }
+      return res;
    }
 
    // same as greatest with > check one below
@@ -18,7 +40,7 @@ public class StackPep {
             stack.pop();
          }
          res[i] = stack.isEmpty() ? -1 : stack.peek();
-//         if (stack.isEmpty()) {
+//             if (stack.isEmpty()) {
 //            res[i] = -1;
 //         } else {
 //            res[i] = stack.peek();
