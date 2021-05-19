@@ -9,6 +9,7 @@ public class Knapsack {
 //      System.out.println(knapsackDpTabulation(new int[]{2, 4, 6}, new int[]{8, 3, 4}, 6, 3));
 
 //      System.out.println(knapsackDpMemoization(new int[]{2, 4, 6}, new int[]{8, 3, 4}, 6, 3, new int[4][7]));
+      System.out.println(countOfSubsetSum(new int[]{1, 2, 3}, 5));
 
    }
 
