@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Knapsack {
    public static void main(String[] args) {
 
-      System.out.println(subsetWithGivenDiff(new int[]{1, 1, 2, 3}, 1));
+//      System.out.println(subsetWithMinDiff(new int[]{1,2,7}));
 
    }
 
@@ -67,10 +67,10 @@ public class Knapsack {
             }
          }
       }
-//      for (boolean[] bool :
-//              dp) {
-//         System.out.println(Arrays.toString(bool));
-//      }
+      for (boolean[] bool :
+              dp) {
+         System.out.println(Arrays.toString(bool));
+      }
       int min = Integer.MAX_VALUE;
       for (int j = 0; j <= n; j++) {
          if (dp[arr.length][j]) {

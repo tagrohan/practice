@@ -1,12 +1,14 @@
 package com.practice.stack;
 
-import java.util.Arrays;
+
 import java.util.Stack;
 
 public class StackPep {
    public static void main(String[] args) {
 //      System.out.println(Arrays.toString(stockSpan(new int[]{2, 5, 9, 3, 1, 12, 6, 8, 7})));
+
    }
+
 
    // here we check for prev greatest from current position
    private static int[] stockSpan(int[] arr) {
