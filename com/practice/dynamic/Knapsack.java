@@ -6,6 +6,8 @@ public class Knapsack {
    public static void main(String[] args) {
 
 //      System.out.println(subsetWithMinDiff(new int[]{1,2,7}));
+      System.out.println(knapsackDpTabulation(new int[]{2, 4, 6}, new int[]{8, 3, 4}, 6, 3));
+//      System.out.println(knapsackDpMemoization(new int[]{2, 4, 6}, new int[]{8, 3, 4}, 6, 3, new int[4][7]));
 
    }
 
@@ -219,7 +221,7 @@ public class Knapsack {
             if (i - 1 == 0 && j - 1 == 0) {
                dp[i][j] = 0;
             } else if (wt[i - 1] <= j) {
-               dp[i][j] = val[i - 1] + Integer.max(dp[i - 1][j - wt[i - 1]], dp[i - 1][j]);
+               dp[i][j] = Integer.max(val[i - 1] + dp[i - 1][j - wt[i - 1]], dp[i - 1][j]);
             } else {
                dp[i][j] = dp[i - 1][j];
             }
