@@ -5,8 +5,35 @@ import java.util.Arrays;
 public class Unbound {
    public static void main(String[] args) {
 //      System.out.println(unboundedKnapsack(new int[]{2, 4, 6}, new int[]{8, 3, 4}, 6, 3));
-      System.out.println(coinChangeMax(new int[]{1, 2, 3}, 5));
+      System.out.println(coinChangeMin(new int[]{1, 2, 3}, 5));
    }
+
+   // always pay attention to base case
+   // it's working fine for 123 and s = 5, 3+2 = 5 which is total min number 2
+   private static int coinChangeMin(int[] arr, int amount) {
+//      System.out.println(coinChangeMax(new int[]{1, 2, 3}, 5));
+      int length = arr.length;
+      int[][] dp = new int[length + 1][amount + 1];
+      for (int i = 0; i <= length; i++) {
+         for (int j = 0; j <= amount; j++) {
+            if (i == 0) {
+               dp[i][j] = Integer.MAX_VALUE - 1;
+            }
+            if (j == 0) {
+               dp[i][j] = 0;
+            }
+            if (i > 0 && j > 0) {
+               if (arr[i - 1] <= j) {
+                  dp[i][j] = Integer.min(dp[i][j - arr[i - 1]] + 1, dp[i - 1][j]);
+               } else {
+                  dp[i][j] = dp[i - 1][j];
+               }
+            }
+         }
+      }
+      return dp[length][amount];
+   }
+
 
    // working fine (here we have to find how many ways are there to give amount of 5 using 1,2 3 where we can use infinite coins(unbound))
    private static int coinChangeMax(int[] arr, int amount) {
