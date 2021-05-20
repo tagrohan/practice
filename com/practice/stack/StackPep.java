@@ -1,17 +1,52 @@
 package com.practice.stack;
 
 
-import java.util.Arrays;
 import java.util.Stack;
 
 public class StackPep {
    public static void main(String[] args) {
-      System.out.println(Arrays.toString(stockSpanUsingIndex(new int[]{2, 5, 9, 3, 1, 12, 6, 8, 7})));
-
+      System.out.println(largestAreaHistogram(new int[]{6, 2, 5, 4, 5, 1, 6}));
    }
 
 
-
+   // working fine here next smallest to left and right concept is used (hard)
+   private static int largestAreaHistogram(int[] arr) {
+//      System.out.println(largestAreaHistogram(new int[]{6, 2, 5, 4, 5, 1, 6}));
+      int length = arr.length;
+      int[] rightSmallest = new int[length];
+      int[] leftSmallest = new int[length];
+      Stack<Integer> stack = new Stack<>();
+      // here smallest to the right
+      for (int i = length - 1; i >= 0; i--) {
+         while (!stack.isEmpty() && arr[stack.peek()] >= arr[i]) {
+            stack.pop();
+         }
+         if (stack.isEmpty()) {
+            rightSmallest[i] = length;
+         } else {
+            rightSmallest[i] = stack.peek();
+         }
+         stack.push(i);
+      }
+      stack.clear();
+// smallest to the left
+      for (int i = 0; i < length; i++) {
+         while (!stack.isEmpty() && arr[stack.peek()] >= arr[i]) {
+            stack.pop();
+         }
+         if (stack.isEmpty()) {
+            leftSmallest[i] = -1;
+         } else {
+            leftSmallest[i] = stack.peek();
+         }
+         stack.push(i);
+      }
+      int ma = Integer.MIN_VALUE;
+      for (int i = 0; i < length; i++) {
+         ma = Integer.max(ma, arr[i] * (rightSmallest[i] - leftSmallest[i] - 1));
+      }
+      return ma;
+   }
 
 
    // same as stock span but using index of arrays
