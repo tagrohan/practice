@@ -1,11 +1,32 @@
 package com.practice.stack;
 
 
+import java.util.Arrays;
 import java.util.Stack;
 
 public class StackPep {
    public static void main(String[] args) {
-      System.out.println(largestAreaHistogram(new int[]{6, 2, 5, 4, 5, 1, 6}));
+      slidingWindowMaximum(new int[]{2, 9, 3, 8, 1, 7, 12, 6, 14, 4, 32, 0,
+              7, 19, 8, 12, 6});
+   }
+
+   // TODO : will work on it
+   private static void slidingWindowMaximum(int[] arr) {
+      int length = arr.length;
+      int[] nge = new int[length];
+      Stack<Integer> stack = new Stack<>();
+      for (int i = length - 1; i >= 0; i--) {
+         while (!stack.isEmpty() && arr[stack.peek()] <= arr[i]) {
+            stack.pop();
+         }
+         if (stack.isEmpty()) {
+            nge[i] = arr.length;
+         } else {
+            nge[i] = stack.peek();
+         }
+         stack.push(i);
+      }
+      System.out.println(Arrays.toString(nge));
    }
 
 
