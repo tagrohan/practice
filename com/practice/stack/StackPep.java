@@ -1,17 +1,16 @@
 package com.practice.stack;
 
-
-import java.util.Arrays;
 import java.util.Stack;
 
 public class StackPep {
    public static void main(String[] args) {
-      slidingWindowMaximum(new int[]{2, 9, 3, 8, 1, 7, 12, 6, 14, 4, 32, 0,
-              7, 19, 8, 12, 6});
+      slidingWindowMaximum(new int[]{2, 9, 3, 8, 1, 7, 12, 6, 14, 4, 32, 0, 7, 19, 8, 12, 6}, 4);
    }
 
-   // TODO : will work on it
-   private static void slidingWindowMaximum(int[] arr) {
+   // working fine : ) here we have to find the greatest in sub array of len k here it's 4 ex
+//   in question 2 9 3 8 = 9 then in 3 8 1 7 = 8 ...
+   private static void slidingWindowMaximum(int[] arr, int k) {
+//      slidingWindowMaximum(new int[]{2, 9, 3, 8, 1, 7, 12, 6, 14, 4, 32, 0, 7, 19, 8, 12, 6}, 4);
       int length = arr.length;
       int[] nge = new int[length];
       Stack<Integer> stack = new Stack<>();
@@ -26,7 +25,17 @@ public class StackPep {
          }
          stack.push(i);
       }
-      System.out.println(Arrays.toString(nge));
+//      System.out.println(Arrays.toString(nge));
+      int j = 0;
+      for (int i = 0; i < length - k; i++) {
+         if (j < i) {
+            j = i;
+         }
+         while (nge[j] < i + k) {
+            j = nge[j];
+         }
+         System.out.print(arr[j] + " ");
+      }
    }
 
 
