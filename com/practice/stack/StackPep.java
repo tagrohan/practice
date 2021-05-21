@@ -4,8 +4,10 @@ import java.util.Stack;
 
 public class StackPep {
    public static void main(String[] args) {
-      slidingWindowMaximum(new int[]{2, 9, 3, 8, 1, 7, 12, 6, 14, 4, 32, 0, 7, 19, 8, 12, 6}, 4);
+//      slidingWindowMaximum(new int[]{2, 9, 3, 8, 1, 7, 12, 6, 14, 4, 32, 0, 7, 19, 8, 12, 6}, 4);
+
    }
+
 
    // working fine : ) here we have to find the greatest in sub array of len k here it's 4 ex
 //   in question 2 9 3 8 = 9 then in 3 8 1 7 = 8 ...
@@ -138,6 +140,28 @@ public class StackPep {
       }
       return res;
    }
+
+   // in leet code in this we assume circular array to work
+   private static int[] nextGreatestElementIncludingLastIndex(int[] arr) {
+//      System.out.println(Arrays.toString(nextGreatestElementIncludingLastIndex(new int[]{1, 2, 3, 4, 3})));
+      Stack<Integer> stack = new Stack<>();
+      int[] res = new int[arr.length];
+      for (int i = (arr.length) * 2 - 1; i >= 0; i--) {
+         int cI = i % arr.length;
+         System.out.println(cI);
+         while (!stack.isEmpty() && stack.peek() <= arr[cI]) {
+            stack.pop();
+         }
+         if (stack.isEmpty()) {
+            res[cI] = -1;
+         } else {
+            res[cI] = stack.peek();
+         }
+         stack.push(arr[cI]);
+      }
+      return res;
+   }
+
 
    // done in by myself man
    private static int[] nextGreatestElement(int[] arr) {
