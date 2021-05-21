@@ -4,9 +4,7 @@ import java.util.Arrays;
 
 public class Unbound {
    public static void main(String[] args) {
-//      System.out.println(unboundedKnapsack(new int[]{2, 4, 6}, new int[]{8, 3, 4}, 6, 3));
-      System.out.println(coinChangeMin(new int[]{2}, 3));
-      System.out.println(Integer.MAX_VALUE);
+      System.out.println(coinChangeMax(new int[]{1, 2, 3}, 5));
    }
 
    // always pay attention to base case
@@ -57,6 +55,10 @@ public class Unbound {
                }
             }
          }
+      }
+      for (int[] var :
+              dp) {
+         System.out.println(Arrays.toString(var));
       }
       return dp[length][amount];
    }
