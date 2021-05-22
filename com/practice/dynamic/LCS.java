@@ -4,11 +4,45 @@ import java.util.Arrays;
 
 public class LCS {
    public static void main(String[] args) {
-      System.out.println(longestCommonSubstring("abcdde", "abced"));
+//      System.out.println(longestCommonSubstring("abcdde", "abced"));
+      System.out.println(printLongestCommonSubsequence("abcd", "abced"));
+   }
+
+   private static int printLongestCommonSubsequence(String str1, String str2) {
+//      System.out.println(longestCommonSubsequenceTabulation("abcd", "bcde"));
+      int len1 = str1.length(), len2 = str2.length();
+      int[][] dp = new int[len1 + 1][len2 + 1];
+      int cI = 1; // this here is used to print.
+      for (int i = 0; i <= len1; i++) {
+         for (int j = 0; j <= len2; j++) {
+
+            if (i == 0 || j == 0) {
+               dp[i][j] = 0;
+            } else {
+               if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+                  dp[i][j] = 1 + dp[i - 1][j - 1];
+                  if (cI == dp[i][j]) {
+                     System.out.print(str1.charAt(i - 1)+" ");
+                     cI += 1;
+                  }
+               } else {
+                  dp[i][j] = Integer.max(dp[i - 1][j], dp[i][j - 1]);
+               }
+            }
+
+         }
+      }
+//      for (int[] var :
+//              dp) {
+//         System.out.println(Arrays.toString(var));
+//      }
+      return dp[len1][len2];
+
    }
 
    // here it's diff from LCS , abcd abced = 3(a,b,c are common sub array but in LCS its 4)
    private static int longestCommonSubstring(String str1, String str2) {
+      //      System.out.println(longestCommonSubstring("abcdde", "abced"));
       int len1 = str1.length(), len2 = str2.length();
       int[][] dp = new int[len1 + 1][len2 + 1];
       int max = 0;
@@ -26,14 +60,11 @@ public class LCS {
             }
          }
       }
-      for (int[] var :
-              dp) {
-         System.out.println(Arrays.toString(var));
-      }
       return max;
    }
 
    private static int longestCommonSubsequenceTabulation(String str1, String str2) {
+//      System.out.println(longestCommonSubsequenceTabulation("abcd", "bcde"));
       int len1 = str1.length(), len2 = str2.length();
       int[][] dp = new int[len1 + 1][len2 + 1];
       for (int i = 0; i <= len1; i++) {
