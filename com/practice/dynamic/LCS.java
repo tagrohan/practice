@@ -4,12 +4,11 @@ import java.util.Arrays;
 
 public class LCS {
    public static void main(String[] args) {
-//      System.out.println(longestCommonSubstring("abcdde", "abced"));
-      System.out.println(printLongestCommonSubsequence("abcd", "abced"));
+
    }
 
    private static int printLongestCommonSubsequence(String str1, String str2) {
-//      System.out.println(longestCommonSubsequenceTabulation("abcd", "bcde"));
+//    System.out.println(longestCommonSubsequenceTabulation("abcd", "bcde"));
       int len1 = str1.length(), len2 = str2.length();
       int[][] dp = new int[len1 + 1][len2 + 1];
       int cI = 1; // this here is used to print.
@@ -22,7 +21,7 @@ public class LCS {
                if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
                   dp[i][j] = 1 + dp[i - 1][j - 1];
                   if (cI == dp[i][j]) {
-                     System.out.print(str1.charAt(i - 1)+" ");
+                     System.out.print(str1.charAt(i - 1) + " ");
                      cI += 1;
                   }
                } else {
@@ -32,6 +31,7 @@ public class LCS {
 
          }
       }
+//      System.out.println();
 //      for (int[] var :
 //              dp) {
 //         System.out.println(Arrays.toString(var));

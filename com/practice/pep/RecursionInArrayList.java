@@ -1,13 +1,14 @@
 package com.practice.pep;
 // todo : it is generally called as FE faith exception style
 // https://www.youtube.com/watch?v=LgFl0hsyWP8&list=TLGGv6_bg6nVfcAwODA1MjAyMQ at 1:59
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class RecursionInArrayList {
    public static void main(String[] args) {
-      System.out.println(Arrays.toString(getMazePath(1, 1, 3, 3).toArray()));
+//      System.out.println(Arrays.toString(getMazePath(1, 1, 3, 3).toArray()));
+      System.out.println(subsequence("123"));
    }
 
    //  get maze path is working perfect          1X1      ->            3X3
@@ -99,8 +100,9 @@ public class RecursionInArrayList {
       List<String> list = new ArrayList<>();
 
       for (String st : subsequence) {
+         list.add("" + st);
          list.add(ch + st);
-         list.add("" + st);   // order is not maintained here
+         // order is not maintained here
       }
       return list;
    }
