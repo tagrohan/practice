@@ -7,7 +7,9 @@ import java.util.Map;
 public class LCS {
    public static void main(String[] args) {
 //      System.out.println(minDeleteToMakeItPalindrome("agbcba"));
-      printLongestCommonSubsequence("agbcba", "abcbga");
+      printLongestCommonSubsequence("dabab", "babad");
+//      System.out.println(shortestCommonSuperSequence("acbcf","abcdaf"));
+//      printLongestCommonSubsequence("acbcf", "abcdaf");
    }
 
    // working fine total agbcba = 6, LCS after reverse abcba = 5 6 - 5 = 1 check largestPalindromeSubsequence(String str1) to understand
@@ -128,9 +130,11 @@ public class LCS {
          System.out.println(Arrays.toString(var));
       }
       int i = len1, j = len2;
+      StringBuilder res = new StringBuilder();
       while (i > 0 && j > 0) {
          if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
-            System.out.print(str1.charAt(i - 1) + " ");
+            res.append(str1.charAt(i - 1)).append(" ");
+//            System.out.print(str1.charAt(i - 1) + " ");
             i -= 1;
             j -= 1;
          } else {
@@ -138,6 +142,7 @@ public class LCS {
             else j -= 1;
          }
       }
+      System.out.println(res.reverse());
    }
 
    // here it's diff from LCS , abcd abced = 3(a,b,c are common sub array but in LCS its 4)
