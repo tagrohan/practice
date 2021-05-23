@@ -86,7 +86,7 @@ public class StackPep {
    }
 
 
-   //      2 + 6 * 4 / 8 - 3
+   //      2 + 6 * 4 / 8 - 3    isn't working fine
    private static double infixEvaluation(String regex) {
       Stack<Integer> oprnds = new Stack<>();
       Stack<Character> oper = new Stack<>();
