@@ -104,7 +104,10 @@ public class StackPep {
                   int num1 = oprnds.pop();
                   oprnds.push(operation(num1, num2, oper.peek()));
                }
-               oper.pop();
+               if (!oper.isEmpty()) {
+                  oper.pop();
+               }
+
             } else if (ch == '+' || ch == '-' || ch == '*' || ch == '/') {
                while (!oper.isEmpty() && oper.peek() != '(' && priority(oper.peek()) >= priority(ch)) {
                   int num2 = oprnds.pop();
