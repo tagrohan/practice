@@ -6,10 +6,32 @@ import java.util.Map;
 
 public class LCS {
    public static void main(String[] args) {
-      System.out.println(largestPalindromeSubsequence("agbcba"));
+      System.out.println(minDeleteToMakeItPalindrome("agbcba"));
 //      System.out.println(printLongestCommonSubsequence("agbcba","abcbga"));
    }
 
+   // working fine total agbcba = 6, LCS after reverse abcba = 5 6 - 5 = 1 check largestPalindromeSubsequence(String str1) to understand
+   private static int minDeleteToMakeItPalindrome(String str1) {
+//      System.out.println(minDeleteToMakeItPalindrome("agbcba"));
+      String str2 = new StringBuilder(str1).reverse().toString();
+      int len1 = str1.length(), len2 = str2.length();
+      int[][] dp = new int[len1 + 1][len2 + 1];
+      for (int i = 0; i <= len1; i++) {
+         for (int j = 0; j <= len2; j++) {
+            if (i == 0 || j == 0) {
+               dp[i][j] = 0;
+            } else {
+               if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+                  dp[i][j] = 1 + dp[i - 1][j - 1];
+               } else {
+                  dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+               }
+            }
+         }
+
+      }
+      return len1 - dp[len1][len2];
+   }
 
    // working fine abcba = 5
    private static int largestPalindromeSubsequence(String str1) {
