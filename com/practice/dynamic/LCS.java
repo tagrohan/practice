@@ -1,15 +1,41 @@
 package com.practice.dynamic;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LCS {
    public static void main(String[] args) {
-      System.out.println(shortestCommonSuperSequence("aggtab","gxtxayb"));
+      System.out.println(minStepToConvertAtoB("heap", "pea"));
+   }
+
+   // find LCS and then str1 - LCS = insertion, str2 - LCS = deletion
+   private static Map<Integer, Integer> minStepToConvertAtoB(String str1, String str2) {
+//      System.out.println(minStepToConvertAtoB("heap", "pea")); {2,1}
+      int len1 = str1.length(), len2 = str2.length();
+      int[][] dp = new int[len1 + 1][len2 + 1];
+      Map<Integer, Integer> map = new HashMap<>();
+      for (int i = 0; i <= len1; i++) {
+         for (int j = 0; j <= len2; j++) {
+            if (i == 0 || j == 0) {
+               dp[i][j] = 0;
+            } else {
+               if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+                  dp[i][j] = 1 + dp[i - 1][j - 1];
+               } else {
+                  dp[i][j] = Integer.max(dp[i - 1][j], dp[i][j - 1]);
+               }
+            }
+         }
+      }
+      map.put(len1 - dp[len1][len2], len2 - dp[len1][len2]);
+      return map;
    }
 
    // ex: str1 = geek, str2 = eke, SCS = geeke
    private static int shortestCommonSuperSequence(String str1, String str2) {
-//      System.out.println(shortestCommonSuperSequence("geek","eke"));
+//      System.out.println(shortestCommonSuperSequence("geek","eke")); = 5
+//      System.out.println(shortestCommonSuperSequence("aggtab","gxtxayb")); = 9
       int len1 = str1.length(), len2 = str2.length();
       int[][] dp = new int[len1 + 1][len2 + 1];
 
