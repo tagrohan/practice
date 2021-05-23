@@ -6,8 +6,8 @@ import java.util.Map;
 
 public class LCS {
    public static void main(String[] args) {
-      System.out.println(minDeleteToMakeItPalindrome("agbcba"));
-//      System.out.println(printLongestCommonSubsequence("agbcba","abcbga"));
+//      System.out.println(minDeleteToMakeItPalindrome("agbcba"));
+      printLongestCommonSubsequence("agbcba", "abcbga");
    }
 
    // working fine total agbcba = 6, LCS after reverse abcba = 5 6 - 5 = 1 check largestPalindromeSubsequence(String str1) to understand
@@ -103,11 +103,10 @@ public class LCS {
    }
 
 
-   private static int printLongestCommonSubsequence(String str1, String str2) {
+   private static void printLongestCommonSubsequence(String str1, String str2) {
 //    System.out.println(longestCommonSubsequenceTabulation("abcd", "bcde"));
       int len1 = str1.length(), len2 = str2.length();
       int[][] dp = new int[len1 + 1][len2 + 1];
-      int cI = 1; // this here is used to print.
       for (int i = 0; i <= len1; i++) {
          for (int j = 0; j <= len2; j++) {
 
@@ -116,10 +115,6 @@ public class LCS {
             } else {
                if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
                   dp[i][j] = 1 + dp[i - 1][j - 1];
-                  if (cI == dp[i][j]) {
-                     System.out.print(str1.charAt(i - 1) + " ");
-                     cI += 1;
-                  }
                } else {
                   dp[i][j] = Integer.max(dp[i - 1][j], dp[i][j - 1]);
                }
@@ -127,13 +122,22 @@ public class LCS {
 
          }
       }
-//      System.out.println();
-//      for (int[] var :
-//              dp) {
-//         System.out.println(Arrays.toString(var));
-//      }
-      return dp[len1][len2];
-
+      System.out.println();
+      for (int[] var :
+              dp) {
+         System.out.println(Arrays.toString(var));
+      }
+      int i = len1, j = len2;
+      while (i > 0 && j > 0) {
+         if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+            System.out.print(str1.charAt(i - 1) + " ");
+            i -= 1;
+            j -= 1;
+         } else {
+            if (dp[i - 1][j] > dp[i][j - 1]) i -= 1;
+            else j -= 1;
+         }
+      }
    }
 
    // here it's diff from LCS , abcd abced = 3(a,b,c are common sub array but in LCS its 4)
