@@ -7,9 +7,56 @@ import java.util.Map;
 public class LCS {
    public static void main(String[] args) {
 //      System.out.println(minDeleteToMakeItPalindrome("agbcba"));
-      printLongestCommonSubsequence("dabab", "babad");
+      printShortestCommonSuperSubsequence("acbcf", "abcdaf");
 //      System.out.println(shortestCommonSuperSequence("acbcf","abcdaf"));
 //      printLongestCommonSubsequence("acbcf", "abcdaf");
+   }
+
+   // working fine
+   private static void printShortestCommonSuperSubsequence(String str1, String str2) {
+//      printShortestCommonSuperSubsequence("acbcf", "abcdaf");
+      int len1 = str1.length(), len2 = str2.length();
+      int[][] dp = new int[len1 + 1][len2 + 1];
+      for (int i = 0; i <= len1; i++) {
+         for (int j = 0; j <= len2; j++) {
+            if (i == 0 || j == 0) {
+               dp[i][j] = 0;
+            } else {
+               if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+                  dp[i][j] = 1 + dp[i - 1][j - 1];
+               } else {
+                  dp[i][j] = Integer.max(dp[i - 1][j], dp[i][j - 1]);
+               }
+            }
+         }
+      }
+      int i = len1, j = len2;
+      StringBuilder builder = new StringBuilder();
+      while (i > 0 && j > 0) {
+         if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+            builder.append(str1.charAt(i - 1)).append(" ");
+            i -= 1;
+            j -= 1;
+         } else {
+            if (dp[i - 1][j] > dp[i][j - 1]) {
+               builder.append(str1.charAt(i - 1)).append(" ");
+               i -= 1;
+            } else {
+               builder.append(str2.charAt(j - 1)).append(" ");
+               j -= 1;
+            }
+         }
+      }
+      while (i > 0) {
+         builder.append(str1.charAt(i - 1)).append(" ");
+         i -= 1;
+      }
+      while (j > 0) {
+         builder.append(str2.charAt(j - 1)).append(" ");
+         j -= 1;
+      }
+      System.out.println(builder.reverse());
+      System.out.println(len1 + len2 - dp[len1][len2]);
    }
 
    // working fine total agbcba = 6, LCS after reverse abcba = 5 6 - 5 = 1 check largestPalindromeSubsequence(String str1) to understand
