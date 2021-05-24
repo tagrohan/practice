@@ -7,9 +7,34 @@ import java.util.Map;
 public class LCS {
    public static void main(String[] args) {
 //      System.out.println(minDeleteToMakeItPalindrome("agbcba"));
-      System.out.println(sequencePatternMatching("axy", "adxcpy"));
+//      System.out.println(sequencePatternMatching("axy", "adxcpy"));
 //      System.out.println(shortestCommonSuperSequence("acbcf","abcdaf"));
 //      printLongestCommonSubsequence("acbcf", "abcdaf");
+
+//      System.out.println(minDeleteToMakeItPalindrome("agbcba"));
+   }
+
+   // lol : ) no. of insertion is actually equal to no. of deletion so check
+   // private static int minDeleteToMakeItPalindrome(String str1) this method as it is
+   private static int minNoInsertionToMakePalindrome(String str) {
+//      System.out.println(minNoInsertionToMakePalindrome("agbcba")); = agbcbga = 1 insertion or one deletion ong g
+      String str2 = new StringBuilder(str).reverse().toString();
+      int len1 = str.length(), len2 = str2.length();
+      int[][] dp = new int[len1 + 1][len2 + 1];
+      for (int i = 0; i <= len1; i++) {
+         for (int j = 0; j <= len2; j++) {
+            if (i == 0 || j == 0) {
+               dp[i][j] = 0;
+            } else {
+               if (str.charAt(i - 1) == str2.charAt(j - 1)) {
+                  dp[i][j] = 1 + dp[i - 1][j - 1];
+               } else {
+                  dp[i][j] = Integer.max(dp[i - 1][j], dp[i][j - 1]);
+               }
+            }
+         }
+      }
+      return len1 - dp[len1][len2];
    }
 
    //   checking if axy present in adxcpy simple if present then check for length of str1 to LCS
