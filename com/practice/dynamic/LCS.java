@@ -7,9 +7,31 @@ import java.util.Map;
 public class LCS {
    public static void main(String[] args) {
 //      System.out.println(minDeleteToMakeItPalindrome("agbcba"));
-      printShortestCommonSuperSubsequence("acbcf", "abcdaf");
+      System.out.println(longestRepeatingSubsequence("aabebcdd"));
 //      System.out.println(shortestCommonSuperSequence("acbcf","abcdaf"));
 //      printLongestCommonSubsequence("acbcf", "abcdaf");
+   }
+
+   // for aabebcdd = abc abc repeat itself and longest as well
+   // here i != j in code is the one who's testing it watch video no. 30 aditya verma for more depth and notes
+   private static int longestRepeatingSubsequence(String str) {
+//      System.out.println(longestRepeatingSubsequence("aabebcdd"));
+      int len = str.length();
+      int[][] dp = new int[len + 1][len + 1];
+      for (int i = 0; i <= len; i++) {
+         for (int j = 0; j <= len; j++) {
+            if (i == 0 || j == 0) {
+               dp[i][j] = 0;
+            } else {
+               if (str.charAt(i - 1) == str.charAt(j - 1) && i != j) {
+                  dp[i][j] = 1 + dp[i - 1][j - 1];
+               } else {
+                  dp[i][j] = Integer.max(dp[i - 1][j], dp[i][j - 1]);
+               }
+            }
+         }
+      }
+      return dp[len][len];
    }
 
    // working fine
