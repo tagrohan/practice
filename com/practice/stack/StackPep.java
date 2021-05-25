@@ -4,8 +4,60 @@ import java.util.Stack;
 
 public class StackPep {
    public static void main(String[] args) {
-      testin("2 + 6 * 4 / 8 - 3");
-      System.out.println(infixEvaluation("2 + 6 * 4 / 8 - 3"));
+      infixToPreAndPost("a * (b - c) / d + e");
+   }
+
+   // working fine man : ) but it will only work for equations not for numbers as we are testing equation here
+   private static void infixToPreAndPost(String regex) {
+//      infixToPreAndPost("a * (b - c) / d + e");
+      Stack<Character> operator = new Stack<>();
+      Stack<String> prefix = new Stack<>();
+      Stack<String> postfix = new Stack<>();
+      for (int i = 0; i < regex.length(); i++) {
+         char ch = regex.charAt(i);
+         if (ch != ' ') {
+            if (ch >= 'a' && ch <= 'z') {
+               prefix.push(ch + "");
+               postfix.push(ch + "");
+//               System.out.println(prefix);
+//               System.out.println(postfix);
+            } else if (ch == '(') {
+               operator.push(ch);
+            } else if (ch == ')') {
+               while (!operator.isEmpty() && operator.peek() != '(') {
+                  String pre1 = prefix.pop();
+                  String pre2 = prefix.pop();
+                  prefix.push(operator.peek() + pre2 + pre1);
+                  String post1 = postfix.pop();
+                  String post2 = postfix.pop();
+                  postfix.push(post2 + post1 + operator.pop());
+               }
+               operator.pop();
+            } else if (ch == '+' || ch == '-' || ch == '*' || ch == '/') {
+               while (!operator.isEmpty() && priority(operator.peek()) >= priority(ch)) {
+                  String pre1 = prefix.pop();
+                  String pre2 = prefix.pop();
+                  prefix.push(operator.peek() + pre2 + pre1);
+//                  System.out.println(pre2 + pre1);
+                  String post1 = postfix.pop();
+                  String post2 = postfix.pop();
+                  postfix.push(post2 + post1 + operator.pop());
+               }
+               operator.push(ch);
+            }
+         }
+
+      }
+      if (!operator.isEmpty()) {
+         String pre1 = prefix.pop();
+         String pre2 = prefix.pop();
+         prefix.push(operator.peek() + pre2 + pre1);
+         String post1 = postfix.pop();
+         String post2 = postfix.pop();
+         postfix.push(post2 + post1 + operator.pop());
+      }
+      System.out.println(prefix.peek());
+      System.out.println(postfix.peek());
    }
 
    //      2 + 6 * 4 / 8 - 3    it's working fine man : )
@@ -79,84 +131,6 @@ public class StackPep {
             return num1 * num2;
       }
       return num1 / num2;
-   }
-
-
-   public static void testin(String exp) {
-      // code
-//      Stack<Integer> operands = new Stack<>();
-//      Stack<Character> operators = new Stack<>();
-//
-//      for (int i = 0; i < exp.length(); i++) {
-//         char ch = exp.charAt(i);
-//
-//         if (ch == '(') {
-//            operators.push(ch);
-//         } else if (Character.isDigit(ch)) {
-//            operands.push(ch - '0');
-//         } else if (ch == '+' || ch == '-' || ch == '*' || ch == '/') {
-//            while (operators.size() > 0 && operators.peek() != '(' &&
-//                    precedence(ch) <= precedence(operators.peek())) {
-//               int val2 = operands.pop();
-//               int val1 = operands.pop();
-//               char op = operators.pop();
-//
-//               int opval = operation(val1, val2, op);
-//               operands.push(opval);
-//            }
-//
-//            operators.push(ch);
-//         } else if (ch == ')') {
-//            while (operators.size() > 0 && operators.peek() != '(') {
-//               int val2 = operands.pop();
-//               int val1 = operands.pop();
-//               char op = operators.pop();
-//
-//               int opval = operation(val1, val2, op);
-//               operands.push(opval);
-//            }
-//
-//            if (operators.size() > 0) {
-//               operators.pop();
-//            }
-//         }
-//      }
-//
-//      while (operators.size() > 0) {
-//         int val2 = operands.pop();
-//         int val1 = operands.pop();
-//         char op = operators.pop();
-//
-//         int opval = operation(val1, val2, op);
-//         operands.push(opval);
-//      }
-//
-//      int val = operands.pop();
-//      System.out.println(val);
-//   }
-//
-//   public static int precedence(char op) {
-//      if (op == '+') {
-//         return 1;
-//      } else if (op == '-') {
-//         return 1;
-//      } else if (op == '*') {
-//         return 2;
-//      } else {
-//         return 2;
-//      }
-//   }
-//
-//   public static int operation(int val1, int val2, char op) {
-//      if (op == '+') {
-//         return val1 + val2;
-//      } else if (op == '-') {
-//         return val1 - val2;
-//      } else if (op == '*') {
-//         return val1 * val2;
-//      } else {
-//         return val1 / val2;
-//      }
    }
 
 
