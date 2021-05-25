@@ -8,6 +8,80 @@ public class StackPep {
       System.out.println(infixEvaluation("2 + 6 * 4 / 8 - 3"));
    }
 
+   //      2 + 6 * 4 / 8 - 3    it's working fine man : )
+   private static double infixEvaluation(String regex) {
+//      System.out.println(infixEvaluation("2 + 6 * 4 / 8 - 3")); = 2
+//      System.out.println(infixEvaluation("(2 + 6 * 4) / 8 - 3")); = 0
+      Stack<Integer> operands = new Stack<>();
+      Stack<Character> operator = new Stack<>();
+
+      for (int i = 0; i < regex.length(); i++) {
+         char ch = regex.charAt(i);
+         if (ch != ' ') {
+            if (ch == '(') {
+               operator.push(ch);
+            } else if (Character.isDigit(ch)) {
+               operands.push(ch - '0');
+            } else if (ch == ')') {
+               while (!operator.isEmpty() && operator.peek() != '(') {
+                  int num2 = operands.pop();
+                  int num1 = operands.pop();
+                  operands.push(operation(num1, num2, operator.pop()));
+               }
+               operator.pop();
+
+            } else if (ch == '+' || ch == '-' || ch == '*' || ch == '/') {
+               while (!operator.isEmpty() && operator.peek() != '(' && priority(operator.peek()) >= priority(ch)) {
+                  int num2 = operands.pop();
+                  int num1 = operands.pop();
+                  operands.push(operation(num1, num2, operator.pop()));
+               }
+               operator.push(ch);
+            }
+         }
+      }
+      while (!operator.isEmpty()) {
+         int num2 = operands.pop();
+         int num1 = operands.pop();
+         operands.push(operation(num1, num2, operator.pop()));
+      }
+//      for (int var : operands) {
+//         System.out.print(var + " ");
+//      }
+//      System.out.println();
+      return operands.peek();
+   }
+
+   private static int priority(char ch) {
+      switch (ch) {
+         case '+':
+         case '-':
+            return 1;
+
+         case '*':
+         case '/':
+            return 2;
+
+         case ')':
+            return 3;
+      }
+      return -1;
+   }
+
+   private static int operation(int num1, int num2, char operation) {
+      switch (operation) {
+         case '+':
+            return num1 + num2;
+         case '-':
+            return num1 - num2;
+
+         case '*':
+            return num1 * num2;
+      }
+      return num1 / num2;
+   }
+
+
    public static void testin(String exp) {
       // code
 //      Stack<Integer> operands = new Stack<>();
@@ -85,79 +159,6 @@ public class StackPep {
 //      }
    }
 
-
-   //      2 + 6 * 4 / 8 - 3    isn't working fine
-   private static double infixEvaluation(String regex) {
-      Stack<Integer> oprnds = new Stack<>();
-      Stack<Character> oper = new Stack<>();
-
-      for (int i = 0; i < regex.length(); i++) {
-         char ch = regex.charAt(i);
-         if (ch != ' ') {
-            if (ch == '(') {
-               oper.push(ch);
-            } else if (Character.isDigit(ch)) {
-               oprnds.push(ch - '0');
-            } else if (ch == ')') {
-               while (!oper.isEmpty() && oper.peek() != '(') {
-                  int num2 = oprnds.pop();
-                  int num1 = oprnds.pop();
-                  oprnds.push(operation(num1, num2, oper.peek()));
-               }
-               if (!oper.isEmpty()) {
-                  oper.pop();
-               }
-
-            } else if (ch == '+' || ch == '-' || ch == '*' || ch == '/') {
-               while (!oper.isEmpty() && oper.peek() != '(' && priority(oper.peek()) >= priority(ch)) {
-                  int num2 = oprnds.pop();
-                  int num1 = oprnds.pop();
-                  oprnds.push(operation(num1, num2, oper.peek()));
-               }
-               oper.push(ch);
-            }
-         }
-      }
-      while (!oper.isEmpty()) {
-         int num2 = oprnds.pop();
-         int num1 = oprnds.pop();
-         oprnds.push(operation(num1, num2, oper.peek()));
-      }
-      for (int var : oprnds) {
-         System.out.print(var + " ");
-      }
-      System.out.println();
-      return oprnds.peek();
-   }
-
-   private static int priority(char ch) {
-      switch (ch) {
-         case '+':
-         case '-':
-            return 1;
-
-         case '*':
-         case '/':
-            return 2;
-
-         case ')':
-            return 3;
-      }
-      return -1;
-   }
-
-   private static int operation(int num1, int num2, char operation) {
-      switch (operation) {
-         case '+':
-            return num1 + num2;
-         case '-':
-            return num1 - num2;
-
-         case '*':
-            return num1 * num2;
-      }
-      return num1 / num2;
-   }
 
    // working fine : ) here we have to find the greatest in sub array of len k here it's 4 ex
 //   in question 2 9 3 8 = 9 then in 3 8 1 7 = 8 ...
