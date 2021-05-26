@@ -1,17 +1,73 @@
 package com.practice.stack;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 public class StackPep {
 
    public static void main(String[] args) {
 
-      System.out.println(celebrity(
-              new int[][]{{0, 0, 0, 0},
-                      {1, 0, 1, 1},
-                      {1, 1, 0, 1},
-                      {1, 1, 1, 0}}));
+      mergeOverlappingIntervals(new int[][]{{22, 28}, {1, 8}, {25, 27}, {14, 19}, {27, 30}, {5, 12}});
 
+
+   }
+
+   // we are merging time intervals here means 1,8 and 5,12 => 1,12
+   // TODO this is good one as it's uses concept of pairs
+   private static void mergeOverlappingIntervals(int[][] arr) {
+//      mergeOverlappingIntervals(new int[][]{{22, 28}, {1, 8}, {25, 27}, {14, 19}, {27, 30}, {5, 12}});
+      Pair[] pairs = new Pair[arr.length];
+      for (int i = 0; i < arr.length; i++) {
+         pairs[i] = new Pair(arr[i][0], arr[i][1]);
+      }
+      Arrays.sort(pairs);
+//      for (Pair pair : pairs) {
+//         System.out.println(pair.st + " " + pair.et);
+//      }
+      Stack<Pair> stack = new Stack<>();
+      for (int i = 0; i < arr.length; i++) {
+         Pair temp = pairs[i];
+         if (stack.isEmpty()) {
+            stack.push(pairs[i]);
+         } else {
+            if (stack.peek().et >= temp.st) {
+               Pair pair = stack.pop();
+               if (pair.et < temp.et) {
+                  pair.et = temp.et;
+               }
+               stack.push(pair);
+            } else {
+               stack.push(temp);
+            }
+         }
+      }
+      for (Pair pa :
+              stack) {
+         System.out.println(pa.st + " " + pa.et);
+      }
+//      int[][] res = new int[stack.size()][2];
+//      for (int i = res.length - 1; i >= 0; i--) {
+//         res[i][0] = stack.peek().st;
+//         res[i][1] = stack.pop().et;
+//      }
+//      for (int[] var : res) {
+//         System.out.println(Arrays.toString(var));
+//      }
+   }
+
+   // Pair class for mergeOverlapping question bcz we need Pair there
+   static class Pair implements Comparable<Pair> {
+      int st, et;
+
+      Pair(int st, int et) {
+         this.st = st;
+         this.et = et;
+      }
+
+      @Override
+      public int compareTo(Pair pr) {
+         return this.st != pr.st ? this.st - pr.st : this.et - pr.et;
+      }
    }
 
    // celerity is the one who knows no body but every one knows her, so in question row 0 is celebrity as she knows no one
