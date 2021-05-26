@@ -3,8 +3,108 @@ package com.practice.stack;
 import java.util.Stack;
 
 public class StackPep {
+
    public static void main(String[] args) {
-      infixToPreAndPost("a * (b - c) / d + e");
+
+      System.out.println(celebrity(
+              new int[][]{{0, 0, 0, 0},
+                      {1, 0, 1, 1},
+                      {1, 1, 0, 1},
+                      {1, 1, 1, 0}}));
+
+   }
+
+   // celerity is the one who knows no body but every one knows her, so in question row 0 is celebrity as she knows no one
+   private static boolean celebrity(int[][] arr) {
+
+//      System.out.println(celebrity(
+//              new int[][]{{0, 0, 0, 0},
+//                      {1, 0, 1, 1},
+//                      {1, 1, 0, 1},
+//                      {1, 1, 1, 0}}));
+
+      Stack<Integer> stack = new Stack<>();
+      for (int i = 0; i < arr.length; i++) {
+         stack.push(i);
+      }
+      while (stack.size() != 1) {
+         int var1 = stack.pop();
+         int var2 = stack.pop();
+         if (arr[var1][var2] == 1) {
+            stack.push(var2);
+         } else {
+            stack.push(var1);
+         }
+      }
+      for (int i = 0; i < arr.length; i++) {
+         if (arr[stack.peek()][i] != 0) {
+            return false;
+         }
+      }
+      return true;
+   }
+
+   // same as postfixEval with reverse loop and reverse push in stacks, give it a shot
+   private static void prefixEvalAndConversion(String regex) {
+//      prefixEvalAndConversion("-+2/*6483");
+      Stack<String> postfix = new Stack<>();
+      Stack<String> infix = new Stack<>();
+      Stack<Integer> eval = new Stack<>();
+
+      for (int i = regex.length() - 1; i >= 0; i--) {
+         char ch = regex.charAt(i);
+         if (Character.isDigit(ch)) {
+            postfix.push(ch + "");
+            infix.push(ch + "");
+            eval.push(ch - '0');
+         } else {
+            int num2 = eval.pop();
+            int num1 = eval.pop();
+            eval.push(operation(num2, num1, ch));
+            String str1 = postfix.pop();
+            String str2 = postfix.pop();
+            postfix.push(str1 + str2 + ch);
+            str1 = infix.pop();
+            str2 = infix.pop();
+            infix.push(str1 + ch + str2);
+         }
+      }
+      System.out.println(postfix.peek());
+      System.out.println(infix.peek());
+      System.out.println(eval.peek());
+
+   }
+
+
+   // postfix to infix prefix and solve as well
+   private static void postfixEvalAndConversion(String regex) {
+//      postfixEvalAndConversion("264*8/+3-");
+      Stack<String> prefix = new Stack<>();
+      Stack<String> infix = new Stack<>();
+      Stack<Integer> eval = new Stack<>();
+
+      for (int i = 0; i < regex.length(); i++) {
+         char ch = regex.charAt(i);
+         if (Character.isDigit(ch)) {
+            prefix.push(ch + "");
+            infix.push(ch + "");
+            eval.push(ch - '0');
+         } else {
+            int num2 = eval.pop();
+            int num1 = eval.pop();
+            eval.push(operation(num1, num2, ch));
+            String str1 = prefix.pop();
+            String str2 = prefix.pop();
+            prefix.push(ch + str2 + str1);
+            str1 = infix.pop();
+            str2 = infix.pop();
+            infix.push(str2 + ch + str1);
+         }
+      }
+      System.out.println(prefix.peek());
+      System.out.println(infix.peek());
+      System.out.println(eval.peek());
+
    }
 
    // working fine man : ) but it will only work for equations not for numbers as we are testing equation here
