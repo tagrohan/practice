@@ -7,8 +7,31 @@ public class StackPep {
 
    public static void main(String[] args) {
 
-      mergeOverlappingIntervals(new int[][]{{22, 28}, {1, 8}, {25, 27}, {14, 19}, {27, 30}, {5, 12}});
+      smallestNumberFollowingPattern("ddddiiii");
+   }
 
+   // working fine if d then decrease and i increase to which we have to make smallest numer
+   private static void smallestNumberFollowingPattern(String str) {
+//      smallestNumberFollowingPattern("ddddiiii");
+      Stack<Integer> stack = new Stack<>();
+      int temp = 0, last = 0;
+      for (int i = 0; i < str.length(); i++) {
+         char ch = str.charAt(i);
+         if (ch == 'd') {
+            temp += 1;
+         } else {
+            for (int j = temp + 1; j >= last + 1; j--) {
+               stack.push(j);
+            }
+            temp = last = temp + 1;
+         }
+      }
+      if (temp > last) {
+         for (int j = temp + 1; j >= last + 1; j--) {
+            stack.push(j);
+         }
+      }
+      System.out.println(stack);
 
    }
 
