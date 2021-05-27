@@ -6,7 +6,6 @@ public class ListMain {
       MyLinkedList list = new MyLinkedList();
 
 
-
 //      System.out.println(list.remove(0));
 //      list.print();
 //      System.out.println();
@@ -23,13 +22,21 @@ public class ListMain {
 
 
       list.addLast(1);
-      list.addLast(2);
       list.addLast(3);
-      list.addLast(4);
       list.addLast(5);
+      list.addLast(7);
+      list.addLast(9);
 
       list.print();
 
+      MyLinkedList li2 = new MyLinkedList();
+      li2.addLast(2);
+      li2.addLast(4);
+      li2.addLast(6);
+      li2.addLast(8);
+      li2.addLast(10);
+
+      list.mergeTwoSortedList(list, li2);
 
 
 //      System.out.println(list.midOfLinkedList());

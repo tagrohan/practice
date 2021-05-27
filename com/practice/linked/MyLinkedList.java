@@ -14,6 +14,39 @@ public class MyLinkedList {
       }
    }
 
+   public void mergeTwoSortedList(MyLinkedList list1, MyLinkedList list2) {
+      if (list1.size() == 0 && list2.size == 0) {
+         System.out.println("both list empty");
+         return;
+      }
+      Node head1 = list1.head;
+      Node head2 = list2.head;
+
+      MyLinkedList list = new MyLinkedList();
+
+      while (head1 != null && head2 != null) {
+         if (head1.data > head2.data) {
+            list.addLast(head2.data);
+            head2 = head2.next;
+         } else {
+            list.addLast(head1.data);
+            head1 = head1.next;
+         }
+      }
+
+      while (head1 != null) {
+         list.addLast(head1.data);
+         head1 = head1.next;
+      }
+      while (head2 != null) {
+         list.addLast(head2.data);
+         head2 = head2.next;
+      }
+
+      list.print();
+
+   }
+
    public int midOfLinkedList() {
       if (size == 0) {
          System.out.println("list is empty");
