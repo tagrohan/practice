@@ -15,7 +15,7 @@ public class ListMain {
 //      System.out.println(list.remove(0));
 //      list.print();
       System.out.println();
-      list.reverse();
+      list.reversePointer();
       list.print();
 
 //      list.print();

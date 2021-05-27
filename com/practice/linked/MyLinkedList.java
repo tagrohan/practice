@@ -15,6 +15,33 @@ public class MyLinkedList {
    }
 
 
+   public void reversePointer() {
+      if (size == 0) {
+         System.out.println("empty list man");
+      } else if (size == 2) {
+         Node temp = head;
+         head = tail;
+         tail = temp;
+         tail.next = null;
+      } else {
+         Node current = head;
+         Node prev = null;
+         while (current != null) {
+            Node temp = current.next;
+            current.next = prev;
+            prev = current;
+
+            current = temp;
+         }
+
+         Node temp = head;
+         head = tail;
+         tail = temp;
+
+      }
+   }
+
+
    public void reverse() {
       if (size == 0) {
          System.out.println("empty list");

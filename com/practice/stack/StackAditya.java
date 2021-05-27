@@ -6,7 +6,7 @@ import java.util.Stack;
 public class StackAditya {
    public static void main(String[] args) {
       // stack questions by Aditya verma
-      System.out.println(rainWaterTapping(new int[]{3, 0, 0, 2, 0, 4}));
+//      System.out.println(rainWaterTapping(new int[]{3, 0, 0, 2, 0, 4}));
    }
 
    // very famous question watch video or in internet to search for it
