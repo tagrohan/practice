@@ -14,6 +14,24 @@ public class MyLinkedList {
       }
    }
 
+   public int midOfLinkedList() {
+      if (size == 0) {
+         System.out.println("list is empty");
+         return -1;
+      }
+
+      Node first = head;
+      Node second = head;
+
+      while (first.next != null && first.next.next != null) {
+         first = first.next.next;
+         second = second.next;
+      }
+
+      return second.data;
+   }
+
+
    public int getKthNodeFromLast(int k) {
       int val = -1;
       if (size == 0 || k >= size) {

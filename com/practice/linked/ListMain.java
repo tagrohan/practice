@@ -26,11 +26,16 @@ public class ListMain {
       list.addLast(2);
       list.addLast(3);
       list.addLast(4);
+      list.addLast(5);
 
       list.print();
 
 
-      System.out.println(list.getKthNodeFromLast(3));
+
+//      System.out.println(list.midOfLinkedList());
+
+
+//      System.out.println(list.getKthNodeFromLast(3));
 
    }
 
