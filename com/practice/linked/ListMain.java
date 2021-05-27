@@ -1,9 +1,5 @@
 package com.practice.linked;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 public class ListMain {
    public static void main(String[] args) {
 
@@ -14,9 +10,21 @@ public class ListMain {
       list.addLast(3);
       list.addLast(4);
 
-      System.out.println(list.size);
       list.print();
 
+//      System.out.println(list.remove(0));
+//      list.print();
+      System.out.println();
+      list.reverse();
+      list.print();
+
+//      list.print();
+//      System.out.println(list.size());
+//
+//      System.out.println(list.getFirst());
+//      System.out.println(list.getLast());
+//
+//      list.addFirst(23);
 
 
    }
