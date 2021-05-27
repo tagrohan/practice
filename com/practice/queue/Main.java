@@ -30,7 +30,7 @@ public class Main {
       queue.add(2);
       queue.add(3);
       queue.add(4);
-
+      queue.add(8);
       queue.print();
       System.out.println(queue.size());
 //      System.out.println(queue.size());

@@ -1,5 +1,7 @@
 package com.practice.queue;
 
+import java.util.Arrays;
+
 public class CustomQueue {
    private int[] data;
    private int size;
@@ -13,7 +15,8 @@ public class CustomQueue {
 
    public int add(int val) {
       if (size == data.length) {
-         System.out.println("overflow");
+         data = Arrays.copyOf(data, data.length * 2);
+         start = 0;
          return -1;
       } else {
          int rear = (start + size) % data.length;
