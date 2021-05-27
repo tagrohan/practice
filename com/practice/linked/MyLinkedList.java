@@ -14,6 +14,33 @@ public class MyLinkedList {
       }
    }
 
+   // working fine
+   public void oddAndEven(MyLinkedList list) {
+      MyLinkedList odd = new MyLinkedList();
+      MyLinkedList even = new MyLinkedList();
+
+      Node temp = list.head;
+
+      while (temp != null) {
+         if (temp.data % 2 == 0) {
+            even.addLast(temp.data);
+         } else {
+            odd.addLast(temp.data);
+         }
+         temp = temp.next;
+      }
+
+      list.head = odd.head;
+      odd.tail.next = even.head;
+      list.tail = even.tail;
+
+      Node t = list.head;
+      while (list.head != null) {
+         System.out.print(list.head.data + " ");
+         list.head = list.head.next;
+      }
+   }
+
    public void removeDuplicate(MyLinkedList list) {
       MyLinkedList res = new MyLinkedList();
 
