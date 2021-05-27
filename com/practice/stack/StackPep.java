@@ -7,7 +7,12 @@ public class StackPep {
 
    public static void main(String[] args) {
 
-      smallestNumberFollowingPattern("ddddiiii");
+
+   }
+
+   private static void countSmallerToTheRight(int[] arr) {
+//      countSmallerToTheRight(new int[]{12, 1, 2, 3, 0, 11, 4});
+      // TODO some BST question asked in myntra i'll do it later , P.s = GFG
    }
 
    // working fine if d then decrease and i increase to which we have to make smallest numer

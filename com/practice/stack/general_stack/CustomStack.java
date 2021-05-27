@@ -1,5 +1,7 @@
 package com.practice.stack.general_stack;
 
+import java.util.Arrays;
+
 // implementing custom stack
 public class CustomStack {
    private int[] data;
@@ -12,13 +14,10 @@ public class CustomStack {
 
    public int push(int val) {
       if (pointer == data.length - 1) {
-         System.out.println("stack overflow");
-         return -1;
-      } else {
-         pointer++;
-         data[pointer] = val;
+         data = Arrays.copyOf(data, data.length + 5);
       }
-      return data[pointer];
+      pointer++;
+      return data[pointer] = val;
    }
 
    public int pop() {
