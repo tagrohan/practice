@@ -14,6 +14,20 @@ public class MyLinkedList {
       }
    }
 
+   public void removeDuplicate(MyLinkedList list) {
+      MyLinkedList res = new MyLinkedList();
+
+      res.addLast(list.head.data);
+
+      while (list.head != null) {
+         if (list.head.data != res.getLast()) {
+            res.addLast(list.head.data);
+         }
+         list.head = list.head.next;
+      }
+      res.print();
+   }
+
    public MyLinkedList mergeSortAList(Node head, Node tail) {
       if (head == tail) {
          MyLinkedList li = new MyLinkedList();

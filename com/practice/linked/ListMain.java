@@ -22,16 +22,20 @@ public class ListMain {
 
 
       list.addLast(1);
-      list.addLast(3);
-      list.addLast(10);
+      list.addLast(1);
+      list.addLast(1);
       list.addLast(2);
-      list.addLast(4);
+      list.addLast(2);
+      list.addLast(3);
 
       list.print();
 
-      MyLinkedList ll = list.mergeSortAList(list.head, list.tail);
+      list.removeDuplicate(list);
 
-      ll.print();
+
+//      MyLinkedList ll = list.mergeSortAList(list.head, list.tail);
+//
+//      ll.print();
 //
 //      MyLinkedList li2 = new MyLinkedList();
 //      li2.addLast(2);
