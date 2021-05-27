@@ -23,20 +23,24 @@ public class ListMain {
 
       list.addLast(1);
       list.addLast(3);
-      list.addLast(5);
-      list.addLast(7);
-      list.addLast(9);
+      list.addLast(10);
+      list.addLast(2);
+      list.addLast(4);
 
       list.print();
 
-      MyLinkedList li2 = new MyLinkedList();
-      li2.addLast(2);
-      li2.addLast(4);
-      li2.addLast(6);
-      li2.addLast(8);
-      li2.addLast(10);
+      MyLinkedList ll = list.mergeSortAList(list.head, list.tail);
 
-      list.mergeTwoSortedList(list, li2);
+      ll.print();
+//
+//      MyLinkedList li2 = new MyLinkedList();
+//      li2.addLast(2);
+//      li2.addLast(4);
+//      li2.addLast(6);
+//      li2.addLast(8);
+//      li2.addLast(10);
+//
+//      list.mergeTwoSortedList(list, li2);
 
 
 //      System.out.println(list.midOfLinkedList());
