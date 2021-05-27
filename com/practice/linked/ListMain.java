@@ -5,18 +5,13 @@ public class ListMain {
 
       MyLinkedList list = new MyLinkedList();
 
-      list.addLast(1);
-      list.addLast(2);
-      list.addLast(3);
-      list.addLast(4);
 
-      list.print();
 
 //      System.out.println(list.remove(0));
 //      list.print();
-      System.out.println();
-      list.reversePointer();
-      list.print();
+//      System.out.println();
+//      list.reversePointer();
+//      list.print();
 
 //      list.print();
 //      System.out.println(list.size());
@@ -26,6 +21,16 @@ public class ListMain {
 //
 //      list.addFirst(23);
 
+
+      list.addLast(1);
+      list.addLast(2);
+      list.addLast(3);
+      list.addLast(4);
+
+      list.print();
+
+
+      System.out.println(list.getKthNodeFromLast(3));
 
    }
 

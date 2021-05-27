@@ -14,6 +14,23 @@ public class MyLinkedList {
       }
    }
 
+   public int getKthNodeFromLast(int k) {
+      int val = -1;
+      if (size == 0 || k >= size) {
+         return -1;
+      }
+      Node first = head;
+      Node second = head;
+
+      for (int i = 1; first.next != null; i++) {
+         if (i >= k) {
+            second = second.next;
+         }
+         first = first.next;
+      }
+      return second.data;
+   }
+
 
    public void reversePointer() {
       if (size == 0) {
