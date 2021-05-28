@@ -1,8 +1,6 @@
 package com.practice.trees.generic_tree;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class GenericMain {
    private static Node root;
@@ -23,13 +21,47 @@ public class GenericMain {
       createTree(arr);
 //      printTree(root);
 
-      System.out.println();
-      System.out.println("No. of Nodes -> " + size(root));
-      System.out.println();
-      System.out.println("max node -> " + max(root));
-      System.out.println();
-      System.out.println("height->" + heightOf(root));
-      System.out.println("height->" + heightOf(new Node(12)));
+//      System.out.println();
+//      System.out.println("No. of Nodes -> " + size(root));
+//      System.out.println();
+//      System.out.println("max node -> " + max(root));
+//      System.out.println();
+//      System.out.println("height->" + heightOf(root));
+//      System.out.println("height->" + heightOf(new Node(12)));
+
+//      prePostTraversal(root);
+      levelTraversal(root);
+   }
+
+
+
+   // using queue here
+   private static void levelTraversal(Node root) {
+      Queue<Node> queue = new ArrayDeque<>();
+      queue.add(root);
+      while (!queue.isEmpty()) {
+         Node temp = queue.remove();
+         if (temp.children.size() != 0) {
+            queue.addAll(temp.children);
+//            for (Node node : temp.children) {
+//               queue.add(node);
+//            }
+
+         }
+         System.out.print(temp.data + " ");
+      }
+
+   }
+
+   // working fine it's just to teach pre post traversal
+   private static void prePostTraversal(Node root) {
+      System.out.println("pre -> " + root.data);
+      for (Node node : root.children) {
+         System.out.println("pre Edge-> " + root.data + " - " + node.data);
+         prePostTraversal(node);
+         System.out.println("post Edge-> " + root.data + " - " + node.data);
+      }
+      System.out.println("post -> " + root.data);
    }
 
 
