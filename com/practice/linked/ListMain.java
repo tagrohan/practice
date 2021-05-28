@@ -4,7 +4,20 @@ public class ListMain {
    public static void main(String[] args) {
 
       MyLinkedList list = new MyLinkedList();
+      MyLinkedList list2 = new MyLinkedList();
 
+
+//      list.addLast(1);
+//      list.addLast(2);
+//      list.addLast(3);
+//
+//      list2.addFirst(1);
+//      list2.addFirst(2);
+//      list2.addFirst(3);
+//
+//      list.print();
+//      System.out.println();
+//      list2.print();
 
 //      System.out.println(list.remove(0));
 //      list.print();
@@ -25,7 +38,7 @@ public class ListMain {
       list.addLast(9);
       list.addLast(9);
 
-      MyLinkedList list2 = new MyLinkedList();
+
       list2.addLast(1);
       list2.addLast(1);
       list2.addLast(1);
