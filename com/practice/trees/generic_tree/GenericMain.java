@@ -21,11 +21,48 @@ public class GenericMain {
       int[] arr = new int[]{10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120,
               -1, -1, 90, -1, -1, 40, 100, -1, -1, -1};
       createTree(arr);
-      printTree(root);
+//      printTree(root);
+
+      System.out.println();
+      System.out.println("No. of Nodes -> " + size(root));
+      System.out.println();
+      System.out.println("max node -> " + max(root));
+      System.out.println();
+      System.out.println("height->" + heightOf(root));
+      System.out.println("height->" + heightOf(new Node(12)));
+   }
+
+
+   // height here is depth of the deepest node means level length
+   private static int heightOf(Node root) {
+      int height = -1;
+      for (Node node : root.children) {
+         height = Integer.max(height, heightOf(node)); // we need max bcz we have to handle base condition when only one root node is there
+      }
+      return height + 1;
+   }
+
+
+   // working fine
+   private static int max(Node root) {
+      int max = 0;
+      for (Node node : root.children) {
+         max = Integer.max(max, max(node));
+      }
+      return Integer.max(root.data, max);
+   }
+
+   // tells how many nodes in the tree
+   private static int size(Node root) {
+      int cSize = 0;
+      for (Node node : root.children) {
+         cSize += size(node);
+      }
+      return 1 + cSize;
    }
 
    //working fine
-   public static void printTree(Node root) {
+   private static void printTree(Node root) {
       System.out.print(root.data + "-> ");
       for (Node node : root.children) {
          System.out.print(node.data + " ");
@@ -37,7 +74,7 @@ public class GenericMain {
    }
 
    // working fine
-   public static void createTree(int[] arr) {
+   private static void createTree(int[] arr) {
 //      int[] arr = new int[]{10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120,
 //              -1,-1, 90, -1,-1, 40, 100, -1, -1, -1};
       Stack<Node> stack = new Stack<>();
