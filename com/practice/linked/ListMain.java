@@ -26,12 +26,18 @@ public class ListMain {
       list.addLast(3);
       list.addLast(4);
       list.addLast(5);
-      list.addLast(6);
+//      list.addLast(6);
+//      list.addLast(7);
+//      list.addLast(8);
 
-      list.print();
+//      list.print();
 
-      list.oddAndEven(list);
+      list.insertionPoint();
 
+//      list.foldLinkedList();
+
+
+//      list.oddAndEven(list);
 
 
 //      MyLinkedList ll = list.mergeSortAList(list.head, list.tail);

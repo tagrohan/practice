@@ -14,6 +14,174 @@ public class MyLinkedList {
       }
    }
 
+   public void join(MyLinkedList l1, int idx) {
+      Node temp = l1.head;
+      for (int i = 0; i < idx; i++) {
+         temp = temp.next;
+      }
+      this.tail.next = temp;
+      this.size += idx - 1;
+   }
+
+
+   public void insertionPoint() {
+      MyLinkedList l1 = new MyLinkedList();
+      MyLinkedList l2 = new MyLinkedList();
+      for (int i = 0; i < 7; i++) {
+         l1.addLast(i);
+      }
+      for (int i = 2; i < 4; i++) {
+         l2.addLast(i);
+      }
+      l2.join(l1, 4);
+      System.out.println(l1.size);
+      System.out.println(l2.size);
+      insertionPoint(l1, l2);
+   }
+
+   // TODO i have write max code but still problem so do it after wake up
+   public void insertionPoint(MyLinkedList list1, MyLinkedList list2) {
+      int diff = Math.abs(list1.size - list2.size);
+
+      if (list1.size > list2.size) {
+         for (int i = 0; i < diff; i++) {
+            list1.head = head.next;
+         }
+      } else {
+         for (int i = 0; i < diff; i++) {
+            list2.head = head.next;
+         }
+      }
+
+      while (list1.head != list2.head) {
+         list1.head = list1.head.next;
+         list2.head = list2.head.next;
+      }
+      System.out.println(list1.head.data);
+   }
+
+   // working fine give them a look in 50/50
+   public void foldLinkedList() {
+      plef = this.head;
+      foldLinkedListHelper(head, 0);
+      this.print();
+   }
+
+   private void foldLinkedListHelper(Node node, int floor) {
+      if (node == null) {
+         return;
+      }
+
+      foldLinkedListHelper(node.next, floor + 1);
+
+      if (floor > this.size / 2) {
+         Node temp = plef.next;
+         plef.next = node;
+         node.next = temp;
+         plef = temp;
+      } else if (floor == this.size / 2) {
+         tail = node;
+         tail.next = null;
+      }
+   }
+
+
+   Node plef;
+
+   public boolean isPalindrome() {
+      plef = head;
+      return palindromeRecursionHelper(head);
+   }
+
+   private boolean palindromeRecursionHelper(Node head) {
+      if (head == null) {
+         return true;
+      }
+
+      boolean cState = palindromeRecursionHelper(head.next);
+      if (cState) {
+         if (head.data == plef.data) {
+            plef = plef.next;
+            return true;
+         } else {
+            return false;
+         }
+      } else {
+         return false;
+      }
+   }
+
+   // REVERSE WORKING FINE
+   public void reverseRecursionPointer(Node head) {
+      reverseRecursionPointerHelper(head);
+      head.next = null;
+      Node temp = head;
+      head = tail;
+      tail = temp;
+
+      this.head = head;
+
+      this.print();
+   }
+
+   private void reverseRecursionPointerHelper(Node head) {
+      if (head == null) {
+         return;
+      }
+      reverseRecursionPointerHelper(head.next);
+      if (head != tail) {
+         head.next.next = head;
+      }
+   }
+
+   // working fine
+   public void printReverseRecursion(Node head) {
+      if (head == null) {
+         return;
+      }
+      printReverseRecursion(head.next);
+      System.out.print(head.data + " ");
+   }
+
+   // TODO not working fine
+   // k is given ex 3 and using this as a LL here
+   public void kReverse(int k) {
+      if (k <= 0) {
+         System.out.println("k can't be zero or negative");
+         return;
+      }
+      MyLinkedList prev = null;
+      while (this.size > 0) {
+         MyLinkedList cur = new MyLinkedList();
+         if (this.size >= k) {
+            for (int i = 0; i < k; i++) {
+               int val = this.getFirst();
+               this.removeFirst();
+               cur.addFirst(val);
+            }
+         } else {
+            int cSize = this.size;
+            for (int i = 0; i < cSize; i++) {
+               int val = this.getFirst();
+               this.removeFirst();
+               cur.addLast(val);
+            }
+         }
+         if (prev == null) {
+            prev = cur;
+         } else {
+            prev.tail.next = cur.head;
+            prev.tail = cur.tail;
+            prev.size += cur.size;
+         }
+      }
+      this.head = prev.head;
+      this.tail = prev.tail;
+      this.size = prev.size;
+
+      this.print();
+   }
+
    // working fine
    public void oddAndEven(MyLinkedList list) {
       MyLinkedList odd = new MyLinkedList();
@@ -312,8 +480,13 @@ public class MyLinkedList {
 
    public void addFirst(int val) {
       Node node = new Node(val);
-      node.next = head;
-      head = node;
+      if (size == 0) {
+         head = tail = node;
+      } else {
+         node.next = head.next;
+         head.next = node;
+      }
+      size++;
    }
 
    public void addLast(int val) {
@@ -343,7 +516,7 @@ public class MyLinkedList {
    }
 
    public void print() {
-      Node temp = head;
+      Node temp = this.head;
       System.out.print("[");
       while (temp != null) {
          System.out.print(temp.data + " ");
