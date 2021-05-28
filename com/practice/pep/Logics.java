@@ -8,7 +8,35 @@ public class Logics {
 
    public static void main(String[] args) {
 
-      nextGreaterElement(new int[]{13, 7, 6, 12});
+//      nextGreaterElement(new int[]{13, 7, 6, 12});
+
+      System.out.println(Arrays.toString(addTwoArray(new int[]{9, 9, 9, 9}, new int[]{1, 1, 1, 1})));
+   }
+
+
+   // it's working fine
+   public static int[] addTwoArray(int[] first, int[] second) {
+//      System.out.println(Arrays.toString(addTwoArray(new int[]{9, 9, 9, 9}, new int[]{1, 1, 1, 1})));
+      int i = first.length - 1;
+      int j = second.length - 1;
+      int carry = 0;
+
+      while (i >= 0) {
+         int cVal = first[i] + second[j] + carry;
+         int val = cVal % 10;
+         carry = cVal / 10;
+         first[i] = val;
+         i--;
+         j--;
+      }
+      if (carry != 0) {
+         int[] res = new int[first.length + 1];
+         res[0] = carry;
+         System.arraycopy(first, 0, res, 1, res.length - 1);
+         return res;
+      }
+
+      return first;
    }
 
 // i'll solve it when we are going through stack questions
@@ -28,7 +56,7 @@ public class Logics {
 //   }
 
    // from GFG
-   // O(N) solution using stack is available in GFG give it a look
+   // O(N) solution using stack is available in GFG give it a look (O(n) done using stack)
    private static void nextGreaterElement(int[] arr) {
       for (int i = 0; i < arr.length; i++) {
          int max = -1;
