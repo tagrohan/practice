@@ -14,6 +14,45 @@ public class MyLinkedList {
       }
    }
 
+   //TODO working but now for carry one i'll do it later
+   public int addTwoLinkedList(Node first, Node second, int pFirst, int pSecond, MyLinkedList res) {
+
+      if (first == null && second == null) {
+         return 0;
+      }
+
+      int carry = 0;
+      int data = 0;
+      if (pFirst > pSecond) {
+         carry = addTwoLinkedList(first.next, second, pFirst - 1, pSecond, res);
+         data = carry + first.data;
+      } else if (pSecond > pFirst) {
+         carry = addTwoLinkedList(first, second.next, pFirst, pSecond - 1, res);
+         data = carry + second.data;
+      } else {
+         carry = addTwoLinkedList(first.next, second.next, pFirst - 1, pSecond - 1, res);
+         data = carry + first.data + second.data;
+      }
+      carry = carry / 10;
+      data = data % 10;
+      res.addLast(data);
+      return carry;
+   }
+
+   public MyLinkedList addTwoLinkedList(MyLinkedList list2) {
+      MyLinkedList res = new MyLinkedList();
+//      System.out.println(this.head.data);
+//      System.out.println(list2.head.data);
+//      System.out.println(this.size);
+//      System.out.println(list2.size);
+      int carry = addTwoLinkedList(this.head, list2.head, this.size, list2.size, res);
+      System.out.println(carry);
+      if (carry > 0) {
+         res.addLast(carry);
+      }
+      return res;
+   }
+
    public void join(MyLinkedList l1, int idx) {
       Node temp = l1.head;
       for (int i = 0; i < idx; i++) {
