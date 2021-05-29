@@ -44,8 +44,26 @@ public class GenericMain {
 //      linearize(root);
 //      printTree(root);
 //      System.out.println(find(root, 110));
+//      System.out.println(nodeToRootPath(root, 110));
+      lowestCommonAncestor(root, 70, 120);
+   }
 
-      System.out.println(nodeToRootPath(root, 110));
+   // working fine based on nodeToRootPath
+   private static void lowestCommonAncestor(Node root, int first, int second) {
+      List<Integer> firstPath = nodeToRootPath(root, first);
+      List<Integer> secondPath = nodeToRootPath(root, second);
+      System.out.println(firstPath);
+      System.out.println(secondPath);
+
+      int i = firstPath.size() - 1;
+      int j = secondPath.size() - 1;
+      while (i >= 0 && j >= 0 && firstPath.get(i).equals(secondPath.get(j))) {
+         i -= 1;
+         j -= 1;
+      }
+      i += 1;
+      System.out.println(firstPath.get(i));
+
    }
 
    // working fine man
