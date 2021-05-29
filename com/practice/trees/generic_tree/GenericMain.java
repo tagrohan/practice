@@ -35,7 +35,39 @@ public class GenericMain {
 //      levelOrderLineWise(root);
 //      levelOrderLineWiseTwoQueue(root);
 //      zigzagLevelTraversal(root);
-      mirrorOfTree(root);
+//      mirrorOfTree(root);
+//      removeLeaves(root);
+//      printTree(root);
+      removeLeaves(root);
+      printTree(root);
+   }
+
+   // it's working fine wow
+   private static void removeLeaves(Node root) {
+
+      for (int i = root.children.size() - 1; i >= 0; i--) {
+         Node child = root.children.get(i);
+         if (child.children.size() == 0) {
+            root.children.remove(i);
+         }
+      }
+
+      for (Node node : root.children) {
+         removeLeaves(node);
+      }
+   }
+
+   // this one is only for printing
+   private static void printAfterRemoveLeaves(Node root) {
+      Queue<Node> queue = new ArrayDeque<>();
+      queue.add(root);
+      while (!queue.isEmpty()) {
+         Node node = queue.remove();
+         if (node.children.size() > 0) {
+            System.out.print(node.data + " ");
+            queue.addAll(node.children);
+         }
+      }
    }
 
    // using recursion here
