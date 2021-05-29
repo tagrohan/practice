@@ -17,15 +17,19 @@ public class GenericMain {
 
    public static void main(String[] args) {
       int[] arr = new int[]{10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120,
-              -1, -1, 90, -1, -1, 40, 100, -1, -1, -1};
+              -1, -1, 90, -1, -1, 40, 100, -1, -1, -1}; // main tree
       int[] arr2 = new int[]{10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120,
-              -1, -1, -1, 40, 100, -1, -1, -1};
+              -1, -1, -1, 40, 100, -1, -1, -1};// tree with diff leaf size
       int[] arr3 = new int[]{10, 20, 50, -1, 60, -1, -1, 30, 70, 110, -1, 120, -1, -1, 80, -1, 90,
-              -1, -1, 40, 100, -1, -1, -1};
-      int[] arr4 = new int[]{10, 40, 100, -1, -1, 30, 90, -1, 80, -1, 70, 120, -1, 110, -1, -1, -1, 20, 60, -1, 50, -1, -1, -1};
+              -1, -1, 40, 100, -1, -1, -1}; // tree with one sided heavy leaf
+      int[] arr4 = new int[]{10, 40, 100, -1, -1, 30, 90, -1, 80, -1, 70, 120, -1, 110, -1, -1, -1,
+              20, 60, -1, 50, -1, -1, -1}; // mirror of above tree (arr4)
+      int[] arr5 = new int[]{10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120,
+              -1, -1, 90, -1, -1, 40, 100, -1, 105, -1, - 1, -1}; // symmetric tree
 
-      Node root1 = createTree(arr3); //used them to check for mirror
-      Node root2 = createTree(arr4); // root1 and root2 are actually mirror
+//      Node root1 = createTree(arr3); //used them to check for mirror
+//      Node root2 = createTree(arr4); // root1 and root2 are actually mirror
+      createTree(arr);
 //      printTree(root1);
 //      System.out.println("---------------------------------");
 //      printTree(root2);
@@ -58,19 +62,25 @@ public class GenericMain {
 //      lowestCommonAncestor(root, 70, 30);
 //      System.out.println(areTreeSimilarRecursive(root1, root1));
 
-      System.out.println(areTreeMirror(root1, root2));
-
+//      System.out.println(areTreeMirror(root1, root2));
+      Node n1 = createTree(arr5);
+      printTree(n1);
+      System.out.println(isTreeSymmetric(n1));
    }
 
-   // wow working fine man
+   // as we know each symmetric tree is also mirror of each other so we are checking here
+   private static boolean isTreeSymmetric(Node root) {
+      return areTreeMirror(root, root);
+   }
+
+   // wow working fine man, it's bug fixes
    private static boolean areTreeMirror(Node root1, Node root2) {
       if (root1.children.size() != root2.children.size()) {
          return false;
       }
 
       for (int i = 0; i < root1.children.size(); i++) {
-         Collections.reverse(root2.children);
-         boolean isMirror = areTreeMirror(root1.children.get(i), root2.children.get(i));
+         boolean isMirror = areTreeMirror(root1.children.get(i), root2.children.get(root2.children.size() - 1 - i));
          if (!isMirror) {
             return false;
          }
