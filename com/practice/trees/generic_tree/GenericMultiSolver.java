@@ -37,15 +37,40 @@ public class GenericMultiSolver {
 //      Node root2 = createTree(arr4); // root1 and root2 are actually mirror
       createTree(arr);
 //      printTree(root);
-      multiSolver(root, 0);
-      System.out.println(min + " " + max + " " + height + " " + NoOfNodes);
+//      multiSolver(root, 0);
+//      System.out.println(min + " " + max + " " + height + " " + NoOfNodes);
+      predecessorAndSuccessor(root, 10);
+      // make sure for Null pointer exception cases
+      System.out.println("for " + curr.data + "-> pre: " + pre.data + " succ: " + suc.data);
+   }
+
+   private static int state = 0;
+   private static Node pre, suc, curr;
+
+   private static void predecessorAndSuccessor(Node root, int key) {
+      if (state == 0) {
+         if (root.data == key) {
+            state = 1;
+            curr = root;
+         } else {
+            pre = root;
+         }
+      } else if (state == 1) {
+         suc = root;
+         state = 2;
+      }
+
+      for (Node node : root.children) {
+         predecessorAndSuccessor(node, key);
+      }
 
    }
 
+   // here we don't need to call that much and we get max min height, no of nodes here, that's the beauty of this
    private static void multiSolver(Node root, int depth) {
       min = Integer.min(root.data, min);
       max = Integer.max(root.data, max);
-      height = depth;
+      height = Integer.max(height, depth);
       NoOfNodes += 1;
       for (Node node : root.children) {
          multiSolver(node, depth + 1);
