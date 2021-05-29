@@ -32,6 +32,8 @@ public class GenericMultiSolver {
               20, 60, -1, 50, -1, -1, -1}; // mirror of above tree (arr4)
       int[] arr5 = new int[]{10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120,
               -1, -1, 90, -1, -1, 40, 100, -1, 105, -1, -1, -1}; // symmetric tree
+      int[] arr6 = new int[]{10, 20, -50, -1, -60, -1, -1, 30, -70, -1, 80, -110, -1, 120, -1, -1, 90,
+              -1, -1, 40, -100, -1, -1, -1};// used for subset sum
 
 //      Node root1 = createTree(arr3); //used them to check for mirror
 //      Node root2 = createTree(arr4); // root1 and root2 are actually mirror
@@ -39,9 +41,60 @@ public class GenericMultiSolver {
 //      printTree(root);
 //      multiSolver(root, 0);
 //      System.out.println(min + " " + max + " " + height + " " + NoOfNodes);
-      predecessorAndSuccessor(root, 10);
+//      predecessorAndSuccessor(root, 10);
       // make sure for Null pointer exception cases
-      System.out.println("for " + curr.data + "-> pre: " + pre.data + " succ: " + suc.data);
+//      System.out.println("for " + curr.data + "-> pre: " + pre.data + " succ: " + suc.data);
+//      findCeilAndFloor(root, 65);
+//      System.out.println(ceil);
+//      System.out.println(floor);
+//      findKthLargest(root,3);
+//      Node n = createTree(arr6);
+//      maxSubsetTree(n);
+//      System.out.println(nodeValue + " " + subsetMaxValue);
+   }
+
+   // working fine need practice at next 50:50
+   private static int subsetMaxValue = Integer.MIN_VALUE;
+   private static int nodeValue = 0;
+
+   private static int maxSubsetTree(Node root) {
+      int sum = 0;
+      for (Node node : root.children) {
+         sum += maxSubsetTree(node);
+      }
+      sum += root.data;
+      if (sum > subsetMaxValue) {
+         subsetMaxValue = sum;
+         nodeValue = root.data;
+      }
+      return sum;
+   }
+
+   // working fine based on floor check below this method code
+   private static void findKthLargest(Node node, int kth) {
+      int kthMax = Integer.MAX_VALUE;
+      for (int i = 0; i < kth; i++) {
+         findCeilAndFloor(node, kthMax);
+         kthMax = floor;
+         floor = Integer.MIN_VALUE;
+      }
+      System.out.println(kthMax);
+   }
+
+
+   // i have pulled this off
+   private static int ceil = Integer.MAX_VALUE;
+   private static int floor = Integer.MIN_VALUE;
+
+   private static void findCeilAndFloor(Node root, int key) {
+      if (key <= root.data) {
+         ceil = Integer.min(root.data, ceil);
+      } else {
+         floor = Integer.max(root.data, floor);
+      }
+      for (Node node : root.children) {
+         findCeilAndFloor(node, key);
+      }
    }
 
    private static int state = 0;
