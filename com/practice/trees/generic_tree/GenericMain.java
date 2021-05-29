@@ -25,7 +25,7 @@ public class GenericMain {
       int[] arr4 = new int[]{10, 40, 100, -1, -1, 30, 90, -1, 80, -1, 70, 120, -1, 110, -1, -1, -1,
               20, 60, -1, 50, -1, -1, -1}; // mirror of above tree (arr4)
       int[] arr5 = new int[]{10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120,
-              -1, -1, 90, -1, -1, 40, 100, -1, 105, -1, - 1, -1}; // symmetric tree
+              -1, -1, 90, -1, -1, 40, 100, -1, 105, -1, -1, -1}; // symmetric tree
 
 //      Node root1 = createTree(arr3); //used them to check for mirror
 //      Node root2 = createTree(arr4); // root1 and root2 are actually mirror
