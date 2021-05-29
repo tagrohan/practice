@@ -39,8 +39,46 @@ public class GenericMain {
 //      removeLeaves(root);
 //      printTree(root);
 //      removeLeaves(root);
-      linearizeGenericV2(root);
-      printTree(root);
+//      linearizeGenericV2(root);
+//      printTree(root);
+//      linearize(root);
+//      printTree(root);
+      System.out.println(find(root, 110));
+
+   }
+
+//   private static List<Integer> nodeToRootPath(Node root, int key) {
+//
+//   }
+
+   // kind of linearize modified version, give it a look
+   public static void linearize(Node node) {
+      List<Node> child = node.children;
+      for (int j = child.size() - 1; j > 0; j--) {
+         child.get(j - 1).children.add(child.get(j));
+         child.remove(j);
+      }
+      if (child.size() != 0) {
+         linearize(child.get(0));
+      }
+   }
+
+   private static boolean find(Node root, int key) {
+      if (root.data == key) {
+         return true;
+      }
+      System.out.println("called");
+      boolean found = false;
+      for (Node node : root.children) {
+         if (!found) {
+            found = find(node, key);
+         } // another approach (didn't require extra variable found but isTrue is used)
+//         boolean isTrue = find(node,key);
+//         if(isTrue){
+//            return true;
+//         }
+      }
+      return found;
    }
 
    // O(n) time complexity , omg it's working
