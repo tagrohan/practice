@@ -43,13 +43,27 @@ public class GenericMain {
 //      printTree(root);
 //      linearize(root);
 //      printTree(root);
-      System.out.println(find(root, 110));
+//      System.out.println(find(root, 110));
 
+      System.out.println(nodeToRootPath(root, 110));
    }
 
-//   private static List<Integer> nodeToRootPath(Node root, int key) {
-//
-//   }
+   // working fine man
+   private static List<Integer> nodeToRootPath(Node root, int key) {
+      if (root.data == key) {
+         List<Integer> list = new ArrayList<>();
+         list.add(root.data);
+         return list;
+      }
+      for (Node node : root.children) {
+         List<Integer> list = nodeToRootPath(node, key);
+         if (list.size() > 0) {
+            list.add(root.data);
+            return list;
+         }
+      }
+      return List.of();
+   }
 
    // kind of linearize modified version, give it a look
    public static void linearize(Node node) {
