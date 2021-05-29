@@ -34,8 +34,23 @@ public class GenericMain {
 //      preOrderUsingStack(root);
 //      levelOrderLineWise(root);
 //      levelOrderLineWiseTwoQueue(root);
-      zigzagLevelTraversal(root);
+//      zigzagLevelTraversal(root);
+      mirrorOfTree(root);
    }
+
+   // using recursion here
+   private static void mirrorOfTree(Node root) {
+      System.out.print(root.data + "-> ");
+      Collections.reverse(root.children);
+      for (Node node : root.children) {
+         System.out.print(node.data + " ");
+      }
+      System.out.println();
+      for (Node node : root.children) {
+         mirrorOfTree(node);
+      }
+   }
+
 
    // working fine
    private static void zigzagLevelTraversal(Node root) {
@@ -65,6 +80,7 @@ public class GenericMain {
    }
 
    // working fine but below method uses less space
+   // other ways 1: using 1 Queue check below, 2: each time take the size and after that we can hit enter, 3: using pair class to create levels, for each incremented levels we can hit enter
    private static void levelOrderLineWiseTwoQueue(Node root) {
       Queue<Node> primary = new ArrayDeque<>();
       Queue<Node> secondary = new ArrayDeque<>();
