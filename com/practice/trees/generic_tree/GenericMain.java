@@ -33,7 +33,35 @@ public class GenericMain {
 //      levelTraversal(root);
 //      preOrderUsingStack(root);
 //      levelOrderLineWise(root);
-      levelOrderLineWiseTwoQueue(root);
+//      levelOrderLineWiseTwoQueue(root);
+      zigzagLevelTraversal(root);
+   }
+
+   // working fine
+   private static void zigzagLevelTraversal(Node root) {
+      int rotation = 1;
+      Stack<Node> primary = new Stack<>();
+      Stack<Node> secondary = new Stack<>();
+      primary.push(root);
+      while (!primary.isEmpty()) {
+         Node node = primary.pop();
+         System.out.print(node.data + " ");
+
+         if (node.children.size() > 0) {
+            if (rotation == 1) {
+               secondary.addAll(node.children);
+            } else {
+               for (int i = node.children.size() - 1; i >= 0; i--) {
+                  secondary.push(node.children.get(i));
+               }
+            }
+         }
+         if (primary.isEmpty() && !secondary.isEmpty()) {
+            primary = secondary;
+            secondary = new Stack<>();
+            rotation = rotation == 1 ? 0 : 1;
+         }
+      }
    }
 
    // working fine but below method uses less space
@@ -48,8 +76,8 @@ public class GenericMain {
          }
          System.out.print(temp.data + " ");
          if (primary.isEmpty() && !secondary.isEmpty()) {
-            primary.addAll(secondary);
-            secondary.clear();
+            primary = secondary;
+            secondary = new ArrayDeque<>();
             System.out.println();
          }
       }
