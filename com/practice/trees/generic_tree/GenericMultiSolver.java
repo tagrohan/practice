@@ -37,6 +37,7 @@ public class GenericMultiSolver {
 
 //      Node root1 = createTree(arr3); //used them to check for mirror
 //      Node root2 = createTree(arr4); // root1 and root2 are actually mirror
+      // TODO these strategy called as travel and change
       createTree(arr);
 //      printTree(root);
 //      multiSolver(root, 0);
@@ -51,6 +52,67 @@ public class GenericMultiSolver {
 //      Node n = createTree(arr6);
 //      maxSubsetTree(n);
 //      System.out.println(nodeValue + " " + subsetMaxValue);
+//      calculateDiameter(root);
+//      System.out.println(dia);
+      preAndPostOrder(root);
+   }
+
+
+   // iteratively
+   private static class Pair {
+      Node node;
+      int state;
+
+      public Pair(Node node, int state) {
+         this.node = node;
+         this.state = state;
+      }
+   }
+ // working fine logic is great try again in practice
+   private static void preAndPostOrder(Node node) {
+      Stack<Pair> stack = new Stack<>();
+      stack.push(new Pair(node, -1));
+      StringBuilder pre = new StringBuilder();
+      StringBuilder post = new StringBuilder();
+
+      while (!stack.isEmpty()) {
+         Pair pair = stack.peek();
+         if (pair.state == -1) {
+            pre.append(pair.node.data).append(" ");
+            pair.state += 1;
+         } else if (pair.state == pair.node.children.size()) {
+            post.append(pair.node.data).append(" ");
+            stack.pop();
+         } else {
+            Pair cPair = new Pair(pair.node.children.get(pair.state), -1);
+            stack.push(cPair);
+            pair.state += 1;
+         }
+      }
+      System.out.println(pre);
+      System.out.println(post);
+   }
+
+   private static int dia = 0;
+
+   // working fine but need to understand better at 50:50
+   private static int calculateDiameter(Node root) {
+      int secondHeight = -1;
+      int firstHeight = -1;
+
+      for (Node node : root.children) {
+         int currentHeight = calculateDiameter(node);
+         if (currentHeight > firstHeight) {
+            secondHeight = firstHeight;
+            firstHeight = currentHeight;
+         } else if (currentHeight > secondHeight) {
+            secondHeight = currentHeight;
+         }
+      }
+
+      int height = firstHeight + secondHeight + 2;
+      dia = Integer.max(height, dia);
+      return firstHeight + 1;
    }
 
    // working fine need practice at next 50:50
