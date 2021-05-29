@@ -39,9 +39,26 @@ public class GenericMain {
 //      removeLeaves(root);
 //      printTree(root);
 //      removeLeaves(root);
-      linearizeGeneric(root);
+      linearizeGenericV2(root);
       printTree(root);
    }
+
+   // O(n) time complexity , omg it's working
+   private static Node linearizeGenericV2(Node root) {
+      if (root.children.size() == 0) {
+         return root;
+      }
+
+      Node lastNodeTail = linearizeGenericV2(root.children.get(root.children.size() - 1));
+      while (root.children.size() > 1) {
+         Node last = root.children.remove(root.children.size() - 1);
+         Node sLast = root.children.get(root.children.size() - 1);
+         Node sLastTail = linearizeGenericV2(sLast);
+         sLastTail.children.add(last);
+      }
+      return lastNodeTail;
+   }
+
 
    // each note have one children on single order
    private static void linearizeGeneric(Node root) {
