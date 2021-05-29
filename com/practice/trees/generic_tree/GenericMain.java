@@ -20,8 +20,15 @@ public class GenericMain {
               -1, -1, 90, -1, -1, 40, 100, -1, -1, -1};
       int[] arr2 = new int[]{10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120,
               -1, -1, -1, 40, 100, -1, -1, -1};
-      createTree(arr);
-//      Node root2 = createTree(arr2);
+      int[] arr3 = new int[]{10, 20, 50, -1, 60, -1, -1, 30, 70, 110, -1, 120, -1, -1, 80, -1, 90,
+              -1, -1, 40, 100, -1, -1, -1};
+      int[] arr4 = new int[]{10, 40, 100, -1, -1, 30, 90, -1, 80, -1, 70, 120, -1, 110, -1, -1, -1, 20, 60, -1, 50, -1, -1, -1};
+
+      Node root1 = createTree(arr3); //used them to check for mirror
+      Node root2 = createTree(arr4); // root1 and root2 are actually mirror
+//      printTree(root1);
+//      System.out.println("---------------------------------");
+//      printTree(root2);
 //      printTree(root);
 
 //      System.out.println();
@@ -49,8 +56,40 @@ public class GenericMain {
 //      System.out.println(find(root, 110));
 //      System.out.println(nodeToRootPath(root, 110));
 //      lowestCommonAncestor(root, 70, 30);
-//      System.out.println(areTreeSimilar(root1, root2));
-      printTree(root);
+//      System.out.println(areTreeSimilarRecursive(root1, root1));
+
+      System.out.println(areTreeMirror(root1, root2));
+
+   }
+
+   // wow working fine man
+   private static boolean areTreeMirror(Node root1, Node root2) {
+      if (root1.children.size() != root2.children.size()) {
+         return false;
+      }
+
+      for (int i = 0; i < root1.children.size(); i++) {
+         Collections.reverse(root2.children);
+         boolean isMirror = areTreeMirror(root1.children.get(i), root2.children.get(i));
+         if (!isMirror) {
+            return false;
+         }
+      }
+      return true;
+   }
+
+   // working fine
+   private static boolean areTreeSimilarRecursive(Node root1, Node root2) {
+      if (root1.children.size() != root2.children.size()) {
+         return false;
+      }
+      for (int i = 0; i < root1.children.size(); i++) {
+         boolean isSimilar = areTreeSimilarRecursive(root1.children.get(i), root2.children.get(i));
+         if (!isSimilar) {
+            return false;
+         }
+      }
+      return true;
    }
 
    private static boolean areTreeSimilar(Node root1, Node root2) {
