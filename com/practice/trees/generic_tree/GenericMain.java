@@ -18,7 +18,10 @@ public class GenericMain {
    public static void main(String[] args) {
       int[] arr = new int[]{10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120,
               -1, -1, 90, -1, -1, 40, 100, -1, -1, -1};
+      int[] arr2 = new int[]{10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120,
+              -1, -1, -1, 40, 100, -1, -1, -1};
       createTree(arr);
+//      Node root2 = createTree(arr2);
 //      printTree(root);
 
 //      System.out.println();
@@ -45,7 +48,47 @@ public class GenericMain {
 //      printTree(root);
 //      System.out.println(find(root, 110));
 //      System.out.println(nodeToRootPath(root, 110));
-      lowestCommonAncestor(root, 70, 120);
+//      lowestCommonAncestor(root, 70, 30);
+//      System.out.println(areTreeSimilar(root1, root2));
+      printTree(root);
+   }
+
+   private static boolean areTreeSimilar(Node root1, Node root2) {
+      Queue<Node> queue1 = new ArrayDeque<>();
+      Queue<Node> queue2 = new ArrayDeque<>();
+      queue1.add(root1);
+      queue2.add(root2);
+      while (!queue1.isEmpty() && !queue2.isEmpty()) {
+         Node n1 = queue1.remove();
+         Node n2 = queue2.remove();
+         if (n1.children.size() > 0) {
+            if (n1.children.size() == n2.children.size()) {
+               queue1.addAll(n1.children);
+               queue2.addAll(n2.children);
+            } else {
+               return false;
+            }
+         }
+      }
+      return true;
+   }
+
+   // same as lowest common ancestor but at last we add remaining i + j and done
+   private static void distanceBetweenNodes(Node root, int first, int second) {
+      List<Integer> firstPath = nodeToRootPath(root, first);
+      List<Integer> secondPath = nodeToRootPath(root, second);
+      System.out.println(firstPath);
+      System.out.println(secondPath);
+
+      int i = firstPath.size() - 1;
+      int j = secondPath.size() - 1;
+      while (i >= 0 && j >= 0 && firstPath.get(i).equals(secondPath.get(j))) {
+         i -= 1;
+         j -= 1;
+      }
+      i += 1;
+      j += 1;
+      System.out.println(i + j);
    }
 
    // working fine based on nodeToRootPath
@@ -62,7 +105,9 @@ public class GenericMain {
          j -= 1;
       }
       i += 1;
+      j += 1;
       System.out.println(firstPath.get(i));
+      System.out.println(i + j);
 
    }
 
@@ -346,7 +391,7 @@ public class GenericMain {
    }
 
    // working fine
-   private static void createTree(int[] arr) {
+   private static Node createTree(int[] arr) {
 //      int[] arr = new int[]{10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120,
 //              -1,-1, 90, -1,-1, 40, 100, -1, -1, -1};
       Stack<Node> stack = new Stack<>();
@@ -363,5 +408,6 @@ public class GenericMain {
             stack.push(node);
          }
       }
+      return root;
    }
 }
