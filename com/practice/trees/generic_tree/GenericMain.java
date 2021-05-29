@@ -38,8 +38,30 @@ public class GenericMain {
 //      mirrorOfTree(root);
 //      removeLeaves(root);
 //      printTree(root);
-      removeLeaves(root);
+//      removeLeaves(root);
+      linearizeGeneric(root);
       printTree(root);
+   }
+
+   // each note have one children on single order
+   private static void linearizeGeneric(Node root) {
+      for (Node node : root.children) {
+         linearizeGeneric(node);
+      }
+
+      while (root.children.size() > 1) {
+         Node lc = root.children.remove(root.children.size() - 1);
+         Node sl = root.children.get(root.children.size() - 1);
+         Node tail = getTail(sl);
+         tail.children.add(lc);
+      }
+   }
+
+   private static Node getTail(Node node) {
+      while (node.children.size() == 1) {
+         node = node.children.get(0);
+      }
+      return node;
    }
 
    // it's working fine wow
