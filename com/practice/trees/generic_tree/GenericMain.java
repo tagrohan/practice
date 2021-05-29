@@ -30,10 +30,65 @@ public class GenericMain {
 //      System.out.println("height->" + heightOf(new Node(12)));
 
 //      prePostTraversal(root);
-      levelTraversal(root);
+//      levelTraversal(root);
+//      preOrderUsingStack(root);
+//      levelOrderLineWise(root);
+      levelOrderLineWiseTwoQueue(root);
    }
 
+   // working fine but below method uses less space
+   private static void levelOrderLineWiseTwoQueue(Node root) {
+      Queue<Node> primary = new ArrayDeque<>();
+      Queue<Node> secondary = new ArrayDeque<>();
+      primary.add(root);
+      while (!primary.isEmpty()) {
+         Node temp = primary.remove();
+         if (temp.children.size() > 0) {
+            secondary.addAll(temp.children);
+         }
+         System.out.print(temp.data + " ");
+         if (primary.isEmpty() && !secondary.isEmpty()) {
+            primary.addAll(secondary);
+            secondary.clear();
+            System.out.println();
+         }
+      }
+   }
 
+   // each level separated by line
+   private static void levelOrderLineWise(Node root) {
+      Queue<Node> queue = new LinkedList<>(); // using linked list as in queue null in not allowed to add, we we are checking of null  or we can use -1 is that case of ArrayQueue
+      queue.add(root);
+      queue.add(null);
+      while (queue.size() > 1 || queue.peek() != null) {
+         Node temp = queue.remove();
+         if (temp != null) {
+            System.out.print(temp.data + " ");
+            if (temp.children.size() > 0) {
+               queue.addAll(temp.children);
+            }
+         } else {
+            System.out.println();
+            queue.add(null);
+         }
+      }
+
+   }
+
+   // pre order traversal using stack
+   private static void preOrderUsingStack(Node root) {
+      Stack<Node> stack = new Stack<>();
+      stack.push(root);
+      while (!stack.isEmpty()) {
+         Node temp = stack.pop();
+         if (temp.children.size() > 0) {
+            for (int i = temp.children.size() - 1; i >= 0; i--) {
+               stack.push(temp.children.get(i));
+            }
+         }
+         System.out.print(temp.data + " ");
+      }
+   }
 
    // using queue here
    private static void levelTraversal(Node root) {
