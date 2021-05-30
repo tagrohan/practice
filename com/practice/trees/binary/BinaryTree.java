@@ -32,7 +32,35 @@ public class BinaryTree {
               null, null, null, 75, 68, null, 70, null, null, 57, null, null};
 
       createTree(arr);
-      System.out.println(pathAvail(root, 50 + 25 + 37 + 30, 0));
+   }
+
+   // giving null pointer exception don't know why
+   private static Node normalFromLeftClone(Node root) {
+      if (root == null) {
+         return null;
+      }
+
+      root.left = normalFromLeftClone(root.left.left);
+      root.right = normalFromLeftClone(root.right);
+
+      return root;
+   }
+
+   // working fine
+   private static void leftCloneTree(Node root) {
+      if (root == null) {
+         return;
+      }
+
+      leftCloneTree(root.left);
+      leftCloneTree(root.right);
+
+      if (root.left != null) {
+         Node node = new Node(root.data);
+         Node temp = root.left;
+         root.left = node;
+         node.left = temp;
+      }
    }
 
    // printing all paths with given sum range
@@ -336,7 +364,7 @@ public class BinaryTree {
 
    // any sum path available
    private static boolean pathAvail(Node node, int sum, int cSum) {
-//      System.out.println(pathAvail(root, 132, 0));
+//      System.out.println(pathAvail(root, 50 + 25 + 37 + 30, 0)); // it's node itself actually
       if (node == null) {
          return false;
       }
