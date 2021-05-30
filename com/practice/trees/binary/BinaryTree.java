@@ -1,9 +1,6 @@
 package com.practice.trees.binary;
 
-import java.util.ArrayDeque;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class BinaryTree {
    public static Node root;
@@ -35,8 +32,33 @@ public class BinaryTree {
               null, null, null, 75, 68, null, 70, null, null, 57, null, null};
 
       createTree(arr);
-      preInPostOrderIterative(root);
+      System.out.println(Arrays.toString(nodeToRootPath(root, 70).toArray()));
    }
+
+
+   // finding the path same as GT question
+   private static List<Integer> nodeToRootPath(Node root, int nodeData) {
+//      System.out.println(Arrays.toString(nodeToRootPath(root, 70).toArray()));
+      if (root == null) {
+         return List.of();
+      }
+      if (root.data == nodeData) {
+         List<Integer> ret = new ArrayList<>();
+         ret.add(root.data);
+         return ret;
+      }
+      List<Integer> left = nodeToRootPath(root.left, nodeData);
+      List<Integer> right = nodeToRootPath(root.right, nodeData);
+
+      if (left.size() > 0) {
+         left.add(root.data);
+      }
+      if (right.size() > 0) {
+         right.add(root.data);
+      }
+      return left.size() > 0 ? left : right;
+   }
+
 
    // using iterative working fine
    private static void preInPostOrderIterative(Node node) {
