@@ -35,7 +35,41 @@ public class BinaryTree {
               null, null, null, 75, 68, null, 70, null, null, 57, null, null};
 
       createTree(arr);
-      levelOrderTraversalForLoop(root);
+      preInPostOrderIterative(root);
+   }
+
+   // using iterative working fine
+   private static void preInPostOrderIterative(Node node) {
+      Stack<Pair> stack = new Stack<>();
+      stack.add(new Pair(node, -1));
+      StringBuilder pre = new StringBuilder();
+      StringBuilder in = new StringBuilder();
+      StringBuilder post = new StringBuilder();
+
+      while (!stack.isEmpty()) {
+         Pair pair = stack.peek();
+         if (pair.state == -1) {
+            Node temp = pair.node;
+            pre.append(temp.data).append(" ");
+            if (temp.left != null) {
+               stack.push(new Pair(temp.left, -1));
+            }
+            pair.state += 1;
+         } else if (pair.state == 0) {
+            Node temp = pair.node;
+            in.append(temp.data).append(" ");
+            if (temp.right != null) {
+               stack.push(new Pair(temp.right, -1));
+            }
+            pair.state += 1;
+         } else {
+            post.append(pair.node.data).append(" ");
+            stack.pop();
+         }
+      }
+      System.out.println(pre);
+      System.out.println(in);
+      System.out.println(post);
    }
 
    // level order using for loop
