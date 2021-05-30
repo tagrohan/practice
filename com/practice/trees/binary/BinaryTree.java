@@ -1,5 +1,7 @@
 package com.practice.trees.binary;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class BinaryTree {
@@ -32,10 +34,43 @@ public class BinaryTree {
               null, null, null, 75, 68, null, 70, null, null, 57, null, null};
 
       createTree(arr);
-      System.out.println(size(root));
-      System.out.println(sum(root));
-      System.out.println(max(root));
-      System.out.println(height(root));
+      levelOrderTraversal(root);
+   }
+
+   private static void levelOrderTraversal(Node root) {
+      Queue<Node> queue = new LinkedList<>();
+      queue.add(root);
+      queue.add(null);
+
+      while (queue.size() > 1 || queue.peek() != null) {
+
+         Node node = queue.remove();
+         if (node != null) {
+            System.out.print(node.data + " ");
+            if (node.left != null) {
+               queue.add(node.left);
+            }
+            if (node.right != null) {
+               queue.add(node.right);
+            }
+         } else {
+            System.out.println();
+            queue.add(null);
+         }
+      }
+   }
+
+   // working fine
+   private static void prePostInOrderTraversal(Node root) {
+      if (root == null) {
+         return;
+      }
+      System.out.println("pre -> " + root.data);
+      prePostInOrderTraversal(root.left);
+      System.out.println("In -> " + root.data);
+      prePostInOrderTraversal(root.right);
+      System.out.println("post -> " + root.data);
+
    }
 
 
