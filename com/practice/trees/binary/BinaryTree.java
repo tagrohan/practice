@@ -1,5 +1,6 @@
 package com.practice.trees.binary;
 
+import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -34,9 +35,31 @@ public class BinaryTree {
               null, null, null, 75, 68, null, 70, null, null, 57, null, null};
 
       createTree(arr);
-      levelOrderTraversal(root);
+      levelOrderTraversalForLoop(root);
    }
 
+   // level order using for loop
+   private static void levelOrderTraversalForLoop(Node root) {
+      Queue<Node> queue = new ArrayDeque<>();
+      queue.add(root);
+
+      while (!queue.isEmpty()) {
+         int size = queue.size();
+         for (int i = 0; i < size; i++) {
+            Node node = queue.remove();
+            System.out.print(node.data + " ");
+            if (node.left != null) {
+               queue.add(node.left);
+            }
+            if (node.right != null) {
+               queue.add(node.right);
+            }
+         }
+         System.out.println();
+      }
+   }
+
+   // working fine but we can also use for loop to do this type as well check above
    private static void levelOrderTraversal(Node root) {
       Queue<Node> queue = new LinkedList<>();
       queue.add(root);
