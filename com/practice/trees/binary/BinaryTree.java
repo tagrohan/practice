@@ -32,7 +32,64 @@ public class BinaryTree {
               null, null, null, 75, 68, null, 70, null, null, 57, null, null};
 
       createTree(arr);
-      System.out.println(Arrays.toString(nodeToRootPath(root, 70).toArray()));
+      printKNodeFar(root, 75, 2);
+
+   }
+
+   // find all the paths from current node at k distance
+   private static void printKNodeFar(Node root, int data, int k) {
+      List<Node> nodes = nodeToRootPathV2(root, data);
+      for (int i = 0; i < nodes.size(); i++) {
+         kLevelDownV2(nodes.get(i), k - i, i == 0 ? null : nodes.get(i - 1));
+      }
+   }
+
+
+   // helper for printKNodeFar
+   private static List<Node> nodeToRootPathV2(Node root, int nodeData) {
+//      System.out.println(Arrays.toString(nodeToRootPath(root, 70).toArray()));
+      if (root == null) {
+         return List.of();
+      }
+      if (root.data == nodeData) {
+         List<Node> ret = new ArrayList<>();
+         ret.add(root);
+         return ret;
+      }
+      List<Node> left = nodeToRootPathV2(root.left, nodeData);
+      List<Node> right = nodeToRootPathV2(root.right, nodeData);
+
+      if (left.size() > 0) {
+         left.add(root);
+      }
+      if (right.size() > 0) {
+         right.add(root);
+      }
+      return left.size() > 0 ? left : right;
+   }
+
+   // helper for printKNodeFar
+   private static void kLevelDownV2(Node root, int k, Node blocker) {
+      if (root == null || k < 0 || root == blocker) {
+         return;
+      }
+      if (k == 0) {
+         System.out.print(root.data + " ");
+      }
+      kLevelDownV2(root.left, k - 1, blocker);
+      kLevelDownV2(root.right, k - 1, blocker);
+   }
+
+
+   private static void kLevelDown(Node root, int k) {
+      if (root == null || k < 0) {
+         return;
+      }
+      if (k == 0) {
+         System.out.print(root.data + " ");
+      }
+      kLevelDown(root.left, k - 1);
+      kLevelDown(root.right, k - 1);
    }
 
 
@@ -258,5 +315,20 @@ public class BinaryTree {
          }
       }
       return root;
+   }
+
+   // any sum path available
+   private static boolean pathAvail(Node node, int sum, int cSum) {
+//      System.out.println(pathAvail(root, 132, 0));
+      if (node == null) {
+         return false;
+      }
+      if (cSum == sum) {
+         return true;
+      }
+      cSum += node.data;
+      boolean left = pathAvail(node.left, sum, cSum);
+      boolean right = pathAvail(node.right, sum, cSum);
+      return left || right;
    }
 }
