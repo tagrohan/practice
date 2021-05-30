@@ -32,12 +32,29 @@ public class BinaryTree {
               null, null, null, 75, 68, null, 70, null, null, 57, null, null};
 
       createTree(arr);
-      printKNodeFar(root, 75, 2);
+      System.out.println(pathAvail(root, 50 + 25 + 37 + 30, 0));
+   }
 
+   // printing all paths with given sum range
+   private static void pathWithGivenSumRange(Node root, int from, int to, int sum, String builder) {
+//      pathWithGivenSumRange(root, 75, 263, 0, "");
+      if (root == null) {
+         return;
+      }
+      if (root.left == null || root.right == null) {
+         if (sum >= from && sum < to) {
+            System.out.println(builder + root.data + " ");
+         }
+         return;
+      }
+
+      pathWithGivenSumRange(root.left, from, to, sum + root.data, builder + root.data + " ");
+      pathWithGivenSumRange(root.right, from, to, sum + root.data, builder + root.data + " ");
    }
 
    // find all the paths from current node at k distance
    private static void printKNodeFar(Node root, int data, int k) {
+//      printKNodeFar(root, 75, 2);
       List<Node> nodes = nodeToRootPathV2(root, data);
       for (int i = 0; i < nodes.size(); i++) {
          kLevelDownV2(nodes.get(i), k - i, i == 0 ? null : nodes.get(i - 1));
@@ -323,8 +340,10 @@ public class BinaryTree {
       if (node == null) {
          return false;
       }
-      if (cSum == sum) {
-         return true;
+      if (node.left == null && node.right == null) {
+         if (cSum + node.data == sum) {
+            return true;
+         }
       }
       cSum += node.data;
       boolean left = pathAvail(node.left, sum, cSum);
