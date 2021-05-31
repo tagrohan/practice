@@ -35,13 +35,51 @@ public class BinaryTree {
               , null, null, null, 60, 55, null, 56, null, null, 70, null, null};
       createTree(arr);
 
-      System.out.println(isBst(root));
-      System.out.println(!is);
+      System.out.println(isBstV2(root));
 
    }
 
-   private static boolean is = false;
+   static class BST {
+      int data;
+      boolean isBst;
+   }
 
+   private static boolean isBstV2(Node root) {
+      return isBstV2Helper(root).isBst;
+   }
+
+   private static BST isBstV2Helper(Node root) {
+
+      if (root == null) {
+         BST b = new BST();
+         b.data = 0;
+         b.isBst = true;
+         return b;
+      }
+
+      BST left = isBstV2Helper(root.left);
+      BST right = isBstV2Helper(root.right);
+
+      BST bst = new BST();
+      bst.data = root.data;
+      if (!left.isBst || !right.isBst) {
+         bst.isBst = false;
+         return bst;
+      }
+
+      if (root.right != null && root.left != null) {
+         if (root.data < left.data || root.data > right.data) {
+            bst.isBst = false;
+            return bst;
+         }
+      }
+      bst.isBst = true;
+      return bst;
+   }
+
+   private static boolean is = true;
+
+   // it's travel and change, above is better approach with any pair class
    private static int isBst(Node root) {
 
       if (root == null) {
@@ -53,7 +91,7 @@ public class BinaryTree {
 
       if (root.left != null && root.right != null) {
          if (root.data < left || root.data > right) {
-            is = true;
+            is = false;
          }
       }
       return root.data;
