@@ -32,6 +32,62 @@ public class BinaryTree {
               null, null, null, 75, 68, null, 70, null, null, 57, null, null};
 
       createTree(arr);
+      removeChildrenV2(root);
+      printRecursive(root);
+   }
+
+
+
+   // better approach than below v1
+   private static Node removeChildrenV2(Node root) {
+      if (root == null) {
+         return null;
+      }
+      if (root.left == null && root.right == null) {
+         return null;
+      }
+      root.left = removeChildrenV2(root.left);
+      root.right = removeChildrenV2(root.right);
+
+      return root;
+   }
+
+   // better approach is above
+   private static void removeChildren(Node root, Node parent) {
+      if (root == null) {
+         return;
+      }
+      if (root.left == null && root.right == null) {
+         if (parent.left == null) {
+            parent.right = null;
+         } else if (parent.right == null) {
+            parent.left = null;
+         } else {
+            if (parent.left.equals(root)) {
+               parent.left = null;
+            } else {
+               parent.right = null;
+            }
+         }
+      }
+
+
+      removeChildren(root.left, root);
+      removeChildren(root.right, root);
+   }
+
+
+   //   working fine
+   private static void parentHaveOneChild(Node node) {
+      if (node == null) {
+         return;
+      }
+      if (node.left == null || node.right == null) {
+         System.out.print(node.data + " ");
+      }
+
+      parentHaveOneChild(node.left);
+      parentHaveOneChild(node.right);
    }
 
    // giving null pointer exception don't know why
