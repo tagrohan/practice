@@ -29,12 +29,51 @@ public class BinaryTree {
    public static void main(String[] args) {
 
       Integer[] arr = new Integer[]{50, 25, 12, null, null, 37, 30,
-              null, null, null, 75, 68, null, 70, null, null, 57, null, null};
-
+              null, null, null, 75, 62, null, 70, null, null, 57, null, null};
       createTree(arr);
-      System.out.println(diameterOfBinaryTree(root));
+      sumOfTiltOfBinaryTree(root);
+      System.out.println(tilt);
+   }
 
 
+   private static int tilt = 0;
+
+   private static int sumOfTiltOfBinaryTree(Node node) {
+      if (node == null) {
+         return 0;
+      }
+
+      int left = sumOfTiltOfBinaryTree(node.left);
+      int right = sumOfTiltOfBinaryTree(node.right);
+
+      tilt += Math.abs(left - right);
+
+      return left + right + node.data;
+   }
+
+   static class DiaPair {
+      int ht;
+      int dia;
+   }
+
+   // omg its working with O(n) time complexity
+   private static DiaPair diameterOfBinaryTreeV2(Node root) {
+//      System.out.println(diameterOfBinaryTreeV2(root).dia);
+      if (root == null) {
+         DiaPair d = new DiaPair();
+         d.ht = -1;
+         d.dia = 0;
+         return d;
+      }
+
+      DiaPair diaPairLeft = diameterOfBinaryTreeV2(root.left);
+      DiaPair diaPairRight = diameterOfBinaryTreeV2(root.right);
+
+      DiaPair dia = new DiaPair();
+      dia.ht = Integer.max(diaPairLeft.ht, diaPairRight.ht) + 1;
+      dia.dia = Integer.max(Integer.max(diaPairLeft.dia, diaPairRight.dia), diaPairLeft.ht + diaPairRight.ht + 2);
+
+      return dia;
    }
 
 
