@@ -30,8 +30,33 @@ public class BinaryTree {
 
       Integer[] arr = new Integer[]{50, 25, 12, null, null, 37, 30,
               null, null, null, 75, 62, null, 70, null, null, 57, null, null};
+
+      Integer[] bst = new Integer[]{50, 40, 20, null, null, 45, 43
+              , null, null, null, 60, 55, null, 56, null, null, 70, null, null};
       createTree(arr);
-      System.out.println(!isBalancedTree(root).is);
+
+      System.out.println(isBst(root));
+      System.out.println(!is);
+
+   }
+
+   private static boolean is = false;
+
+   private static int isBst(Node root) {
+
+      if (root == null) {
+         return 0;
+      }
+
+      int left = isBst(root.left);
+      int right = isBst(root.right);
+
+      if (root.left != null && root.right != null) {
+         if (root.data < left || root.data > right) {
+            is = true;
+         }
+      }
+      return root.data;
    }
 
 
@@ -52,7 +77,7 @@ public class BinaryTree {
 
       bt.height = 1 + Integer.max(left.height, right.height);
 
-      if (Math.abs(left.height - right.height) > 1) {
+      if (Math.abs(left.height - right.height) > 1 && !left.is && !right.is) {
          bt.is = true;
       }
 
