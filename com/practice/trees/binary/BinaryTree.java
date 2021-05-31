@@ -31,14 +31,46 @@ public class BinaryTree {
       Integer[] arr = new Integer[]{50, 25, 12, null, null, 37, 30,
               null, null, null, 75, 62, null, 70, null, null, 57, null, null};
       createTree(arr);
-      sumOfTiltOfBinaryTree(root);
-      System.out.println(tilt);
+      System.out.println(!isBalancedTree(root).is);
    }
 
 
+   // balanced tree working fine
+   private static BT isBalancedTree(Node root) {
+//      System.out.println(!isBalancedTree(root).is); as i am returning true for false so i inverted it
+      if (root == null) {
+         BT bt = new BT();
+         bt.height = 0;
+         bt.is = false;
+         return bt;
+      }
+
+      BT left = isBalancedTree(root.left);
+      BT right = isBalancedTree(root.right);
+
+      BT bt = new BT();
+
+      bt.height = 1 + Integer.max(left.height, right.height);
+
+      if (Math.abs(left.height - right.height) > 1) {
+         bt.is = true;
+      }
+
+      return bt;
+   }
+
+   private static class BT {
+      int height;
+      boolean is;
+   }
+
    private static int tilt = 0;
 
+   // using static variable tilt to get output -> todo: travel and change strategy
    private static int sumOfTiltOfBinaryTree(Node node) {
+
+//      sumOfTiltOfBinaryTree(root);
+//      System.out.println(tilt);
       if (node == null) {
          return 0;
       }
