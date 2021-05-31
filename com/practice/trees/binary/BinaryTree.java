@@ -32,11 +32,38 @@ public class BinaryTree {
               null, null, null, 75, 68, null, 70, null, null, 57, null, null};
 
       createTree(arr);
-      removeChildrenV2(root);
-      printRecursive(root);
+      System.out.println(diameterOfBinaryTree(root));
+
+
    }
 
 
+   // we can do this in better time complexity
+   private static int diameterOfBinaryTree(Node root) {
+
+      if (root == null) {
+         return 0;
+      }
+
+      int left = diameterOfBinaryTree(root.left);
+      int right = diameterOfBinaryTree(root.right);
+
+      int height = heightV2(root.left) + heightV2(root.right) + 2;
+
+      return Integer.max(right, Integer.max(left, height));
+   }
+
+
+   private static int heightV2(Node node) {
+      if (node == null) {
+         return -1;
+      }
+
+      int left = heightV2(node.left);
+      int right = heightV2(node.right);
+
+      return Integer.max(left, right) + 1;
+   }
 
    // better approach than below v1
    private static Node removeChildrenV2(Node root) {
