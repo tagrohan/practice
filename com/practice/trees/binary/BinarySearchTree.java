@@ -25,9 +25,44 @@ public class BinarySearchTree {
       int[] bst2 = new int[]{12, 25, 37, 50, 62, 75, 87};
       Node root = createTree(bst, 0, 11);
 //      Node root = createTree(bst2,0,7);
-      removeViaData(root, 30);
-      printRecursive(root);
+//      printRecursive(root);
+      System.out.println(lowestCommonAncestor(root, 60, 87));
 
+   }
+
+
+   // working fine find the common point which exist when both left and right separate
+   private static int lowestCommonAncestor(Node root, int val1, int val2) {
+
+      if (root == null) {
+         return 0;
+      }
+
+      if (root.data > val1 && root.data > val2) {
+         return lowestCommonAncestor(root.left, val1, val2);
+      } else if (root.data < val1 && root.data < val2) {
+         return lowestCommonAncestor(root.right, val1, val2);
+      } else {
+         // meeting point
+         return root.data;
+      }
+   }
+
+
+   private static int currentSum = 0;
+
+   //  working fine  root,data = sum of all the larger nodes
+   private static void replaceWithSumOfLarger(Node root) {
+      if (root == null) {
+         return;
+      }
+      replaceWithSumOfLarger(root.right);
+
+      int temp = root.data;
+      root.data = currentSum;
+      currentSum += temp;
+
+      replaceWithSumOfLarger(root.left);
    }
 
 
