@@ -25,15 +25,60 @@ public class BinarySearchTree {
       int[] bst2 = new int[]{12, 25, 37, 50, 62, 75, 87};
       Node root = createTree(bst, 0, 11);
 //      Node root = createTree(bst2,0,7);
-      addNodeWithValue(root,59);
+      removeViaData(root, 30);
       printRecursive(root);
 
    }
 
 
+   // working for some trees whose max don't have child
+   private static Node removeViaData(Node root, int value) {
+      if (root == null) {
+         return null;
+      }
+
+      if (root.data > value) {
+         root.left = removeViaData(root.left, value);
+      } else if (root.data < value) {
+         root.right = removeViaData(root.right, value);
+      } else {
+         // here we have found value equivalent node
+         if (root.left != null && root.right != null) {
+            int temp = root.data;
+            Node toRemove = min(root.right);
+            root.data = toRemove.data;
+            toRemove.data = temp;
+            root.right = removeViaData(root.right, toRemove.data);
+            return root;
+         } else if (root.left != null) {
+            return root.left;
+         } else if (root.right != null) {
+            return root.right;
+         } else {
+            return null;
+         }
+
+      }
+      return root;
+   }
+
+   // V2 of it working fine
+   private static Node addNodeV2(Node root, int value) {
+      if (root == null)
+         return new Node(value, null, null);
+
+      if (root.data > value) {
+         root.left = addNodeV2(root.left, value);
+      } else if (root.data < value) {
+         root.right = addNodeV2(root.right, value);
+      }  // for == case, data is equal to any node data so we don't add
+
+      return root;
+   }
+
    // working fine
    private static void addNodeWithValue(Node root, int value) {
-      if(root == null){
+      if (root == null) {
          return;
       }
       if (value > root.data) {
@@ -88,22 +133,20 @@ public class BinarySearchTree {
 
 
    private static int max(Node root) {
-      if (root == null) {
-         return Integer.MIN_VALUE;
+      if (root.right != null) {
+         return max(root.right);
+      } else {
+         return root.data;
       }
-
-      int right = max(root.right);
-
-      return Integer.max(right, root.data);
 
    }
 
-   private static int min(Node node) {
-      if (node == null) {
-         return Integer.MAX_VALUE;
+   private static Node min(Node node) {
+      if (node.left != null) {
+         return min(node.left);
+      } else {
+         return node;
       }
-      int left = min(node.left);
-      return Integer.min(node.data, left);
    }
 
    // working fine but out may be differ as we can create multiple BST from data node
