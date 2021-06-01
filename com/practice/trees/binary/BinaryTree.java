@@ -33,26 +33,30 @@ public class BinaryTree {
 
       Integer[] bst = new Integer[]{50, 40, 20, null, null, 45, 43
               , null, null, null, 60, 55, null, 56, null, null, 70, null, null};
-      createTree(arr);
+      createTree(bst);
 
       System.out.println(isBstV2(root));
-
    }
 
    static class BST {
-      int data;
+      int min;
+      int max;
       boolean isBst;
    }
 
+   // seems working fine
    private static boolean isBstV2(Node root) {
-      return isBstV2Helper(root).isBst;
+      BST bst = isBstV2Helper(root);
+//      System.out.println(bst.min + " " + bst.max);
+      return bst.isBst;
    }
 
    private static BST isBstV2Helper(Node root) {
 
       if (root == null) {
          BST b = new BST();
-         b.data = 0;
+         b.min = Integer.MAX_VALUE;
+         b.max = Integer.MIN_VALUE;
          b.isBst = true;
          return b;
       }
@@ -61,42 +65,24 @@ public class BinaryTree {
       BST right = isBstV2Helper(root.right);
 
       BST bst = new BST();
-      bst.data = root.data;
-      if (!left.isBst || !right.isBst) {
-         bst.isBst = false;
-         return bst;
-      }
+//      bst.isBst = true;
 
-      if (root.right != null && root.left != null) {
-         if (root.data < left.data || root.data > right.data) {
-            bst.isBst = false;
-            return bst;
-         }
-      }
-      bst.isBst = true;
+//      if (left.isBst && right.isBst) {
+//         if (root.data < left.max || root.data > right.min) {
+//            System.out.println(root.data);
+//            bst.isBst = false;
+//         }
+//      } else {
+//         bst.isBst = false;
+//      }
+       // this line is equivalent to upper lines
+      bst.isBst = left.isBst && right.isBst && (root.data > left.max && root.data < right.min);
+
+
+      bst.max = Integer.max(root.data, Integer.max(left.max, right.max));
+      bst.min = Integer.min(root.data, Integer.min(left.min, right.min));
       return bst;
    }
-
-   private static boolean is = true;
-
-   // it's travel and change, above is better approach with any pair class
-   private static int isBst(Node root) {
-
-      if (root == null) {
-         return 0;
-      }
-
-      int left = isBst(root.left);
-      int right = isBst(root.right);
-
-      if (root.left != null && root.right != null) {
-         if (root.data < left || root.data > right) {
-            is = false;
-         }
-      }
-      return root.data;
-   }
-
 
    // balanced tree working fine
    private static BT isBalancedTree(Node root) {
