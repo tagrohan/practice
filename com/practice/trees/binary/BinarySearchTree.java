@@ -26,14 +26,31 @@ public class BinarySearchTree {
       Node root = createTree(bst, 0, 11);
 //      Node root = createTree(bst2,0,7);
 //      printRecursive(root);
-      System.out.println(lowestCommonAncestor(root, 60, 87));
+      printRange(root, 50, 87);
 
    }
 
+   // it's an effective approach as we are using BST property to go in left and right in recursion
+   private static void printRange(Node root, int from, int to) {
+      if (root == null) {
+         return;
+      }
+
+      if (root.data > from && root.data > to) {
+         printRange(root.left, from, to);
+      } else if (root.data < from && root.data < to) {
+         printRange(root.right, from, to);
+      } else {
+         printRange(root.left, from, to);
+         System.out.print(root.data + " ");
+         printRange(root.right, from, to);
+      }
+
+   }
 
    // working fine find the common point which exist when both left and right separate
    private static int lowestCommonAncestor(Node root, int val1, int val2) {
-
+//      System.out.println(lowestCommonAncestor(root, 60, 87));
       if (root == null) {
          return 0;
       }
