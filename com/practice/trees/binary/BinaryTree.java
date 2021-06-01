@@ -35,13 +35,55 @@ public class BinaryTree {
               , null, null, null, 60, 55, null, 56, null, null, 70, null, null};
       createTree(bst);
 
-      System.out.println(isBstV2(root));
+//      System.out.println(isBstV2(root));
+      BST b = LargestBstSubtree(root);
+      System.out.println(b.node.data + " @ " + b.size);
    }
+
+   // todo : same as isBst + need size who is valid bst so
+   private static BST LargestBstSubtree(Node root) {
+
+      if (root == null) {
+         BST b = new BST();
+         b.min = Integer.MAX_VALUE;
+         b.max = Integer.MIN_VALUE;
+         b.isBst = true;
+         b.size = 0;
+         b.node = null;
+         return b;
+      }
+
+      BST left = LargestBstSubtree(root.left);
+      BST right = LargestBstSubtree(root.right);
+
+      BST bst = new BST();
+      // this line is equivalent to upper lines
+      bst.isBst = left.isBst && right.isBst && (root.data > left.max && root.data < right.min);
+      bst.max = Integer.max(root.data, Integer.max(left.max, right.max));
+      bst.min = Integer.min(root.data, Integer.min(left.min, right.min));
+
+      if (bst.isBst) {
+         bst.node = root;
+         bst.size = left.size + right.size + 1;
+      } else if (left.size > right.size) {
+         bst.node = left.node;
+         bst.size = left.size;
+      } else {
+         bst.node = right.node;
+         bst.size = right.size;
+      }
+
+      return bst;
+   }
+
 
    static class BST {
       int min;
       int max;
       boolean isBst;
+      // these properties are for above question LargestBstSubtree
+      int size;
+      Node node;
    }
 
    // seems working fine
@@ -75,7 +117,7 @@ public class BinaryTree {
 //      } else {
 //         bst.isBst = false;
 //      }
-       // this line is equivalent to upper lines
+      // this line is equivalent to upper lines
       bst.isBst = left.isBst && right.isBst && (root.data > left.max && root.data < right.min);
 
 
