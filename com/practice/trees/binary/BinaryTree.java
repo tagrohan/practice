@@ -42,6 +42,8 @@ public class BinaryTree {
 
    // todo : same as isBst + need size who is valid bst so
    private static BST LargestBstSubtree(Node root) {
+//      BST b = LargestBstSubtree(root);
+//      System.out.println(b.node.data + " @ " + b.size);
 
       if (root == null) {
          BST b = new BST();
@@ -65,7 +67,7 @@ public class BinaryTree {
       if (bst.isBst) {
          bst.node = root;
          bst.size = left.size + right.size + 1;
-      } else if (left.size > right.size) {
+      } else if (left.size > right.size) { // size represent largest bst size not current bst size
          bst.node = left.node;
          bst.size = left.size;
       } else {
