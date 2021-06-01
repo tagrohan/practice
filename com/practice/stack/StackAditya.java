@@ -1,15 +1,15 @@
 package com.practice.stack;
 
-import java.util.Arrays;
 import java.util.Stack;
 
 public class StackAditya {
    public static void main(String[] args) {
       // stack questions by Aditya verma
-//      System.out.println(rainWaterTapping(new int[]{3, 0, 0, 2, 0, 4}));
+      System.out.println(rainWaterTapping(new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7}));
    }
 
    // very famous question watch video or in internet to search for it
+   // todo : give it a look again, in leetcode it fails
    private static int rainWaterTapping(int[] arr) {
 //      System.out.println(rainWaterTapping(new int[]{3, 0, 0, 2, 0, 4})); sol = 10
       int len = arr.length;
@@ -28,8 +28,8 @@ public class StackAditya {
       for (int i = 0; i < len; i++) {
          sum += Integer.min(MTR[i], MTL[i]) - arr[i];
       }
-      System.out.println(Arrays.toString(MTL));
-      System.out.println(Arrays.toString(MTR));
+//      System.out.println(Arrays.toString(MTL));
+//      System.out.println(Arrays.toString(MTR));
       return sum;
    }
 

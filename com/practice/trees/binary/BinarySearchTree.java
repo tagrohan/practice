@@ -25,9 +25,32 @@ public class BinarySearchTree {
       int[] bst2 = new int[]{12, 25, 37, 50, 62, 75, 87};
       Node root = createTree(bst, 0, 11);
 //      Node root = createTree(bst2,0,7);
-//      printRecursive(root);
-      System.out.println(find(root, 75));
+      addNodeWithValue(root,59);
+      printRecursive(root);
+
    }
+
+
+   // working fine
+   private static void addNodeWithValue(Node root, int value) {
+      if(root == null){
+         return;
+      }
+      if (value > root.data) {
+         if (root.right == null) {
+            root.right = new Node(value, null, null);
+            return;
+         }
+         addNodeWithValue(root.right, value);
+      } else {
+         if (root.left == null) {
+            root.left = new Node(value, null, null);
+            return;
+         }
+         addNodeWithValue(root.left, value);
+      }
+   }
+
 
    // find working fine as BST its goes laser recursion
    private static boolean find(Node root, int key) {
