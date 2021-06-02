@@ -1,5 +1,7 @@
 package com.practice.trees.binary;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class BinarySearchTree {
@@ -27,9 +29,46 @@ public class BinarySearchTree {
 //      Node root = createTree(bst2,0,7);
 //      printRecursive(root);
 
-      targetSumPair(root, 100, root);
+      targetSumPair(root, 100);
 //      System.out.println(find(root,25));
    }
+
+
+   // about to do
+   private static void targetSumPairV2(Node root, int sum) {
+
+   }
+
+
+   // better time complexity then below one O(N)
+   private static void targetSumPair(Node root, int sum) {
+      List<Integer> list = targetSumHelper(root, new ArrayList<>());
+      int i = 0, j = list.size() - 1;
+      while (i < j) {
+         if (list.get(i) + list.get(j) == sum) {
+            System.out.println("[" + list.get(i) + ", " + list.get(j) + "]");
+            i++;
+            j--;
+         } else if (list.get(i) + list.get(j) < sum) {
+            i++;
+         } else {
+            j--;
+         }
+      }
+   }
+
+   private static List<Integer> targetSumHelper(Node root, List<Integer> list) {
+      if (root == null) {
+         return null;
+      }
+      targetSumHelper(root.left, list);
+      list.add(root.data);
+      targetSumHelper(root.right, list);
+
+      return list;
+   }
+
+//   private static
 
    // working fine (here we have to find pairs whose some is equal to given sum)
    private static void targetSumPair(Node currentNode, int sum, Node root) {
