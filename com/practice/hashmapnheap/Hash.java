@@ -1,17 +1,38 @@
 package com.practice.hashmapnheap;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Hash {
    public static void main(String[] args) {
 
-      printCommon2(new int[]{1, 1, 2, 2, 2, 3, 5}, new int[]{1, 1, 1, 2, 2, 4, 5});
+      System.out.println(longestConsecutiveSeq(new Integer[]{0, 0, -1}));
+   }
+
+   private static int longestConsecutiveSeq(Integer[] arr) {
+//      System.out.println(longestConsecutiveSeq(new Integer[]{102, 4, 100, 1, 101, 3, 2}));
+//      System.out.println(longestConsecutiveSeq(new Integer[]{10, 5, 9, 1, 11, 8, 6, 15, 3, 12, 2}));
+      Set<Integer> set = new HashSet<>(Arrays.asList(arr));
+//      for (int i : arr) {
+//         set.add(i);
+//      }
+      System.out.println(set);
+      int counter = 0, max = Integer.MIN_VALUE;
+      for (int i = 0; i < arr.length; i++) {
+         if (!set.contains(arr[i] - 1)) {
+            while (set.contains(arr[i] + counter)) {
+               counter += 1;
+            }
+            max = Integer.max(max, counter);
+            counter = 0;
+         }
+      }
+      return max;
    }
 
 
    // here intersection will be printed -> intersection depends on arr2 here
    private static void printCommon2(int[] arr, int[] arr2) {
+//      printCommon2(new int[]{1, 1, 2, 2, 2, 3, 5}, new int[]{1, 1, 1, 2, 2, 4, 5});
       Map<Integer, Integer> map = new HashMap<>();
       for (int i = 0; i < arr2.length; i++) {
          if (map.containsKey(arr2[i])) {
