@@ -26,12 +26,31 @@ public class BinarySearchTree {
       Node root = createTree(bst, 0, 11);
 //      Node root = createTree(bst2,0,7);
 //      printRecursive(root);
-      printRange(root, 50, 87);
 
+      targetSumPair(root, 100, root);
+//      System.out.println(find(root,25));
    }
+
+   // working fine (here we have to find pairs whose some is equal to given sum)
+   private static void targetSumPair(Node currentNode, int sum, Node root) {
+      if (currentNode == null) {
+         return;
+      }
+
+      targetSumPair(currentNode.left, sum, root);
+      int comp = sum - currentNode.data;
+      if (comp > currentNode.data) {
+         if (find(root, comp)) {
+            System.out.println("[" + currentNode.data + ", " + comp + "]");
+         }
+      }
+      targetSumPair(currentNode.right, sum, root);
+   }
+
 
    // it's an effective approach as we are using BST property to go in left and right in recursion
    private static void printRange(Node root, int from, int to) {
+//      printRange(root, 50, 87);
       if (root == null) {
          return;
       }
