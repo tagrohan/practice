@@ -5,8 +5,58 @@ import java.util.*;
 public class Heap {
    public static void main(String[] args) {
 
-      closestPointToOrigin(new int[][]{{1, 3}, {-1, 2}, {5, 8}, {0, 1}}, 2);
+
    }
+
+
+   // working fine we have to find media in given i/o stream (check leetcode)
+   private static class Median {
+//      Median.add(1);
+//      Median.add(2);
+//      Median.add(3);
+//      Median.add(4);
+//      Median.add(5);
+//      System.out.println(Median.findMedian());
+
+      private static final Queue<Double> max = new PriorityQueue<>();
+      private static final Queue<Double> min = new PriorityQueue<>(Collections.reverseOrder());
+
+      private static void add(int val) {
+         if (max.isEmpty() && min.isEmpty()) {
+            max.add((double) val);
+         } else if (val <= max.peek()) {
+            min.add((double) val);
+            if (min.size() > max.size()) {
+               max.add(min.remove());
+            }
+         } else {
+            max.add((double) val);
+            if (max.size() > min.size()) {
+               min.add(max.remove());
+            }
+         }
+      }
+
+      private static double findMedian() {
+
+         if (max.isEmpty() && min.peek() != null) {
+            return min.peek();
+         } else if (min.isEmpty() && max.peek() != null) {
+            return max.peek();
+         }
+         if (min.size() > max.size()) {
+            return min.peek();
+         } else if (min.size() < max.size()) {
+            return max.peek();
+         }
+         if (min.peek() != null && max.peek() != null) {
+            System.out.println(min.peek() + " " + max.peek());
+            return (max.peek() + min.peek()) / 2;
+         }
+         return -1;
+      }
+   }
+
 
    // 2d gives far value from origin (0,0) to arr[][] values gives k min values distance arr
    private static void closestPointToOrigin(int[][] arr, int k) {
@@ -106,20 +156,6 @@ public class Heap {
       }
    }
 
-
-   private static class Median {
-
-      Queue<Integer> max = new PriorityQueue<>();
-      Queue<Integer> min = new PriorityQueue<>(Collections.reverseOrder());
-
-      private static void add(int val) {
-
-      }
-
-      private static int findNum() {
-         return -1;
-      }
-   }
 
    // some how sorted at k length
    private static void kSortedArray(int[] arr, int k) {
