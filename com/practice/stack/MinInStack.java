@@ -11,14 +11,14 @@ public class MinInStack {
    // we have to do it in O(1) space complexity // in simple word remove minStack do this without it
    // TODO : whenever ask in O(1) space that means asking in variable terms as all DS take some how O(n) ex: arr,stack LL etc.
    public static void main(String[] args) {
-      pushV2(12);
-      pushV2(13);
-      pushV2(11);
-      pushV2(10);
+      push(3);
+      push(2);
+      push(4);
+      push(1);
 //      System.out.println(stack);
-      popV2();
-      popV2();
-      System.out.println(getMinV2());
+      pop();
+      pop();
+      System.out.println(getMin());
    }
 
 
@@ -37,7 +37,7 @@ public class MinInStack {
    }
 
    private static int getMin() {
-      return stack.isEmpty() ? -1 : stack.peek();
+      return minStack.isEmpty() ? -1 : minStack.peek();
    }
 
    // in O(1) space complexity in getMin
