@@ -13,16 +13,34 @@ public class Heap {
    }
 
 
+   // woooo hooooo it's working fine man
    private static List<Integer> mergeKSortedList(List<List<Integer>> lists) {
+//      List<List<Integer>> list = new ArrayList<>();
+//      list.add(List.of(1, 4, 5));
+//      list.add(List.of(1, 3, 4));
+//      list.add(List.of(2, 6));
+//      List<Integer> merge = mergeKSortedList(list);
+//      System.out.println(Arrays.toString(merge.toArray()));
       List<Integer> ans = new ArrayList<>();
       Queue<PairV2> queue = new PriorityQueue<>();
       for (int i = 0; i < lists.size(); i++) {
          queue.add(new PairV2(i, 0, lists.get(i).get(0)));
       }
-      return List.of();
+
+      while (queue.size() > 0) {
+         PairV2 pair = queue.remove();
+
+         ans.add(pair.data);
+         pair.dataIndex++;
+         if (pair.dataIndex < lists.get(pair.listIndex).size()) {
+            pair.data = lists.get(pair.listIndex).get(pair.dataIndex);
+            queue.add(pair);
+         }
+      }
+      return ans;
    }
 
-   private static class PairV2 {
+   private static class PairV2 implements Comparable<PairV2> {
       int listIndex;
       int dataIndex;
       int data;
@@ -31,6 +49,11 @@ public class Heap {
          this.listIndex = listIndex;
          this.dataIndex = dataIndex;
          this.data = data;
+      }
+
+      @Override
+      public int compareTo(PairV2 o) {
+         return this.data - o.data;
       }
    }
 
