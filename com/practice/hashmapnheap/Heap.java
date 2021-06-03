@@ -4,8 +4,34 @@ import java.util.*;
 
 public class Heap {
    public static void main(String[] args) {
+      List<List<Integer>> list = new ArrayList<>();
+      list.add(List.of(1, 4, 5));
+      list.add(List.of(1, 3, 4));
+      list.add(List.of(2, 6));
+      List<Integer> merge = mergeKSortedList(list);
+      System.out.println(Arrays.toString(merge.toArray()));
+   }
 
 
+   private static List<Integer> mergeKSortedList(List<List<Integer>> lists) {
+      List<Integer> ans = new ArrayList<>();
+      Queue<PairV2> queue = new PriorityQueue<>();
+      for (int i = 0; i < lists.size(); i++) {
+         queue.add(new PairV2(i, 0, lists.get(i).get(0)));
+      }
+      return List.of();
+   }
+
+   private static class PairV2 {
+      int listIndex;
+      int dataIndex;
+      int data;
+
+      public PairV2(int listIndex, int dataIndex, int data) {
+         this.listIndex = listIndex;
+         this.dataIndex = dataIndex;
+         this.data = data;
+      }
    }
 
 
