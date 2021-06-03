@@ -5,7 +5,22 @@ import java.util.*;
 public class Heap {
    public static void main(String[] args) {
 
-      frequencySort(new int[]{1, 1, 1, 3, 2, 2, 4});
+      closestPointToOrigin(new int[][]{{1, 3}, {-1, 2}, {5, 8}, {0, 1}}, 2);
+   }
+
+   // 2d gives far value from origin (0,0) to arr[][] values gives k min values distance arr
+   private static void closestPointToOrigin(int[][] arr, int k) {
+//      closestPointToOrigin(new int[][]{{1, 3}, {-1, 2}, {5, 8}, {0, 1}}, 2);
+      Queue<Pair> queue = new PriorityQueue<>(Collections.reverseOrder());
+      for (int i = 0; i < arr.length; i++) {
+         queue.add(new Pair(arr[i][0], arr[i][1], (arr[i][0] * arr[i][0]) + (arr[i][1] * arr[i][1])));
+         if (queue.size() > k) {
+            queue.remove();
+         }
+      }
+      for (Pair pair : queue) {
+         System.out.println("[" + pair.val0 + ", " + pair.val1 + "]");
+      }
    }
 
    // sort on the basis of frequency higher freq comes first
@@ -54,10 +69,19 @@ public class Heap {
 
    // we have implemented our own pair with dif at val2 to do pair questions in Heap
    private static class Pair implements Comparable<Pair> {
+      // for origin question we need val0 as well
+      int val0;
       int val1;
       int val2;
 
+
       public Pair(int val1, int val2) {
+         this.val1 = val1;
+         this.val2 = val2;
+      }
+
+      public Pair(int val0, int val1, int val2) {
+         this.val0 = val0;
          this.val1 = val1;
          this.val2 = val2;
       }
