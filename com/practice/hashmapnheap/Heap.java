@@ -13,6 +13,8 @@ public class Heap {
    }
 
 
+   //todo: some basic implementation left in this section + aditya 2-3 video left as well
+
    // woooo hooooo it's working fine man
    private static List<Integer> mergeKSortedList(List<List<Integer>> lists) {
 //      List<List<Integer>> list = new ArrayList<>();
