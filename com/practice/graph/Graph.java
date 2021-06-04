@@ -24,11 +24,28 @@ public class Graph {
    public static void main(String[] args) {
       List<List<Edge>> edges = getEdges(new ArrayList<>());
 
-      System.out.println(hasPath(edges, 0, 6, new boolean[7]));
+//      System.out.println(hasPath(edges, 0, 6, new boolean[7]));
+      printAllPath(edges, 0, 6, new boolean[7], 0 + "");
+   }
+
+   // working fine here backtracking is used as well
+   private static void printAllPath(List<List<Edge>> edges, int source, int destination, boolean[] visited, String src) {
+      if (source == destination) {
+         System.out.println(src);
+         return;
+      }
+      visited[source] = true;
+      for (Edge edge : edges.get(source)) {
+         if (!visited[edge.neighbour]) {
+            printAllPath(edges, edge.neighbour, destination, visited, src + " " + edge.neighbour);
+         }
+      }
+      visited[source] = false;
    }
 
    // checking if path from source 0 to destination 6 exist in graph or not
    private static boolean hasPath(List<List<Edge>> edges, int source, int destination, boolean[] visited) {
+//      System.out.println(hasPath(edges, 0, 6, new boolean[7]));
       if (source == destination) {
          return true;
       }
