@@ -21,23 +21,57 @@ public class Graph {
       }
    }
 
+   // specially designed for multiSolver
+   private static class Properties implements Comparable<Properties> {
+      int smallest;
+      String smallestPath;
+      int largest;
+      String largestPath;
+      int ceil;
+      String ceilPath;
+      int floor;
+      String floorPath;
+      int kth;
+      String kthPath;
+
+      @Override
+      public int compareTo(Properties o) {
+         return this.kth - o.kth;
+      }
+   }
+
    public static void main(String[] args) {
       List<List<Edge>> edges = getEdges(new ArrayList<>());
 
 //      System.out.println(hasPath(edges, 0, 6, new boolean[7]));
-      printAllPath(edges, 0, 6, new boolean[7], 0 + "");
+      multiSolver(edges, 0, 6, new boolean[7], 0 + "", 0);
    }
-
-   // working fine here backtracking is used as well
-   private static void printAllPath(List<List<Edge>> edges, int source, int destination, boolean[] visited, String src) {
+   // todo: will do it later
+   private static void multiSolver(List<List<Edge>> edges, int source, int destination, boolean[] visited, String path, int cost) {
       if (source == destination) {
-         System.out.println(src);
+         System.out.println(path + " @ " + cost);
          return;
       }
       visited[source] = true;
       for (Edge edge : edges.get(source)) {
          if (!visited[edge.neighbour]) {
-            printAllPath(edges, edge.neighbour, destination, visited, src + " " + edge.neighbour);
+            multiSolver(edges, edge.neighbour, destination, visited, path + " " + edge.neighbour, cost + edge.weight);
+         }
+      }
+      visited[source] = false;
+   }
+
+   // working fine here backtracking is used as well
+   private static void printAllPath(List<List<Edge>> edges, int source, int destination, boolean[] visited, String path) {
+//      printAllPath(edges, 0, 6, new boolean[7], 0 + "");
+      if (source == destination) {
+         System.out.println(path);
+         return;
+      }
+      visited[source] = true;
+      for (Edge edge : edges.get(source)) {
+         if (!visited[edge.neighbour]) {
+            printAllPath(edges, edge.neighbour, destination, visited, path + " " + edge.neighbour);
          }
       }
       visited[source] = false;
