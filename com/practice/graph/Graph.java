@@ -1,7 +1,6 @@
 package com.practice.graph;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Graph {
    private static class Edge {
@@ -31,27 +30,63 @@ public class Graph {
       String ceilPath = "";
       int floor = Integer.MIN_VALUE;
       String floorPath = "";
-      int kth;
+      int cost;
       String kthPath;
 
       @Override
       public int compareTo(Properties o) {
-         return this.kth - o.kth;
+         return this.cost - o.cost;
       }
    }
 
    public static void main(String[] args) {
-      List<List<Edge>> edges = getEdges(new ArrayList<>());
-
-//      System.out.println(hasPath(edges, 0, 6, new boolean[7]));
+//      List<List<Edge>> edges = getEdges(new ArrayList<>());
+      List<List<Edge>> edges = getEdgesSplitGraph(new ArrayList<>());
+      getConnectedComponent(edges);
 
    }
 
+   // working fine
+   private static void getConnectedComponent(List<List<Edge>> edges) {
+//      List<List<Edge>> edges = getEdgesSplitGraph(new ArrayList<>());
+//      getConnectedComponent(edges);
+      List<List<Integer>> res = new ArrayList<>();
+      boolean[] visited = new boolean[edges.size()];
+      for (int i = 0; i < edges.size(); i++) {
+         if (edges.get(i).size() > 0) {
+            List<Integer> li = new ArrayList<>();
+            getConnectedComponentHelper(edges, i, visited, li);
+            res.add(li);
+         }
+      }
+      for (List<Integer> ints : res) {
+         if (ints.size() > 0) {
+            System.out.println(Arrays.toString(ints.toArray()));
+         }
+      }
+   }
+
+   private static void getConnectedComponentHelper(List<List<Edge>> edges, int source, boolean[] visited, List<Integer> path) {
+
+      if (!visited[source]) {
+         path.add(source);
+      }
+      visited[source] = true;
+      for (Edge edge : edges.get(source)) {
+         if (!visited[edge.neighbour]) {
+            getConnectedComponentHelper(edges, edge.neighbour, visited, path);
+         }
+      }
+   }
+
    private static Properties prop = new Properties();
-   private static void multiSolver(List<List<Edge>> edges, int source, int destination, boolean[] visited, String path, int cost, int ceilAnchor, int floorAnchor) {
-//      multiSolver(edges, 0, 6, new boolean[7], 0 + "", 0, 40, 50);
+   private static Queue<Properties> queue = new PriorityQueue<>();
+
+   private static void multiSolver(List<List<Edge>> edges, int source, int destination, boolean[] visited, String path, int cost, int ceilAnchor, int floorAnchor, int kthLargest) {
+//      multiSolver(edges, 0, 6, new boolean[7], 0 + "", 0, 40, 50,3);
 //      System.out.println("-----------------------------------------------");
 //      System.out.println(prop.ceil + " " + prop.floor);
+//      System.out.println(prop.cost);
       if (source == destination) {
          if (prop.smallest > cost) {
             prop.smallest = cost;
@@ -69,6 +104,13 @@ public class Graph {
          if (prop.floor < floorAnchor && cost < floorAnchor) {
             prop.floor = Integer.max(prop.floor, cost);
          }
+         prop.cost = cost;
+         queue.add(prop);
+         if (queue.size() > kthLargest) {
+            queue.remove();
+         }
+         prop.cost = queue.peek().cost;
+
          System.out.println(path + " @ " + cost);
 
          return;
@@ -76,7 +118,7 @@ public class Graph {
       visited[source] = true;
       for (Edge edge : edges.get(source)) {
          if (!visited[edge.neighbour]) {
-            multiSolver(edges, edge.neighbour, destination, visited, path + " " + edge.neighbour, cost + edge.weight, ceilAnchor, floorAnchor);
+            multiSolver(edges, edge.neighbour, destination, visited, path + " " + edge.neighbour, cost + edge.weight, ceilAnchor, floorAnchor, kthLargest);
          }
       }
       visited[source] = false;
@@ -150,6 +192,19 @@ public class Graph {
 //            System.out.println(ed.source + " " + ed.neighbour + " " + ed.weight);
 //         }
 //      }
+      return edges;
+   }
+
+   private static List<List<Edge>> getEdgesSplitGraph(List<List<Edge>> edges) {
+
+      for (int i = 0; i < 7; i++) {
+         edges.add(new ArrayList<>());
+      }
+      edges.get(0).add(new Edge(0, 1, 10));
+      edges.get(2).add(new Edge(2, 3, 10));
+      edges.get(4).add(new Edge(4, 5, 10));
+      edges.get(5).add(new Edge(5, 6, 10));
+      edges.get(4).add(new Edge(4, 6, 10));
       return edges;
    }
 }
