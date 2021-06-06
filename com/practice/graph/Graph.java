@@ -23,10 +23,10 @@ public class Graph {
 
    // specially designed for multiSolver
    private static class Properties implements Comparable<Properties> {
-      int smallest;
-      String smallestPath;
-      int largest;
-      String largestPath;
+      int smallest = Integer.MAX_VALUE;
+      String smallestPath = "";
+      int largest = Integer.MIN_VALUE;
+      String largestPath = "";
       int ceil;
       String ceilPath;
       int floor;
@@ -45,11 +45,23 @@ public class Graph {
 
 //      System.out.println(hasPath(edges, 0, 6, new boolean[7]));
       multiSolver(edges, 0, 6, new boolean[7], 0 + "", 0);
+      System.out.println(prop.smallestPath + "->" + prop.largestPath);
    }
-   // todo: will do it later
+
+   private static Properties prop = new Properties();
+
    private static void multiSolver(List<List<Edge>> edges, int source, int destination, boolean[] visited, String path, int cost) {
       if (source == destination) {
+         if (prop.smallest > cost) {
+            prop.smallest = cost;
+            prop.smallestPath = path;
+         }
+         if (prop.largest < cost) {
+            prop.largest = cost;
+            prop.largestPath = path;
+         }
          System.out.println(path + " @ " + cost);
+
          return;
       }
       visited[source] = true;
