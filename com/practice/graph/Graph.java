@@ -40,14 +40,64 @@ public class Graph {
    }
 
    public static void main(String[] args) {
-//      List<List<Edge>> edges = getEdges(new ArrayList<>());
-      List<List<Edge>> edges = getEdgesSplitGraph(new ArrayList<>());
-      getConnectedComponent(edges);
+      List<List<Edge>> edges = getEdges(new ArrayList<>());
+//      List<List<Edge>> edges = getEdgesSplitGraph(new ArrayList<>());
+      noOfIslands(new int[][]{{0, 0, 1, 1, 1, 1, 1, 1},
+              {0, 0, 1, 1, 1, 1, 1, 1},
+              {1, 1, 1, 1, 1, 1, 1, 0},
+              {1, 1, 0, 0, 0, 1, 1, 0},
+              {1, 1, 1, 1, 0, 1, 1, 0},
+              {1, 1, 1, 1, 0, 1, 1, 0},
+              {1, 1, 1, 1, 1, 1, 1, 0},
+              {1, 1, 1, 1, 1, 1, 1, 0}});
+   }
 
+   //   here 0's are island and 1's are water in leetcode it's reversed
+   private static void noOfIslands(int[][] matrix) {
+//      noOfIslands(new int[][]{{0, 0, 1, 1, 1, 1, 1, 1},
+//              {0, 0, 1, 1, 1, 1, 1, 1},
+//              {1, 1, 1, 1, 1, 1, 1, 0},
+//              {1, 1, 0, 0, 0, 1, 1, 0},
+//              {1, 1, 1, 1, 0, 1, 1, 0},
+//              {1, 1, 1, 1, 0, 1, 1, 0},
+//              {1, 1, 1, 1, 1, 1, 1, 0},
+//              {1, 1, 1, 1, 1, 1, 1, 0}});
+      boolean[][] vis = new boolean[matrix.length][matrix[0].length];
+      int count = 0;
+      for (int i = 0; i < matrix.length; i++) {
+         for (int j = 0; j < matrix[i].length; j++) {
+            if (matrix[i][j] == 0 && !vis[i][j]) {
+               travel(matrix, i, j, vis);
+               count += 1;
+            }
+         }
+      }
+      System.out.println(count);
+   }
+
+   private static void travel(int[][] matrix, int source, int destination, boolean[][] vis) {
+
+      if (source < 0 || destination < 0 || matrix.length <= source ||
+              matrix[source].length <= destination || matrix[source][destination] == 1 || vis[source][destination]) {
+         return;
+      }
+
+      vis[source][destination] = true;
+
+      travel(matrix, source - 1, destination, vis);
+      travel(matrix, source, destination + 1, vis);
+      travel(matrix, source + 1, destination, vis);
+      travel(matrix, source, destination - 1, vis);
+   }
+
+   // highly based on getConnectedComponent problem
+   private static boolean isGraphConnected(List<List<Edge>> edges) {
+//      System.out.println(isGraphConnected(edges));
+      return getConnectedComponent(edges).size() == 1;
    }
 
    // working fine
-   private static void getConnectedComponent(List<List<Edge>> edges) {
+   private static List<List<Integer>> getConnectedComponent(List<List<Edge>> edges) {
 //      List<List<Edge>> edges = getEdgesSplitGraph(new ArrayList<>());
 //      getConnectedComponent(edges);
       List<List<Integer>> res = new ArrayList<>();
@@ -59,14 +109,18 @@ public class Graph {
             res.add(li);
          }
       }
-      for (List<Integer> ints : res) {
-         if (ints.size() > 0) {
-            System.out.println(Arrays.toString(ints.toArray()));
+      for (int i = res.size() - 1; i >= 0; i--) {
+         if (res.get(i).size() > 0) {
+            System.out.println(Arrays.toString(res.get(i).toArray()));
+         } else {
+            res.remove(i);
          }
       }
+      return res;
    }
 
-   private static void getConnectedComponentHelper(List<List<Edge>> edges, int source, boolean[] visited, List<Integer> path) {
+   private static void getConnectedComponentHelper(List<List<Edge>> edges, int source, boolean[] visited, List<
+           Integer> path) {
 
       if (!visited[source]) {
          path.add(source);
@@ -82,7 +136,8 @@ public class Graph {
    private static Properties prop = new Properties();
    private static Queue<Properties> queue = new PriorityQueue<>();
 
-   private static void multiSolver(List<List<Edge>> edges, int source, int destination, boolean[] visited, String path, int cost, int ceilAnchor, int floorAnchor, int kthLargest) {
+   private static void multiSolver(List<List<Edge>> edges, int source, int destination,
+                                   boolean[] visited, String path, int cost, int ceilAnchor, int floorAnchor, int kthLargest) {
 //      multiSolver(edges, 0, 6, new boolean[7], 0 + "", 0, 40, 50,3);
 //      System.out.println("-----------------------------------------------");
 //      System.out.println(prop.ceil + " " + prop.floor);
@@ -125,7 +180,8 @@ public class Graph {
    }
 
    // working fine here backtracking is used as well
-   private static void printAllPath(List<List<Edge>> edges, int source, int destination, boolean[] visited, String path) {
+   private static void printAllPath(List<List<Edge>> edges, int source, int destination,
+                                    boolean[] visited, String path) {
 //      printAllPath(edges, 0, 6, new boolean[7], 0 + "");
       if (source == destination) {
          System.out.println(path);
