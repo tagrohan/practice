@@ -27,10 +27,10 @@ public class Graph {
       String smallestPath = "";
       int largest = Integer.MIN_VALUE;
       String largestPath = "";
-      int ceil;
-      String ceilPath;
-      int floor;
-      String floorPath;
+      int ceil = Integer.MAX_VALUE;
+      String ceilPath = "";
+      int floor = Integer.MIN_VALUE;
+      String floorPath = "";
       int kth;
       String kthPath;
 
@@ -44,13 +44,14 @@ public class Graph {
       List<List<Edge>> edges = getEdges(new ArrayList<>());
 
 //      System.out.println(hasPath(edges, 0, 6, new boolean[7]));
-      multiSolver(edges, 0, 6, new boolean[7], 0 + "", 0);
-      System.out.println(prop.smallestPath + "->" + prop.largestPath);
+
    }
 
    private static Properties prop = new Properties();
-
-   private static void multiSolver(List<List<Edge>> edges, int source, int destination, boolean[] visited, String path, int cost) {
+   private static void multiSolver(List<List<Edge>> edges, int source, int destination, boolean[] visited, String path, int cost, int ceilAnchor, int floorAnchor) {
+//      multiSolver(edges, 0, 6, new boolean[7], 0 + "", 0, 40, 50);
+//      System.out.println("-----------------------------------------------");
+//      System.out.println(prop.ceil + " " + prop.floor);
       if (source == destination) {
          if (prop.smallest > cost) {
             prop.smallest = cost;
@@ -60,6 +61,14 @@ public class Graph {
             prop.largest = cost;
             prop.largestPath = path;
          }
+         if (prop.ceil > ceilAnchor && cost > ceilAnchor) {
+            prop.ceil = Integer.min(prop.ceil, cost);
+            // we can also print path if wanted, same for floor
+         }
+
+         if (prop.floor < floorAnchor && cost < floorAnchor) {
+            prop.floor = Integer.max(prop.floor, cost);
+         }
          System.out.println(path + " @ " + cost);
 
          return;
@@ -67,7 +76,7 @@ public class Graph {
       visited[source] = true;
       for (Edge edge : edges.get(source)) {
          if (!visited[edge.neighbour]) {
-            multiSolver(edges, edge.neighbour, destination, visited, path + " " + edge.neighbour, cost + edge.weight);
+            multiSolver(edges, edge.neighbour, destination, visited, path + " " + edge.neighbour, cost + edge.weight, ceilAnchor, floorAnchor);
          }
       }
       visited[source] = false;
