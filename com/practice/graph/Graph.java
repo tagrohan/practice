@@ -40,9 +40,46 @@ public class Graph {
    }
 
    public static void main(String[] args) {
-      List<List<Edge>> edges = getEdges(new ArrayList<>());
+//      List<List<Edge>> edges = getEdges(new ArrayList<>());
 //      List<List<Edge>> edges = getEdgesSplitGraph(new ArrayList<>());
-      BFS(edges, 0, 7);
+      List<List<Edge>> edges = getEdgesFromMatrix(new int[][]{{0, 1}, {1, 2}, {2, 3}, {4, 5}, {5, 6}}, 7);
+      System.out.println(isGraphCyclic(edges, 7));
+   }
+
+   // graph can be dis continues
+   private static boolean isGraphCyclic(List<List<Edge>> edges, int noOfEdges) {
+//      List<List<Edge>> edges = getEdgesFromMatrix(new int[][]{{0, 1}, {1, 2}, {2, 3}, {4, 5}, {5, 6}}, 7); // a false answer here
+      boolean[] visited = new boolean[noOfEdges];
+      for (int i = 0; i < edges.size(); i++) {
+         if (edges.get(i).size() > 0 && !visited[i]) {
+            if (isGraphCyclicHelper(edges, i, visited)) {
+               return true;
+            }
+         }
+      }
+      return false;
+   }
+
+   private static boolean isGraphCyclicHelper(List<List<Edge>> edges, int start, boolean[] visited) {
+      Queue<Pair> queue = new ArrayDeque<>();
+      queue.add(new Pair(start, start + ""));
+
+      while (!queue.isEmpty()) {
+         Pair pair = queue.remove();
+
+         if (!visited[pair.value]) {
+            visited[pair.value] = true;
+
+            for (Edge edge : edges.get(pair.value)) {
+               if (!visited[edge.neighbour]) {
+                  queue.add(new Pair(edge.neighbour, pair.path + edge.neighbour));
+               }
+            }
+         } else {
+            return true;
+         }
+      }
+      return false;
    }
 
    private static class Pair {
@@ -61,7 +98,7 @@ public class Graph {
       Queue<Pair> queue = new ArrayDeque<>();
       boolean[] visited = new boolean[noOfNodes]; // here 7 is no of nodes = 0 - 6
 
-      queue.add(new Pair(starting, 0 + ""));
+      queue.add(new Pair(starting, starting + ""));
 
       while (!queue.isEmpty()) {
          Pair pair = queue.remove();
