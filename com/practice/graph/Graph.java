@@ -42,15 +42,31 @@ public class Graph {
    public static void main(String[] args) {
       List<List<Edge>> edges = getEdges(new ArrayList<>());
 //      List<List<Edge>> edges = getEdgesSplitGraph(new ArrayList<>());
-      noOfIslands(new int[][]{{0, 0, 1, 1, 1, 1, 1, 1},
-              {0, 0, 1, 1, 1, 1, 1, 1},
-              {1, 1, 1, 1, 1, 1, 1, 0},
-              {1, 1, 0, 0, 0, 1, 1, 0},
-              {1, 1, 1, 1, 0, 1, 1, 0},
-              {1, 1, 1, 1, 0, 1, 1, 0},
-              {1, 1, 1, 1, 1, 1, 1, 0},
-              {1, 1, 1, 1, 1, 1, 1, 0}});
+      System.out.println(perfectFriends(new int[][]{{0, 1}, {2, 3}, {4, 5}, {5, 6}, {4, 6}}));
    }
+
+   // hamiltonian path -> from source to destination visit all path that called HamPath,
+   //  Ham cycle -> after HP if there is a direct edge b/w source to last node then called as HC
+   private static void isHamiltonianPath(List<List<Edge>> edges, int source, int destination) {
+
+   }
+
+   // ways to choose a pair from different component , in this it's 16
+   private static int perfectFriends(int[][] arr) {
+//      System.out.println(perfectFriends(new int[][]{{0, 1}, {2, 3}, {4, 5}, {5, 6}, {4, 6}}));
+      List<List<Edge>> edges = getEdgesFromMatrix(arr, 7);
+      List<List<Integer>> component = getConnectedComponent(edges);
+
+      int combination = 0;
+      for (int i = 0; i < component.size() - 1; i++) {
+         for (int j = i + 1; j < component.size(); j++) {
+            combination += component.get(i).size() * component.get(j).size();
+         }
+      }
+
+      return combination;
+   }
+
 
    //   here 0's are island and 1's are water in leetcode it's reversed
    private static void noOfIslands(int[][] matrix) {
@@ -119,8 +135,7 @@ public class Graph {
       return res;
    }
 
-   private static void getConnectedComponentHelper(List<List<Edge>> edges, int source, boolean[] visited, List<
-           Integer> path) {
+   private static void getConnectedComponentHelper(List<List<Edge>> edges, int source, boolean[] visited, List<Integer> path) {
 
       if (!visited[source]) {
          path.add(source);
@@ -262,5 +277,16 @@ public class Graph {
       edges.get(5).add(new Edge(5, 6, 10));
       edges.get(4).add(new Edge(4, 6, 10));
       return edges;
+   }
+
+   private static List<List<Edge>> getEdgesFromMatrix(int[][] arr, int no) {
+      List<List<Edge>> res = new ArrayList<>();
+      for (int i = 0; i < no; i++) {
+         res.add(new ArrayList<>());
+      }
+      for (int i = 0; i < arr.length; i++) {
+         res.get(arr[i][0]).add(new Edge(arr[i][0], arr[i][1]));
+      }
+      return res;
    }
 }
