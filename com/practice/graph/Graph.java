@@ -41,14 +41,40 @@ public class Graph {
 
    public static void main(String[] args) {
       List<List<Edge>> edges = getEdges(new ArrayList<>());
+
+
 //      List<List<Edge>> edges = getEdgesSplitGraph(new ArrayList<>());
-      System.out.println(perfectFriends(new int[][]{{0, 1}, {2, 3}, {4, 5}, {5, 6}, {4, 6}}));
+//      List<List<Edge>> edgeForHamilton = getEdgesFromMatrix(new int[][]
+//              {{0, 1, 10},
+//                      {1, 2, 10},
+//                      {2, 3, 10},
+//                      {0, 3, 10},
+//                      {3, 4, 10},
+//                      {4, 5, 10},
+//                      {5, 6, 10},
+//                      {4, 6, 10},
+//                      {2, 5, 10}}, 7);
+////      printAllPath(edgeForHamilton, 0, 6, new boolean[7], 0 + "");
+////      printHamiltonianPathAndCycle(edgeForHamilton, 0, new HashSet<>(), 0 + " ", 0);
+//      hamiltonianPathAndCycle(edgeForHamilton, 0, 0, new HashSet<>(), 0 + "");
    }
 
+   // todo : have some problem maybe in graph or something i'll do it later
    // hamiltonian path -> from source to destination visit all path that called HamPath,
    //  Ham cycle -> after HP if there is a direct edge b/w source to last node then called as HC
-   private static void isHamiltonianPath(List<List<Edge>> edges, int source, int destination) {
+   private static void printHamiltonianPathAndCycle(List<List<Edge>> edges, int source, Set<Integer> visited, String path, int toCheckFromSource) {
 
+      visited.add(source);
+      if (visited.size() == edges.size()) {
+         System.out.println(path);
+         return;
+      }
+      for (Edge edge : edges.get(source)) {
+         if (!visited.contains(edge.neighbour)) {
+            printHamiltonianPathAndCycle(edges, edge.neighbour, visited, path + edge.neighbour + " ", toCheckFromSource);
+         }
+      }
+      visited.remove(source);
    }
 
    // ways to choose a pair from different component , in this it's 16
