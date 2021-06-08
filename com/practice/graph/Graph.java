@@ -41,10 +41,51 @@ public class Graph {
 
    public static void main(String[] args) {
       List<List<Edge>> edges = getEdges(new ArrayList<>());
-
-
 //      List<List<Edge>> edges = getEdgesSplitGraph(new ArrayList<>());
-//      List<List<Edge>> edgeForHamilton = getEdgesFromMatrix(new int[][]
+      BFS(edges, 0, 7);
+   }
+
+   private static class Pair {
+      int value;
+      String path;
+
+      public Pair(int value, String path) {
+         this.value = value;
+         this.path = path;
+      }
+   }
+
+   // we can either use visited air to keep track of visited node or can create Pair class to do that
+   private static void BFS(List<List<Edge>> edges, int starting, int noOfNodes) {
+//      BFS(edges, 0, 7);
+      Queue<Pair> queue = new ArrayDeque<>();
+      boolean[] visited = new boolean[noOfNodes]; // here 7 is no of nodes = 0 - 6
+
+      queue.add(new Pair(starting, 0 + ""));
+
+      while (!queue.isEmpty()) {
+         Pair pair = queue.remove();
+         if (!visited[pair.value]) {
+            visited[pair.value] = true;
+            System.out.println(pair.value + " @ " + pair.path);
+
+            for (Edge edge : edges.get(pair.value)) {
+               if (!visited[edge.neighbour]) {
+                  queue.add(new Pair(edge.neighbour, pair.path + edge.neighbour));
+               }
+            }
+         }
+      }
+
+
+   }
+
+
+   // todo : have some problem maybe in graph or something i'll do it later
+   // hamiltonian path -> from source to destination visit all path that called HamPath,
+   //  Ham cycle -> after HP if there is a direct edge b/w source to last node then called as HC
+   private static void printHamiltonianPathAndCycle(List<List<Edge>> edges, int source, Set<Integer> visited, String path, int toCheckFromSource) {
+      //      List<List<Edge>> edgeForHamilton = getEdgesFromMatrix(new int[][]
 //              {{0, 1, 10},
 //                      {1, 2, 10},
 //                      {2, 3, 10},
@@ -54,15 +95,6 @@ public class Graph {
 //                      {5, 6, 10},
 //                      {4, 6, 10},
 //                      {2, 5, 10}}, 7);
-////      printAllPath(edgeForHamilton, 0, 6, new boolean[7], 0 + "");
-////      printHamiltonianPathAndCycle(edgeForHamilton, 0, new HashSet<>(), 0 + " ", 0);
-//      hamiltonianPathAndCycle(edgeForHamilton, 0, 0, new HashSet<>(), 0 + "");
-   }
-
-   // todo : have some problem maybe in graph or something i'll do it later
-   // hamiltonian path -> from source to destination visit all path that called HamPath,
-   //  Ham cycle -> after HP if there is a direct edge b/w source to last node then called as HC
-   private static void printHamiltonianPathAndCycle(List<List<Edge>> edges, int source, Set<Integer> visited, String path, int toCheckFromSource) {
 
       visited.add(source);
       if (visited.size() == edges.size()) {
