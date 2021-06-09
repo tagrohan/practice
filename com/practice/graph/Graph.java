@@ -43,8 +43,45 @@ public class Graph {
       List<List<Edge>> edges = getEdges(new ArrayList<>());
 //      List<List<Edge>> edges = getEdgesSplitGraph(new ArrayList<>());
 //      List<List<Edge>> edges = getEdgesFromMatrix(new int[][]{{0, 1}, {1, 2}, {2, 3}, {4, 5}, {5, 6}}, 7);
-      DFS(edges);
+      System.out.println(spreadInfection(edges, 6, 3));
    }
+
+   private static class InfectionPair {
+      int vertex;
+      int time;
+
+      public InfectionPair(int vertex, int time) {
+         this.vertex = vertex;
+         this.time = time;
+      }
+   }
+
+   private static int spreadInfection(List<List<Edge>> edges, int start, int time) {
+//      System.out.println(spreadInfection(edges, 6, 3));
+      Queue<InfectionPair> queue = new ArrayDeque<>();
+      queue.add(new InfectionPair(start, 1));
+      boolean[] visited = new boolean[edges.size()];
+      int count = 1;
+
+      while (!queue.isEmpty()) {
+         InfectionPair pair = queue.remove();
+         if (pair.time >= time) {
+            return count;
+         }
+         if (!visited[pair.vertex]) {
+            visited[pair.vertex] = true;
+            count += 1;
+
+            for (Edge edge : edges.get(pair.vertex)) {
+               if (!visited[edge.neighbour]) {
+                  queue.add(new InfectionPair(edge.neighbour, pair.time + 1));
+               }
+            }
+         }
+      }
+      return count;
+   }
+
 
    // dfs using stack (iteratively) // starting from 0th one
    private static void DFS(List<List<Edge>> edges) {
