@@ -14,6 +14,7 @@ public class MyLinkedList {
       }
    }
 
+   // todo: this is just reverse code k-th reverse, will do it later.
    public void revereKGroup(Node node, int k) {
       if (node.next == null) {
          System.out.println(node.data);

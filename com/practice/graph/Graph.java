@@ -40,10 +40,30 @@ public class Graph {
    }
 
    public static void main(String[] args) {
-//      List<List<Edge>> edges = getEdges(new ArrayList<>());
+      List<List<Edge>> edges = getEdges(new ArrayList<>());
 //      List<List<Edge>> edges = getEdgesSplitGraph(new ArrayList<>());
-      List<List<Edge>> edges = getEdgesFromMatrix(new int[][]{{0, 1}, {1, 2}, {2, 3}, {4, 5}, {5, 6}}, 7);
-      System.out.println(isGraphBipartite(edges, 7));
+//      List<List<Edge>> edges = getEdgesFromMatrix(new int[][]{{0, 1}, {1, 2}, {2, 3}, {4, 5}, {5, 6}}, 7);
+      DFS(edges);
+   }
+
+   // dfs using stack (iteratively) // starting from 0th one
+   private static void DFS(List<List<Edge>> edges) {
+      Stack<Integer> stack = new Stack<>();
+      stack.push(edges.get(0).get(0).source);
+      boolean[] visited = new boolean[edges.size()];
+
+      while (!stack.isEmpty()) {
+         int value = stack.pop();
+         if (!visited[value]) { // not visited area started
+            visited[value] = true;
+            System.out.print(value + "->");
+            for (Edge edge : edges.get(value)) {
+               if (!visited[edge.neighbour]) {
+                  stack.push(edge.neighbour);
+               }
+            }
+         }
+      }
    }
 
    // todo: not working fine, so we have to give it a look
