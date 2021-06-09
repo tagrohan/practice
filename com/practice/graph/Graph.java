@@ -43,8 +43,48 @@ public class Graph {
       List<List<Edge>> edges = getEdges(new ArrayList<>());
 //      List<List<Edge>> edges = getEdgesSplitGraph(new ArrayList<>());
 //      List<List<Edge>> edges = getEdgesFromMatrix(new int[][]{{0, 1}, {1, 2}, {2, 3}, {4, 5}, {5, 6}}, 7);
-      System.out.println(spreadInfection(edges, 6, 3));
+      DijkstraShortestPathInWeight(edges);
+
    }
+
+   private static class DijkstraPair implements Comparable<DijkstraPair> {
+      int vertex;
+      int cost;
+      String path;
+
+      public DijkstraPair(int vertex, int cost, String path) {
+         this.vertex = vertex;
+         this.cost = cost;
+         this.path = path;
+      }
+
+      @Override
+      public int compareTo(DijkstraPair o) {
+         return this.cost - o.cost;
+      }
+   }
+
+   // Dijkstra algorithm here, using priority queue for this
+   private static void DijkstraShortestPathInWeight(List<List<Edge>> edges) {
+//      DijkstraShortestPathInWeight(edges);
+      Queue<DijkstraPair> queue = new PriorityQueue<>();
+      queue.add(new DijkstraPair(edges.get(0).get(0).source, edges.get(0).get(0).weight, 0 + ""));
+      boolean[] visited = new boolean[edges.size()];
+
+      while (!queue.isEmpty()) {
+         DijkstraPair pair = queue.remove();
+         if (!visited[pair.vertex]) {
+            visited[pair.vertex] = true;
+            System.out.println(pair.path);
+            for (Edge edge : edges.get(pair.vertex)) {
+               if (!visited[edge.neighbour]) {
+                  queue.add(new DijkstraPair(edge.neighbour, edge.weight, pair.path + " "+ edge.neighbour));
+               }
+            }
+         }
+      }
+   }
+
 
    private static class InfectionPair {
       int vertex;
