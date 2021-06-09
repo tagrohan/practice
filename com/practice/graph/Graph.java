@@ -43,7 +43,44 @@ public class Graph {
 //      List<List<Edge>> edges = getEdges(new ArrayList<>());
 //      List<List<Edge>> edges = getEdgesSplitGraph(new ArrayList<>());
       List<List<Edge>> edges = getEdgesFromMatrix(new int[][]{{0, 1}, {1, 2}, {2, 3}, {4, 5}, {5, 6}}, 7);
-      System.out.println(isGraphCyclic(edges, 7));
+      System.out.println(isGraphBipartite(edges, 7));
+   }
+
+   // todo: not working fine, so we have to give it a look
+   private static boolean isGraphBipartite(List<List<Edge>> edges, int noOfEdges) {
+      int[] visLevel = new int[noOfEdges]; // noOfNodes
+      Arrays.fill(visLevel, -1); // filling it with -1 means un visited
+      for (int i = 0; i < edges.size(); i++) {
+         if (edges.get(i).size() > 0 && visLevel[i] == -1) {
+            if (!isGraphBipartiteHelper(edges, i, visLevel)) {
+               return false;
+            }
+         }
+      }
+      return true;
+   }
+
+   private static boolean isGraphBipartiteHelper(List<List<Edge>> edges, int src, int[] visited) {
+      Queue<Pair> queue = new ArrayDeque<>();
+      queue.add(new Pair(src, 0));
+      while (!queue.isEmpty()) {
+         Pair pair = queue.remove();
+
+         if (pair.level != -1) {
+            if (pair.level != visited[pair.value]) {
+               return false;
+            }
+         } else {
+            visited[pair.value] = pair.level;
+            for (Edge edge : edges.get(pair.value)) {
+               if (visited[edge.neighbour] == -1) {
+                  queue.add(new Pair(edge.neighbour, pair.level + 1));
+               }
+            }
+         }
+
+      }
+      return true;
    }
 
    // graph can be dis continues
@@ -76,6 +113,7 @@ public class Graph {
                }
             }
          } else {
+            System.out.println(pair.path);
             return true;
          }
       }
@@ -85,6 +123,13 @@ public class Graph {
    private static class Pair {
       int value;
       String path;
+      int level;
+
+      // this is for bipartite graph checking (bcz we need to check for level there)
+      public Pair(int value, int level) {
+         this.value = value;
+         this.level = level;
+      }
 
       public Pair(int value, String path) {
          this.value = value;

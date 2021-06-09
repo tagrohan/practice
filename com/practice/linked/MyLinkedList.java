@@ -14,6 +14,24 @@ public class MyLinkedList {
       }
    }
 
+   public void revereKGroup(Node node, int k) {
+      if (node.next == null) {
+         System.out.println(node.data);
+         return;
+      }
+      Node prev = null;
+      Node cHead = node;
+      Node track;
+      while (cHead != null) {
+         track = cHead.next;
+         cHead.next = prev;
+         prev = cHead;
+         cHead = track;
+      }
+      this.head = prev;
+      print();
+   }
+
    // it's working fine
    public int addTwoLinkedList(Node first, Node second, int pFirst, int pSecond, MyLinkedList res) {
 

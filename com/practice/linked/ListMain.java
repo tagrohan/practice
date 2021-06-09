@@ -34,17 +34,11 @@ public class ListMain {
 //      list.addFirst(23);
 
 
-      list.addLast(9);
-      list.addLast(9);
-      list.addLast(9);
+      for (int i = 1; i < 12; i++) {
+         list.addLast(i);
+      }
 
-
-      list2.addLast(1);
-      list2.addLast(1);
-      list2.addLast(1);
-
-      MyLinkedList l = list.addTwoLinkedList(list2);
-      l.print();
+      list.revereKGroup(list.head,3);
 
 
 //      list.addLast(6);
