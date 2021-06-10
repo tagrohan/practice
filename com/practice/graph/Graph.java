@@ -43,9 +43,23 @@ public class Graph {
       List<List<Edge>> edges = getEdges(new ArrayList<>());
 //      List<List<Edge>> edges = getEdgesSplitGraph(new ArrayList<>());
 //      List<List<Edge>> edges = getEdgesFromMatrix(new int[][]{{0, 1}, {1, 2}, {2, 3}, {4, 5}, {5, 6}}, 7);
-      DijkstraShortestPathInWeight(edges);
+      PrimsAlgoMinWireReqToConnectAllPc(edges);
 
    }
+
+   // todo : i'll do it when i'll understand it
+   // MST = minimum spanning tree, edges sum should be minimum, vertex changes in this one
+   private static void PrimsAlgoMinWireReqToConnectAllPc(List<List<Edge>> edges) {
+      Queue<DijkstraPair> queue = new PriorityQueue<>(); // as we need weight, so we can use this
+      queue.add(new DijkstraPair(0, -1, 0 + "")); // -1 as it does no coming from anywhere
+      boolean[] visited = new boolean[edges.size()];
+
+      while (!queue.isEmpty()) {
+         DijkstraPair pair = queue.remove();
+
+      }
+   }
+
 
    private static class DijkstraPair implements Comparable<DijkstraPair> {
       int vertex;
@@ -68,17 +82,17 @@ public class Graph {
    private static void DijkstraShortestPathInWeight(List<List<Edge>> edges) {
 //      DijkstraShortestPathInWeight(edges);
       Queue<DijkstraPair> queue = new PriorityQueue<>();
-      queue.add(new DijkstraPair(edges.get(0).get(0).source, edges.get(0).get(0).weight, 0 + ""));
+      queue.add(new DijkstraPair(edges.get(0).get(0).source, 0, 0 + "")); //at 0 there is no weight
       boolean[] visited = new boolean[edges.size()];
 
       while (!queue.isEmpty()) {
          DijkstraPair pair = queue.remove();
          if (!visited[pair.vertex]) {
             visited[pair.vertex] = true;
-            System.out.println(pair.path);
+            System.out.println("weight -> " + pair.cost + " @ " + pair.path);
             for (Edge edge : edges.get(pair.vertex)) {
                if (!visited[edge.neighbour]) {
-                  queue.add(new DijkstraPair(edge.neighbour, edge.weight, pair.path + " "+ edge.neighbour));
+                  queue.add(new DijkstraPair(edge.neighbour, edge.weight + pair.cost, pair.path + " " + edge.neighbour));
                }
             }
          }
