@@ -7,8 +7,8 @@ public class Recursion {
 
 //      System.out.println(testing(new int[]{1, 2, 3, 5}, 5));
 
-      System.out.println(arrayTesting(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 0));
-
+//      System.out.println(arrayTesting(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 0));
+      towerOfHanoi(3, 11, 22, 33);
    }
 
    private static int arrayTesting(int[] arr, int idx) {

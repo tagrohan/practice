@@ -44,7 +44,7 @@ public class Graph {
 //      List<List<Edge>> edges = getEdgesSplitGraph(new ArrayList<>());
 //      List<List<Edge>> edges = getEdgesFromMatrix(new int[][]{{0, 1}, {1, 2}, {2, 3}, {4, 5}, {5, 6}}, 7);
       PrimsAlgoMinWireReqToConnectAllPc(edges);
-
+      
    }
 
    // todo : i'll do it when i'll understand it

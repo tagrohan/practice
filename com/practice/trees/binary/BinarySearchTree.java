@@ -29,8 +29,29 @@ public class BinarySearchTree {
 //      Node root = createTree(bst2,0,7);
 //      printRecursive(root);
 
-      targetSumPair(root, 100);
+//      targetSumPair(root, 100);
 //      System.out.println(find(root,25));
+
+      System.out.println(isBstUsingInOrderProperty(root));
+   }
+
+
+   // as in order gives acceding order, then after getting data, we'll check it's sorted or not
+   private static boolean isBstUsingInOrderProperty(Node root) {
+      List<Integer> list = new ArrayList<>();
+      isBstHelper(root, list);
+      for (int i = 1; i < list.size() - 1; i++) {
+         if (list.get(i) <= list.get(i - 1)) return false;
+      }
+      return true;
+   }
+
+
+   private static void isBstHelper(Node root, List<Integer> list) {
+      if (root == null) return;
+      isBstHelper(root.left, list);
+      list.add(root.data);
+      isBstHelper(root.right, list);
    }
 
 
