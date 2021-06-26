@@ -25,14 +25,27 @@ public class BinarySearchTree {
 
       int[] bst = new int[]{12, 25, 30, 37, 40, 50, 60, 62, 70, 75, 87};
       int[] bst2 = new int[]{12, 25, 37, 50, 62, 75, 87};
-      Node root = createTree(bst, 0, 11);
-//      Node root = createTree(bst2,0,7);
+//      Node root = createTree(bst, 0, 11);
+      Node root = createTree(bst2, 0, 7);
 //      printRecursive(root);
 
 //      targetSumPair(root, 100);
 //      System.out.println(find(root,25));
 
-      System.out.println(isBstUsingInOrderProperty(root));
+      System.out.println(isBstUsingInOrderPropertyV2(root, null));
+   }
+
+
+   // better time complexity
+   private static boolean isBstUsingInOrderPropertyV2(Node root, Node prev) {
+      if (root == null) return true;
+
+      boolean isValid = isBstUsingInOrderPropertyV2(root.left, prev);
+      if (!isValid) return false;
+
+      if (prev != null && root.data <= prev.data) return false;
+      prev = root;
+      return isBstUsingInOrderPropertyV2(root.right, prev);
    }
 
 
