@@ -2,7 +2,40 @@ package com.practice.getting_started;
 
 public class Getting {
    public static void main(String[] args) {
-      rotateANumberV2(12345, -2);
+      primeFactor(25);
+   }
+
+
+   // working fine check gfg for this
+   private static void primeFactor(int n) {
+
+      while (n % 2 == 0) {
+         System.out.print(n + " ");
+         n /= 2;
+      }
+      // n is odd here
+      for (int i = 3; i * i <= n; i += 2) {
+         while (n % i == 0) {
+            System.out.print(i + " ");
+            n /= i;
+         }
+      }
+      if (n > 2) System.out.print(n);
+
+   }
+
+
+   // working great
+   private static void gcdLcd(int num1, int num2) {
+
+      int num1Temp = num1, num2Temp = num2;
+      while (num1 % num2 != 0) {
+         int rem = num1 % num2;
+         num1 = num2;
+         num2 = rem;
+      }
+      System.out.println("GCD = " + num2);
+      System.out.println("LCM = " + (num1Temp * num2Temp) / num2); // this line is imp
    }
 
 
