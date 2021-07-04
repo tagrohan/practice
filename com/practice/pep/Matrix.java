@@ -41,7 +41,7 @@ public class Matrix {
    }
 
 
-   // multiplication working fine
+   // multiplication working fine where i,j,k three loop is used
    private static void multiplication(int[][] arr1, int[][] arr2) {
       printMatrix(arr1);
       printMatrix(arr2);
