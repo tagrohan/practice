@@ -5,11 +5,7 @@ public class Recursion {
    // recursion practice goes from here
    public static void main(String[] args) {
 
-//      System.out.println(testing(new int[]{1, 2, 3, 5}, 5));
-
-//      System.out.println(maxInArray(new int[]{1, 21, 3, 4, 5, 6, 7, 8, 9, 10}, 0));
-//      towerOfHanoi(3, 11, 22, 33);
-      System.out.println(linearSearchV2(new int[]{6, 4, 7, 8, 3, 2}, 0, 8));
+      System.out.println(powerV2(2,3));
    }
 
    private static int maxInArray(int[] arr, int idx) {
@@ -24,6 +20,7 @@ public class Recursion {
 
    // pre order
    private static int linearSearchV2(int[] arr, int idx, int key) {
+//      System.out.println(linearSearchV2(new int[]{6, 4, 7, 8, 3, 2}, 0, 8));
       if (arr.length == idx) {
          return -1;
       }
@@ -111,12 +108,12 @@ public class Recursion {
    }
 
 
-   // factorial with O(log n)
-   private static int fac(int n, int pow) {
+   // power with O(log n)
+   private static int powerV2(int n, int pow) {
       if (pow == 0) {
          return 1;
       }
-      int res = fac(n, pow / 2) * fac(n, pow / 2);
+      int res = powerV2(n, pow / 2) * powerV2(n, pow / 2);
 //      int res = halfFact * halfFact;
       if (pow % 2 == 1) {
          res = res * n;
