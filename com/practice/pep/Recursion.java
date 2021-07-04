@@ -7,8 +7,9 @@ public class Recursion {
 
 //      System.out.println(testing(new int[]{1, 2, 3, 5}, 5));
 
-      System.out.println(maxInArray(new int[]{1, 21, 3, 4, 5, 6, 7, 8, 9, 10}, 0));
+//      System.out.println(maxInArray(new int[]{1, 21, 3, 4, 5, 6, 7, 8, 9, 10}, 0));
 //      towerOfHanoi(3, 11, 22, 33);
+      System.out.println(linearSearchV2(new int[]{6, 4, 7, 8, 3, 2}, 0, 8));
    }
 
    private static int maxInArray(int[] arr, int idx) {
@@ -21,17 +22,30 @@ public class Recursion {
       return Math.max(cMax, arr[idx]);
    }
 
-   // todo  linear search in array
+   // pre order
+   private static int linearSearchV2(int[] arr, int idx, int key) {
+      if (arr.length == idx) {
+         return -1;
+      }
+      if (arr[idx] == key) {
+         return idx;
+      }
+      return linearSearchV2(arr, idx + 1, key);
+   }
 
+   // post order
    private static int linearSearch(int[] arr, int idx, int key) {
 //      System.out.println(linearSearch(new int[]{6, 4, 7, 8, 3, 2}, 0,8));
-
-      if (arr.length - 1 == idx) {
-         return arr[idx];
+      if (arr.length == idx) {
+         return -1;
       }
-      int element = linearSearch(arr, idx + 1, key);
-      if (element == key) {
-         return idx;
+      System.out.println("called for " + arr[idx]);
+      int cIndex = linearSearch(arr, idx + 1, key);
+
+      if (cIndex == -1) {
+         if (arr[idx] == key) return idx;
+      } else {
+         return cIndex;
       }
       return -1;
    }
