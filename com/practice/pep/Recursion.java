@@ -7,21 +7,18 @@ public class Recursion {
 
 //      System.out.println(testing(new int[]{1, 2, 3, 5}, 5));
 
-//      System.out.println(arrayTesting(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 0));
-      towerOfHanoi(3, 11, 22, 33);
+      System.out.println(maxInArray(new int[]{1, 21, 3, 4, 5, 6, 7, 8, 9, 10}, 0));
+//      towerOfHanoi(3, 11, 22, 33);
    }
 
-   private static int arrayTesting(int[] arr, int idx) {
+   private static int maxInArray(int[] arr, int idx) {
 
       if (arr.length - 1 == idx) {
          return arr[idx];
       }
 
-      int cMax = arrayTesting(arr, idx + 1);
-      if (cMax > arr[idx]) {
-         return cMax;
-      }
-      return arr[idx];
+      int cMax = maxInArray(arr, idx + 1);
+      return Math.max(cMax, arr[idx]);
    }
 
    // todo  linear search in array
