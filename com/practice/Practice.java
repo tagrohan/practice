@@ -1,8 +1,10 @@
 package com.practice;
 
+import java.util.Arrays;
+
 public class Practice {
    public static void main(String[] args) {
-      towerOfHanoi(1, 3, 2, 3);
+      System.out.println(Arrays.toString(findIndexes(new int[]{1, 2, 3, 2, 2, 2}, 0, 2, 0)));
    }
 
    // working fine practice it, aditya verma god
@@ -14,5 +16,19 @@ public class Practice {
       towerOfHanoi(s, h, d, n - 1);
       System.out.println(s + " " + d);
       towerOfHanoi(h, d, s, n - 1);
+   }
+
+   private static int[] findIndexes(int[] arr, int idx, int key, int no) {
+      if (arr.length == idx) {
+         return new int[no];
+      }
+
+      if (arr[idx] == key) {
+         int[] cIndex = findIndexes(arr, idx + 1, key, no + 1);
+         cIndex[no] = idx;
+         return cIndex;
+      } else {
+         return findIndexes(arr, idx + 1, key, no);
+      }
    }
 }
