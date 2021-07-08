@@ -1,6 +1,7 @@
 package com.practice.pep;
 
-// todo : it is generally called as LO level option style
+// todo : it is generally called as LO (level option style) means on the way up
+// todo : 2nd one is faith expectation style means on the way down
 // https://www.youtube.com/watch?v=LgFl0hsyWP8&list=TLGGv6_bg6nVfcAwODA1MjAyMQ at 1:59
 public class RecursionOnTheWayUp {
    public static void main(String[] args) {

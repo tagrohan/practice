@@ -44,8 +44,36 @@ public class Graph {
 //      List<List<Edge>> edges = getEdgesSplitGraph(new ArrayList<>());
 //      List<List<Edge>> edges = getEdgesFromMatrix(new int[][]{{0, 1}, {1, 2}, {2, 3}, {4, 5}, {5, 6}}, 7);
       PrimsAlgoMinWireReqToConnectAllPc(edges);
-      
+      int[] res = solve(new int[][]{
+              {1, 2},
+              {2, 3},
+              {1, 4},
+              {1, 5}}, new int[][]{{1, 3}, {2, 5}});
    }
+
+   private static int[] solve(int[][] edge, int[][] query) {
+      int len = edge.length, qLen = query.length;
+      List<List<Edge>> edges = getEdgesV2(edge);
+
+      for (int i = 0; i < edges.size(); i++) {
+
+      }
+
+      return new int[2];
+   }
+
+
+   private static List<List<Edge>> getEdgesV2(int[][] edgesM) {
+      List<List<Edge>> edges = new ArrayList<>();
+      for (int i = 0; i <= edgesM.length; i++) {
+         edges.add(new ArrayList<>());
+      }
+      for (int i = 0; i < edgesM.length; i++) {
+         edges.get(edgesM[i][0]).add(new Edge(edgesM[i][0], edgesM[i][1]));
+      }
+      return edges;
+   }
+
 
    // todo : i'll do it when i'll understand it
    // MST = minimum spanning tree, edges sum should be minimum, vertex changes in this one
