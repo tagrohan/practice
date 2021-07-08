@@ -185,7 +185,7 @@ public class Graph {
       }
    }
 
-   // todo: not working fine, so we have to give it a look
+   // todo: not working fine, so we have to give it a look, and practising graph is also required 
    private static boolean isGraphBipartite(List<List<Edge>> edges, int noOfEdges) {
       int[] visLevel = new int[noOfEdges]; // noOfNodes
       Arrays.fill(visLevel, -1); // filling it with -1 means un visited
