@@ -40,7 +40,7 @@ public class RecursionInArrayList {
 
    // get stair path with certain condition that we can only use 1 2 3 steps at a time
    private static List<String> getStairPaths(int n) {
-//      System.out.println(Arrays.toString(getStairPaths(4).toArray()));
+//      System.out.println(Arrays.toString(getStairPaths(5).toArray()));
       if (n == 0) {
          return List.of("");
       }
