@@ -1,19 +1,36 @@
 package com.practice;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Practice {
    public static void main(String[] args) {
-      System.out.println(noOfOperations(new int[]{2, 4, 7, 9}));
+      System.out.println(Arrays.toString(maze(1, 1, 3, 3).toArray()));
    }
 
-   // no of operations to make it equal [2,4,7,9] [3,1,-2,-4]
-//                                      [3,5,6,8]
-//                                      [4,5,5,7]
-//                                      [5,5,5,6]
-//                                      [5,5,5,5]
+   private static List<String> maze(int x, int y, int dX, int dY) {
+
+      if (x == dX && y == dY) return List.of("");
+      if (x > dX || y > dY) return List.of();
+
+      List<String> xAxis = maze(x + 1, y, dX, dY);
+      List<String> yAxis = maze(x, y + 1, dX, dY);
+
+      List<String> paths = new ArrayList<>();
+      for (String inX : xAxis) {
+         paths.add("x" + inX);
+      }
+      for (String inY : yAxis) {
+         paths.add("y" + inY);
+      }
+      return paths;
+   }
+
+
+   // no of operations to make it equal [2,4,7,9]
    private static int noOfOperations(int[] arr) {
+//      System.out.println(noOfOperations(new int[]{2, 4, 7, 9}));
       int len = arr.length;
       int median = 0;
       int max = Integer.MIN_VALUE;
