@@ -3,14 +3,55 @@ package com.practice;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 public class Practice {
    public static void main(String[] args) {
-      System.out.println(Arrays.toString(maze(1, 1, 3, 3).toArray()));
+      System.out.println(Is_Possible(1, 2, "1"));
    }
 
-   private static List<String> maze(int x, int y, int dX, int dY) {
+   static int Is_Possible(int N, int K, String str) {
+      char[] cha = str.toCharArray();
+      for (int i = 1; i < N; i++) {
+         if ((i + 1) % K == 0) {
+            cha[i] = '0';
+         }
+      }
+      System.out.println(Arrays.toString(cha));
+      for (int i = 0; i < N; i++) {
+         if (cha[i] != '0') {
+            return 0;
+         }
+      }
+      return 1;
+   }
 
+
+   // (a+b)+(c+d) -> false (means no bracket duplicate) (a+b)+((c+d)) -> true
+   private static boolean duplicateBrackets(String regex) {
+      System.out.println(duplicateBrackets("(a+b)+(c+d)"));
+      Stack<Character> stack = new Stack<>();
+      for (int i = 0; i < regex.length(); i++) {
+         char ch = regex.charAt(i);
+         if (ch != ')') {
+            stack.push(ch);
+         } else {
+            if (!stack.isEmpty() && stack.peek() == '(') {
+               return true;
+            }
+            while (!stack.isEmpty() && stack.peek() != '(') {
+               stack.pop();
+            }
+            if (stack.isEmpty()) return true;
+            stack.pop();
+         }
+      }
+      return false;
+   }
+
+
+   private static List<String> maze(int x, int y, int dX, int dY) {
+//      System.out.println(Arrays.toString(maze(1, 1, 3, 3).toArray()));
       if (x == dX && y == dY) return List.of("");
       if (x > dX || y > dY) return List.of();
 
