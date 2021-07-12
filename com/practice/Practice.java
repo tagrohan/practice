@@ -30,6 +30,11 @@ public class Practice {
       }
       return 1;
    }
+    
+   // stack prepration started
+   private static void stackPractice(){
+      
+   }
 
 
    // (a+b)+(c+d) -> false (means no bracket duplicate) (a+b)+((c+d)) -> true
