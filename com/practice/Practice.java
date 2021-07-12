@@ -7,8 +7,10 @@ import java.util.Stack;
 
 public class Practice {
    public static void main(String[] args) {
-      System.out.println(Is_Possible(1, 2, "1"));
+      System.out.println(Is_Possible(0, 2, ""));
    }
+
+
 
    static int Is_Possible(int N, int K, String str) {
       char[] cha = str.toCharArray();
