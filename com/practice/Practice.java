@@ -10,7 +10,10 @@ public class Practice {
       System.out.println(Is_Possible(0, 2, ""));
    }
 
+   private static int[] nextGreatestElement(int[] arr) {
 
+      return new int[0];
+   }
 
    static int Is_Possible(int N, int K, String str) {
       char[] cha = str.toCharArray();
