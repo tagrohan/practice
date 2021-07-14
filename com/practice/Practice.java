@@ -7,15 +7,29 @@ import java.util.Stack;
 
 public class Practice {
    public static void main(String[] args) {
-      System.out.println(Is_Possible(0, 2, ""));
+      System.out.println(Arrays.toString(nextGreatestElement(new int[]{1, 2, 9, 4, 5})));
    }
 
-   private static int[] nextGreatestElement(int[] arr) {
 
-      return new int[0];
+   private static int[] nextGreatestElement(int[] arr) {
+      Stack<Integer> stack = new Stack<>();
+      int[] res = new int[arr.length];
+      for (int i = arr.length - 1; i >= 0; i--) {
+         while (!stack.isEmpty() && stack.peek() < arr[i]) {
+            stack.pop();
+         }
+         if (stack.isEmpty()) {
+            res[i] = -1;
+         } else {
+            res[i] = stack.peek();
+         }
+         stack.push(arr[i]);
+      }
+      return res;
    }
 
    static int Is_Possible(int N, int K, String str) {
+//      System.out.println(Is_Possible(0, 2, ""));
       char[] cha = str.toCharArray();
       for (int i = 1; i < N; i++) {
          if ((i + 1) % K == 0) {
@@ -30,10 +44,10 @@ public class Practice {
       }
       return 1;
    }
-    
+
    // stack prepration started
-   private static void stackPractice(){
-      
+   private static void stackPractice() {
+
    }
 
 
