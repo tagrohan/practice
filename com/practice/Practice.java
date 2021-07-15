@@ -7,7 +7,25 @@ import java.util.Stack;
 
 public class Practice {
    public static void main(String[] args) {
-      System.out.println(Arrays.toString(nextGreatestElement(new int[]{1, 2, 9, 4, 5})));
+      System.out.println(Arrays.toString(nextSmallestElement(new int[]{1, 2, 9, 4, 5})));
+   }
+
+   private static int[] nextSmallestElement(int[] arr) { // 1 2 9 4 3
+      int len = arr.length;
+      int[] res = new int[len];
+      Stack<Integer> stack = new Stack<>();
+      for (int i = len - 1; i >= 0; i--) {
+         while (!stack.isEmpty() && stack.peek() > arr[i]) {
+            stack.pop();
+         }
+         if (stack.isEmpty()) {
+            res[i] = -1;
+         } else {
+            res[i] = stack.peek();
+         }
+         stack.push(arr[i]);
+      }
+      return res;
    }
 
 
