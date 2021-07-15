@@ -7,10 +7,29 @@ import java.util.Stack;
 
 public class Practice {
    public static void main(String[] args) {
-      System.out.println(Arrays.toString(nextSmallestElement(new int[]{1, 2, 9, 4, 5})));
+      oddOneSideEvenONeSide(new int[]{1, 2, 3, 4, 5});
+   }
+
+   private static void oddOneSideEvenONeSide(int[] arr) {
+      int start = 0, end = arr.length - 1;
+
+      while (start < end) {
+         if (arr[start] % 2 == 0) {
+            start++;
+         } else {
+            if (arr[end] % 2 == 0) {
+               int temp = arr[start];
+               arr[start] = arr[end];
+               arr[end] = temp;
+            }
+            end--;
+         }
+      }
+      System.out.println(Arrays.toString(arr));
    }
 
    private static int[] nextSmallestElement(int[] arr) { // 1 2 9 4 3
+//      System.out.println(Arrays.toString(nextSmallestElement(new int[]{1, 2, 9, 4, 5})));
       int len = arr.length;
       int[] res = new int[len];
       Stack<Integer> stack = new Stack<>();
