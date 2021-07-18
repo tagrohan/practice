@@ -1,5 +1,6 @@
 package com.practice;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,7 +8,46 @@ import java.util.Stack;
 
 public class Practice {
    public static void main(String[] args) {
-      oddOneSideEvenONeSide(new int[]{1, 2, 3, 4, 5});
+      Hash<Integer, String> map = new Hash<>();
+      map.put(1, "Rohan");
+      map.put(2, "Rohan");
+      map.put(30, "Rohan");
+      map.put(46, "Rohan");
+      map.put(50, "Rohan");
+      map.put(6, "Rohan");
+
+      map.put(47, "Rohan");
+      map.put(507, "Rohan");
+//      map.put(667, "Rohan");
+//      map.print();
+
+      for (int key : map.keySet()) {
+         System.out.println(key);
+      }
+
+      System.out.println(map.size());
+
+   }
+
+   private static int[] stockSpan(int[] arr) {
+//      System.out.println(Arrays.toString(stockSpan(new int[]{2, 5, 9, 3, 1, 12, 6, 8, 7})));
+      Stack<Integer> stack = new Stack<>();
+      int[] res = new int[arr.length];
+
+      for (int i = 0; i < arr.length; i++) {
+         int howMuchPop = 1;
+         while (!stack.isEmpty() && stack.peek() < arr[i]) {
+            stack.pop();
+            howMuchPop += 1;
+         }
+         if (stack.isEmpty()) {
+            res[i] = i + 1;
+         } else {
+            res[i] = howMuchPop;
+         }
+         stack.push(arr[i]);
+      }
+      return res;
    }
 
    private static void oddOneSideEvenONeSide(int[] arr) {
@@ -22,6 +62,9 @@ public class Practice {
                arr[start] = arr[end];
                arr[end] = temp;
             }
+            end--;
+         }
+         if (arr[end] % 2 != 0) {
             end--;
          }
       }

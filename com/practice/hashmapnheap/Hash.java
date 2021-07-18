@@ -2,7 +2,7 @@ package com.practice.hashmapnheap;
 
 import java.util.*;
 
-public class Hash {
+ class Hash {
    public static void main(String[] args) {
 
       System.out.println(longestConsecutiveSeq(new Integer[]{0, 0, -1}));
