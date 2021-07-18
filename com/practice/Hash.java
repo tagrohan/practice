@@ -60,7 +60,7 @@ public class Hash<K, V> {
    }
 
    private void rehashing() {
-      System.out.println("rehashing occur");
+//      System.out.println("rehashing occur");
       LinkedList<Node>[] tempTable = table;
       table = null;
       initializeBucket(tableLength * 2);
@@ -93,6 +93,17 @@ public class Hash<K, V> {
          }
       }
       return keys;
+   }
+
+   public K remove(K key) {
+      int tableIndex = hashFunction(key);
+      int indexIfAvailable = indexFunction(key, tableIndex);
+      if (indexIfAvailable != -1) {
+         Node node = table[tableIndex].remove(indexIfAvailable);
+         return node.key;
+      } else {
+         return null;
+      }
    }
 
    public int size() {

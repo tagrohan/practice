@@ -20,13 +20,12 @@ public class Practice {
       map.put(507, "Rohan");
 //      map.put(667, "Rohan");
 //      map.print();
-
+      map.remove(507);
       for (int key : map.keySet()) {
          System.out.println(key);
       }
 
-      System.out.println(map.size());
-
+//      System.out.println(map.size());
    }
 
    private static int[] stockSpan(int[] arr) {
