@@ -6,27 +6,43 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
+class B extends Thread {
+   @Override
+   public void run() {
+      for (int i = 0; i < 10; i++) {
+         System.out.println("B thread " + i);
+         try {
+            sleep(1000);
+         } catch (InterruptedException e) {
+            e.printStackTrace();
+         }
+      }
+   }
+}
+
+class A extends Thread {
+   @Override
+   public void run() {
+      for (int i = 0; i < 10; i++) {
+         System.out.println("A thread " + i);
+         try {
+            sleep(1000);
+         } catch (InterruptedException e) {
+            e.printStackTrace();
+         }
+      }
+   }
+}
+
+
 public class Practice {
    public static void main(String[] args) {
-      Hash<Integer, String> map = new Hash<>();
-      map.put(1, "Rohan");
-      map.put(2, "Rohan");
-      map.put(30, "Rohan");
-      map.put(46, "Rohan");
-      map.put(50, "Rohan");
-      map.put(6, "Rohan");
-
-      map.put(47, "Rohan");
-      map.put(507, "Rohan");
-//      map.put(667, "Rohan");
-//      map.print();
-      map.remove(507);
-      for (int key : map.keySet()) {
-         System.out.println(key);
-      }
-
-//      System.out.println(map.size());
+      B b = new B();
+      A a = new A();
+      b.start();
+      a.start();
    }
+
 
    private static int[] stockSpan(int[] arr) {
 //      System.out.println(Arrays.toString(stockSpan(new int[]{2, 5, 9, 3, 1, 12, 6, 8, 7})));

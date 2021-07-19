@@ -26,8 +26,8 @@ public class Hash<K, V> {
 
    private LinkedList<Node>[] table;
    private int size = 0;
-   private double loadingFactor = 0.75;
-   private int tableLength = 10;
+   private final double loadingFactor = 0.75;
+   private int tableLength = 16;
 
    public Hash() {
       initializeBucket(tableLength);
@@ -131,5 +131,4 @@ public class Hash<K, V> {
          System.out.println(Arrays.toString(list.toArray()));
       }
    }
-
 }
