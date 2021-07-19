@@ -1,4 +1,4 @@
-package com.practice;
+package com.practice.trees.prac;
 
 class Official extends Thread {
    @Override
