@@ -42,6 +42,7 @@ public class Hash<K, V> {
    }
 
    public void put(K key, V value) {
+
       int hashIndex = hashFunction(key);
       int indexInTable = indexFunction(key, hashIndex);
       if (indexInTable != -1) {

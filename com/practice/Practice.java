@@ -9,6 +9,7 @@ import java.util.Stack;
 class B extends Thread {
    @Override
    public void run() {
+      System.out.println(Thread.currentThread().getId());
       for (int i = 0; i < 10; i++) {
          System.out.println("B thread " + i);
          try {
@@ -23,24 +24,29 @@ class B extends Thread {
 class A extends Thread {
    @Override
    public void run() {
-      for (int i = 0; i < 10; i++) {
-         System.out.println("A thread " + i);
-         try {
-            sleep(1000);
-         } catch (InterruptedException e) {
-            e.printStackTrace();
-         }
-      }
+      System.out.println(Thread.currentThread().getId());
+//      for (int i = 0; i < 10; i++) {
+//         System.out.println("A thread " + i);
+//         try {
+//            sleep(1000);
+//         } catch (InterruptedException e) {
+//            e.printStackTrace();
+//         }
+//      }
    }
 }
 
 
 public class Practice {
-   public static void main(String[] args) {
-      B b = new B();
-      A a = new A();
-      b.start();
-      a.start();
+   public static void main(String[] args) throws InterruptedException {
+//      B b = new B();
+//      A a = new A();
+//      b.start();
+//      System.out.println(b.isAlive());
+//      a.start();
+//
+      System.out.println(Thread.currentThread().getPriority() );
+
    }
 
 
