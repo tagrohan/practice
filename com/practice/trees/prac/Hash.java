@@ -1,9 +1,6 @@
 package com.practice.trees.prac;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Hash<K, V> {
    private class Node {
@@ -55,7 +52,7 @@ public class Hash<K, V> {
       }
       // checking thrash hold value
       double lambda = size * 1.0 / table.length;
-      if (lambda > 0.75) {
+      if (lambda > loadingFactor) {
          rehashing();
       }
    }

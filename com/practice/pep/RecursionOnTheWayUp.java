@@ -7,7 +7,9 @@ public class RecursionOnTheWayUp {
    public static void main(String[] args) {
 //      printEncoding("123", "");
 //      System.out.println(fibonacci(1000));
-      printPermutation("abc","");
+//      printPermutation("abc","");
+
+      printSubsequence("abc","");
    }
 
    private static int fibonacci(int n) {
