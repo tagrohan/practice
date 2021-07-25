@@ -3,6 +3,8 @@ package com.practice.sync;
 public class Single {
 
    private Single() {
+      // for reflection api's, throwing error
+      throw new RuntimeException("Can't be initialize");
    }
 
    private static volatile Single single;
