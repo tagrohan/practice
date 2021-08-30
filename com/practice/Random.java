@@ -1,13 +1,44 @@
 package com.practice;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.TreeMap;
 
 public class Random {
    public static void main(String[] args) {
-      System.out.println(Arrays.toString(sort(new int[]{0, 2, 1, 2, 1, 0, 0, 0, 2, 1, 2})));
+
+//      printpairs(new int[]{0, -1, 2, -3, 1}, -2);
+
+      TreeMap<Integer, Integer> t = new TreeMap<>();
+      t.put(3, 3);
+      t.put(1, 2);
+      t.put(2, 1);
+
+
+      for (Integer i : t.values()) {
+         System.out.println(i);
+      }
+
    }
 
+   static void printpairs(int arr[], int sum) {
+      HashSet<Integer> s = new HashSet<Integer>();
+      for (int i = 0; i < arr.length; ++i) {
+         int temp = sum - arr[i];
+         // checking for condition
+         if (s.contains(temp)) {
+            System.out.println(
+                    "Pair with given sum "
+                            + sum + " is (" + arr[i]
+                            + ", " + temp + ")");
+         }
+         s.add(arr[i]);
+      }
+   }
+
+
    private static int[] sort(int[] arr) {
+      //      System.out.println(Arrays.toString(sort(new int[]{0, 2, 1, 2, 1, 0, 0, 0, 2, 1, 2})));
       int low = 0, mid = 0, high = arr.length - 1;
       while (mid <= high) {
          if (arr[mid] == 0) {
