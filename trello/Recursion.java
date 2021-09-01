@@ -3,11 +3,26 @@ package trello;
 public class Recursion {
 
    public static void main(String[] args) {
-      towerOfHanoi(1, 2, 3, 3);
+      System.out.println(findFromLast(new int[]{1, 3, 4, 4, 3, 5}, 0, 3));
+   }
+
+   private static int findFromLast(int[] arr, int idx, int key) {
+      if (arr.length - 1 == idx) {
+         if (arr[idx] == key) {
+            return idx;
+         } else return -1;
+      }
+
+      int index = findFromLast(arr, idx + 1, key);
+      if (index == -1) {
+         if (arr[idx] == key) return idx;
+      }
+      return index;
    }
 
    // working fine bro
    private static void towerOfHanoi(int source, int helper, int destination, int number) {
+//      towerOfHanoi(1, 2, 3, 3);
       if (number == 1) {
          System.out.println(source + " -> " + destination);
          return;
