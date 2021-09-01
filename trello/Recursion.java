@@ -3,12 +3,15 @@ package trello;
 public class Recursion {
 
    public static void main(String[] args) {
-      System.out.println(powerOn2(2, 3));
+      System.out.println(maxAndMin(new int[]{1, 2, 4, 3, 200, 13, 64}, 0));
    }
 
-   private static int maxAndMin(int[] arr) {
-
-      return -1;
+   private static int maxAndMin(int[] arr, int idx) {
+      if (arr.length == idx) {
+         return arr[idx - 1];
+      }
+      int cMax = maxAndMin(arr, idx + 1);
+      return Math.min(arr[idx], cMax); // Math.max() for max
    }
 
 
