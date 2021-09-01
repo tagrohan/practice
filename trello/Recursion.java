@@ -3,10 +3,23 @@ package trello;
 public class Recursion {
 
    public static void main(String[] args) {
-      System.out.println(maxAndMin(new int[]{1, 2, 4, 3, 200, 13, 64}, 0));
+      towerOfHanoi(1, 2, 3, 3);
+   }
+
+   // working fine bro
+   private static void towerOfHanoi(int source, int helper, int destination, int number) {
+      if (number == 1) {
+         System.out.println(source + " -> " + destination);
+         return;
+      }
+
+      towerOfHanoi(source, destination, helper, number - 1);
+      System.out.println(source + " -> " + destination);
+      towerOfHanoi(helper, source, destination, number - 1);
    }
 
    private static int maxAndMin(int[] arr, int idx) {
+//      System.out.println(maxAndMin(new int[]{1, 2, 4, 3, 200, 13, 64}, 0));
       if (arr.length == idx) {
          return arr[idx - 1];
       }
