@@ -1,12 +1,48 @@
 package trello;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Recursion {
 
    public static void main(String[] args) {
-      System.out.println(findFromLast(new int[]{1, 3, 4, 4, 3, 5}, 0, 3));
+      System.out.println(Arrays.toString(allIndexesV2(new int[]{1, 3, 4, 3, 3, 5}, 0, 3, 0)));
+   }
+
+   private static int[] allIndexesV2(int[] arr, int idx, int key, int no) {
+
+      if (arr.length == idx) {
+         return new int[no]; // no = 3
+      }
+
+      if (arr[idx] == key) {
+         no++;
+      }
+      int[] indexes = allIndexesV2(arr, idx + 1, key, no);
+      if (arr[idx] == key) {
+         indexes[--no] = idx;
+      }
+      return indexes;
+   }
+
+
+   private static List<Integer> list = new ArrayList<>();
+
+   private static void allIndexes(int[] arr, int idx, int key) {
+
+//      allIndexes(new int[]{1, 3, 4, 3, 3, 5}, 0, 3);
+//      System.out.println(Arrays.toString(list.toArray()));
+      if (arr.length == idx) {
+         return;
+      }
+      if (arr[idx] == key) list.add(idx);
+
+      allIndexes(arr, idx + 1, key);
    }
 
    private static int findFromLast(int[] arr, int idx, int key) {
+//      System.out.println(findFromLast(new int[]{1, 3, 4, 4, 3, 5}, 0, 3));
       if (arr.length - 1 == idx) {
          if (arr[idx] == key) {
             return idx;
