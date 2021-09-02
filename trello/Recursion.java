@@ -1,17 +1,31 @@
 package trello;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Recursion {
 
    public static void main(String[] args) {
-      System.out.println(Arrays.toString(allIndexesV2(new int[]{1, 3, 4, 3, 3, 5}, 0, 3, 0)));
+      System.out.println(getSubsequence("abc").toString());
+   }
+
+   private static List<String> getSubsequence(String str) {
+      if (str.length() == 0) {
+         return List.of("");
+      }
+
+      char ch = str.charAt(0);
+      List<String> shortString = getSubsequence(str.substring(1));
+      List<String> soFar = new ArrayList<>();
+      for (String ss : shortString) {
+         soFar.add(ss);
+         soFar.add(ch + ss);
+      }
+      return soFar;
    }
 
    private static int[] allIndexesV2(int[] arr, int idx, int key, int no) {
-
+//      System.out.println(Arrays.toString(allIndexesV2(new int[]{1, 3, 4, 3, 3, 5}, 0, 3, 0)));
       if (arr.length == idx) {
          return new int[no]; // no = 3
       }
