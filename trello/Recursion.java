@@ -6,10 +6,25 @@ import java.util.List;
 public class Recursion {
 
    public static void main(String[] args) {
-      System.out.println(getSubsequence("abc").toString());
+      combination("abc", "");
    }
 
+
+   private static void combination(String str, String csf) {
+      if (str.length() == 0) {
+         System.out.print(csf + " - ");
+      }
+
+      for (int i = 0; i < str.length(); i++) {
+         char ch = str.charAt(i);
+         combination(str.substring(0, i) + str.substring(i + 1), csf + ch);
+      }
+
+   }
+
+
    private static List<String> getSubsequence(String str) {
+//      System.out.println(getSubsequence("abc").toString());
       if (str.length() == 0) {
          return List.of("");
       }
