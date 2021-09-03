@@ -11,10 +11,11 @@ public class OnArray {
 
 
 
-    // google kikstart 2020 subarray video 8.4
-    // link:
-    // https://codingcompetitions.withgoogle.com/kickstart/round/000000000019ff47/00000000003bf4ed#problem
-    // 10,7,4,6,8,10,11 5,5,4,5,5,5,4,5,6 9,7,5,3 5,4,3,2,1,2,3,4,5,6
+//     google kikstart 2020 subarray video 8.4
+//     link:
+//     https://codingcompetitions.withgoogle.com/kickstart/round/000000000019ff47/00000000003bf4ed#problem
+//     10,7,4,6,8,10,11 5,5,4,5,5,5,4,5,6 9,7,5,3 5,4,3,2,1,2,3,4,5,6
+    // have to start for it again
     private static void longestArithmatic(int[] arr) {
         // longestArithmatic(new int[] { 5, 4, 3, 2, 1, 2, 3, 4, 5, 6 });
         int diff = arr[1] - arr[0];
