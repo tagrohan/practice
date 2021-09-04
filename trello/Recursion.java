@@ -7,7 +7,34 @@ import java.util.List;
 public class Recursion {
 
    public static void main(String[] args) {
-      printKpc("127", "");
+      printMazePath(1, 1, 3, 3, "");
+   }
+
+
+   private static void printMazePath(int startRow, int startCol, int endRow, int endCol, String path) {
+
+      if (startRow == endRow && startCol == endCol) {
+         System.out.print(path + " ");
+         return;
+      } else if (startRow > endRow || startCol > endCol) return;
+
+      printMazePath(startRow, startCol + 1, endRow, endCol, path + "H");
+      printMazePath(startRow + 1, startCol, endRow, endCol, path + "V");
+   }
+
+   private static void stairPath(int stairs, String path) {
+//      stairPath(5, "");
+      if (stairs == 1) {
+         System.out.print(path + " ");
+         return;
+      } else if (stairs < 0) {
+         return;
+      }
+
+      stairPath(stairs - 1, path + "1");
+      stairPath(stairs - 2, path + "2");
+      stairPath(stairs - 3, path + "3");
+
    }
 
    private static final String[] str = {".;", "abc", "def", "ghi", "jkl", "mnop", "qrst", "uv", "wxyz"};
