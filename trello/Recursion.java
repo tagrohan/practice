@@ -8,9 +8,23 @@ public class Recursion {
 
    public static void main(String[] args) {
       System.out.println(Arrays.toString(getPaths(5).toArray()));
+      System.out.println(getStairWays(5));
+   }
+
+   private static int getStairWays(int numOfStairs) {
+      int[] dp = new int[numOfStairs + 1];
+      dp[0] = 1;
+      dp[1] = 1;
+      dp[2] = 2;
+      for (int i = 3; i <= numOfStairs; i++) {
+         dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3];
+      }
+      System.out.println(Arrays.toString(dp));
+      return dp[numOfStairs];
    }
 
    private static List<String> getPaths(int numOfStairs) {
+//      System.out.println(Arrays.toString(getPaths(5).toArray()));
       if (numOfStairs == 0) {
          return List.of("");
       } else if (numOfStairs < 0) {
