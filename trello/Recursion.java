@@ -7,9 +7,19 @@ import java.util.List;
 public class Recursion {
 
    public static void main(String[] args) {
-      printPermutation("abc", "");
+      subsetSum(new int[]{1, 2, 3, 4, 5}, 5, "", 0, 0);
    }
 
+   private static void subsetSum(int[] arr, int sum, String vsf, int ssf, int idx) {
+//      subsetSum(new int[]{1, 2, 3, 4, 5}, 5, "", 0, 0);
+      if (sum == ssf) {
+         System.out.print(vsf + ", ");
+         return;
+      } else if (arr.length == idx) return;
+
+      subsetSum(arr, sum, arr[idx] + " " + vsf, arr[idx] + ssf, idx + 1);
+      subsetSum(arr, sum, vsf, ssf, idx + 1);
+   }
 
 
    private static void printPermutation(String str, String ssf) {
