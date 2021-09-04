@@ -7,8 +7,26 @@ import java.util.List;
 public class Recursion {
 
    public static void main(String[] args) {
-      System.out.println(Arrays.toString(getPaths(5).toArray()));
-      System.out.println(getStairWays(5));
+      System.out.println(Arrays.toString(getMazePath(1, 1, 3, 3).toArray()));
+   }
+
+   private static List<String> getMazePath(int startRow, int startCol, int row, int col) {
+
+      if (startRow == row && startCol == col)
+         return List.of("");
+      else if (startRow > row || startCol > col) return List.of();
+
+      List<String> horizontal = getMazePath(startRow, startCol + 1, row, col);
+      List<String> vertical = getMazePath(startRow + 1, startCol, row, col);
+      List<String> paths = new ArrayList<>();
+
+      for (String path : horizontal) {
+         paths.add("H" + path);
+      }
+      for (String path : vertical) {
+         paths.add("V" + path);
+      }
+      return paths;
    }
 
    private static int getStairWays(int numOfStairs) {
