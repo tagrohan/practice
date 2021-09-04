@@ -7,7 +7,27 @@ import java.util.List;
 public class Recursion {
 
    public static void main(String[] args) {
-      System.out.println(targetSumDp(new int[]{1, 2, 3, 4, 5}, 50));
+      floodFill(new int[][]{
+              {0, 1, 0, 0},
+              {0, 0, 0, 0},
+              {1, 0, 1, 0},
+              {1, 0, 0, 0}}, "", 0, 0, new int[4][4]);
+   }
+
+   private static void floodFill(int[][] flood, String psf, int row, int col, int[][] dp) {
+
+      if (row < 0 || col < 0 || row > flood.length - 1 || col > flood[0].length - 1 || flood[row][col] == 1) return;
+      if (dp[row][col] == 1) return;
+      if (row == flood.length - 1 && col == flood[0].length - 1) {
+         System.out.println(psf);
+      }
+
+      dp[row][col] = 1;
+      floodFill(flood, psf + "u", row - 1, col, dp);
+      floodFill(flood, psf + "r", row, col + 1, dp);
+      floodFill(flood, psf + "d", row + 1, col, dp);
+      floodFill(flood, psf + "l", row, col - 1, dp);
+      dp[row][col] = 0;
    }
 
    // todo will do it in DP
