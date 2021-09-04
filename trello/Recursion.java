@@ -8,6 +8,22 @@ public class Recursion {
 
    public static void main(String[] args) {
       System.out.println(Arrays.toString(getMazePath(1, 1, 3, 3).toArray()));
+      System.out.println(getMazePathNo(3, 3));
+   }
+
+   // using dp we solved maze path that gives number
+   private static int getMazePathNo(int row, int col) {
+      int[][] dp = new int[row + 1][col + 1];
+      for (int i = 1; i <= row; i++) {
+         for (int j = 1; j <= col; j++) {
+            if (i == 1 || j == 1) {
+               dp[i][j] = 1;
+            } else {
+               dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            }
+         }
+      }
+      return dp[row][col];
    }
 
    private static List<String> getMazePath(int startRow, int startCol, int row, int col) {
