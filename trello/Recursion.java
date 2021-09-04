@@ -7,12 +7,26 @@ import java.util.List;
 public class Recursion {
 
    public static void main(String[] args) {
-      printMazePath(1, 1, 3, 3, "");
+      printPermutation("abc", "");
+   }
+
+
+
+   private static void printPermutation(String str, String ssf) {
+//      printPermutation("abc", "");
+      if (str.length() == 0) {
+         System.out.print(ssf + " ");
+      }
+
+      for (int i = 0; i < str.length(); i++) {
+         char ch = str.charAt(i);
+         printPermutation(str.substring(0, i) + str.substring(i + 1), ssf + ch);
+      }
    }
 
 
    private static void printMazePath(int startRow, int startCol, int endRow, int endCol, String path) {
-
+//      printMazePath(1, 1, 3, 3, "");
       if (startRow == endRow && startCol == endCol) {
          System.out.print(path + " ");
          return;
