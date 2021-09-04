@@ -7,8 +7,23 @@ import java.util.List;
 public class Recursion {
 
    public static void main(String[] args) {
+      printKpc("127", "");
    }
 
+   private static final String[] str = {".;", "abc", "def", "ghi", "jkl", "mnop", "qrst", "uv", "wxyz"};
+
+   private static void printKpc(String num, String psf) {
+//      printKpc("127", "");
+      if (num.length() == 0) {
+         System.out.print(psf + " ");
+         return;
+      }
+      int startNumber = num.charAt(0) - '0';
+      String startString = str[startNumber];
+      for (int i = 0; i < startString.length(); i++) {
+         printKpc(num.substring(1), psf + startString.charAt(i));
+      }
+   }
 
    private static void printSubsequence(String str, String psf) {
 
@@ -97,7 +112,7 @@ public class Recursion {
       return res;
    }
 
-   private static final String[] str = {"abc", "def", "ghi", "jkl", "mnop", "qrst", "uv", "wxyz", ".;", "?!"};
+//   private static final String[] str = {"abc", "def", "ghi", "jkl", "mnop", "qrst", "uv", "wxyz", ".;", "?!"};
 
    private static List<String> kyp(String num) {// 123
 //      System.out.println(Arrays.toString(kyp("16").toArray()));
