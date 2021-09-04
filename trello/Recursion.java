@@ -7,7 +7,26 @@ import java.util.List;
 public class Recursion {
 
    public static void main(String[] args) {
-      subsetSum(new int[]{1, 2, 3, 4, 5}, 5, "", 0, 0);
+      System.out.println(targetSumDp(new int[]{1, 2, 3, 4, 5}, 50));
+   }
+
+   // todo will do it in DP
+   private static boolean targetSumDp(int[] arr, int sum) {
+      int len = arr.length;
+      boolean[][] dp = new boolean[len + 1][sum + 1];
+      for (int i = 0; i <= len; i++) {
+         for (int j = 0; j <= sum; j++) {
+            if (j == 0 && i == 0) dp[i][j] = true;
+            else if (j == 0) dp[i][j] = false;
+            else if (i == 0) dp[i][j] = true;
+            else if (arr[i - 1] <= j) {
+               dp[i][j] = dp[i - 1][j] || dp[i - 1][j - arr[i - 1]];
+            } else {
+               dp[i][j] = dp[i - 1][j];
+            }
+         }
+      }
+      return dp[len][sum];
    }
 
    private static void subsetSum(int[] arr, int sum, String vsf, int ssf, int idx) {
