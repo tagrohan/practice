@@ -7,12 +7,27 @@ import java.util.List;
 public class Recursion {
 
    public static void main(String[] args) {
-      System.out.println(Arrays.toString(getMazePath(1, 1, 3, 3).toArray()));
-      System.out.println(getMazePathNo(3, 3));
+   }
+
+
+   private static void printSubsequence(String str, String psf) {
+
+//      printSubsequence("abc", "");
+//      System.out.println(Arrays.toString(getSubsequence("abc").toArray()));
+      if (str.length() == 0) {
+         System.out.print(psf + ", ");
+         return;
+      }
+
+      char ch = str.charAt(0);
+      printSubsequence(str.substring(1), psf);
+      printSubsequence(str.substring(1), psf + ch);
+
    }
 
    // using dp we solved maze path that gives number
    private static int getMazePathNo(int row, int col) {
+//      System.out.println(getMazePathNo(3, 3));
       int[][] dp = new int[row + 1][col + 1];
       for (int i = 1; i <= row; i++) {
          for (int j = 1; j <= col; j++) {
