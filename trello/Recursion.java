@@ -7,12 +7,37 @@ import java.util.List;
 public class Recursion {
 
    public static void main(String[] args) {
-      System.out.println(Arrays.toString(kyp("16").toArray()));
+      System.out.println(Arrays.toString(getPaths(5).toArray()));
    }
 
-   static String[] str = {"abc", "def", "ghi", "jkl", "mnop", "qrst", "uv", "wxyz", ".;", "?!"};
+   private static List<String> getPaths(int numOfStairs) {
+      if (numOfStairs == 0) {
+         return List.of("");
+      } else if (numOfStairs < 0) {
+         return new ArrayList<>();
+      }
+
+      List<String> one = getPaths(numOfStairs - 1);
+      List<String> two = getPaths(numOfStairs - 2);
+      List<String> three = getPaths(numOfStairs - 3);
+      List<String> res = new ArrayList<>();
+
+      for (String oneS : one) {
+         res.add(1 + oneS);
+      }
+      for (String twoS : two) {
+         res.add(2 + twoS);
+      }
+      for (String threeS : three) {
+         res.add(3 + threeS);
+      }
+      return res;
+   }
+
+   private static final String[] str = {"abc", "def", "ghi", "jkl", "mnop", "qrst", "uv", "wxyz", ".;", "?!"};
 
    private static List<String> kyp(String num) {// 123
+//      System.out.println(Arrays.toString(kyp("16").toArray()));
       if (num.length() == 0) {
          return List.of("");
       }
