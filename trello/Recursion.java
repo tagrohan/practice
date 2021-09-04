@@ -1,12 +1,31 @@
 package trello;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Recursion {
 
    public static void main(String[] args) {
-      combination("abc", "");
+      System.out.println(Arrays.toString(kyp("16").toArray()));
+   }
+
+   static String[] str = {"abc", "def", "ghi", "jkl", "mnop", "qrst", "uv", "wxyz", ".;", "?!"};
+
+   private static List<String> kyp(String num) {// 123
+      if (num.length() == 0) {
+         return List.of("");
+      }
+      char ch = num.charAt(0);//1
+      List<String> rest = kyp(num.substring(1)); // 23
+      List<String> result = new ArrayList<>();
+      String currentString = str[ch - '0'];
+      for (int i = 0; i < currentString.length(); i++) {
+         for (String str : rest) {
+            result.add(currentString.charAt(i) + str);
+         }
+      }
+      return result;
    }
 
 
