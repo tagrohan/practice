@@ -7,15 +7,49 @@ import java.util.List;
 public class Recursion {
 
    public static void main(String[] args) {
-      floodFill(new int[][]{
-              {0, 1, 0, 0},
-              {0, 0, 0, 0},
-              {1, 0, 1, 0},
-              {1, 0, 0, 0}}, "", 0, 0, new int[4][4]);
+
+      nQueens(0, "", new int[4][4]);
+   }
+
+   private static void nQueens(int row, String psf, int[][] visited) {
+      if (row == visited.length) {
+         System.out.println(psf);
+         return;
+      }
+
+      for (int col = 0; col < visited.length; col++) {
+         if (isQueenSafe(visited, row, col)) {
+            visited[row][col] = 1;
+            nQueens(row + 1, psf + row + "x" + col + " ", visited);
+            visited[row][col] = 0;
+         }
+      }
+   }
+
+   private static boolean isQueenSafe(int[][] visited, int row, int col) {
+
+      for (int i = row - 1; i >= 0; i--) { // for row
+         if (visited[i][col] == 1) return false;
+      }
+      for (int i = col - 1; i >= 0; i--) { // for column
+         if (visited[row][i] == 1) return false;
+      }
+      for (int i = row - 1, j = col + 1; i >= 0 && j < visited[0].length; i--, j++) { // right reverse diagonal
+         if (visited[i][j] == 1) return false;
+      }
+      for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) { // left reverse diagonal
+         if (visited[i][j] == 1) return false;
+      }
+      return true;
    }
 
    private static void floodFill(int[][] flood, String psf, int row, int col, int[][] dp) {
 
+//      floodFill(new int[][]{
+//              {0, 1, 0, 0},
+//              {0, 0, 0, 0},
+//              {1, 0, 1, 0},
+//              {1, 0, 0, 0}}, "", 0, 0, new int[4][4]);
       if (row < 0 || col < 0 || row > flood.length - 1 || col > flood[0].length - 1 || flood[row][col] == 1) return;
       if (dp[row][col] == 1) return;
       if (row == flood.length - 1 && col == flood[0].length - 1) {
