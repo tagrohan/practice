@@ -12,11 +12,11 @@ public class Recursion {
    }
 
    private static void nQueens(int row, String psf, int[][] visited) {
+//      nQueens(0, "", new int[4][4]);
       if (row == visited.length) {
          System.out.println(psf);
          return;
       }
-
       for (int col = 0; col < visited.length; col++) {
          if (isQueenSafe(visited, row, col)) {
             visited[row][col] = 1;
@@ -25,7 +25,6 @@ public class Recursion {
          }
       }
    }
-
    private static boolean isQueenSafe(int[][] visited, int row, int col) {
 
       for (int i = row - 1; i >= 0; i--) { // for row
