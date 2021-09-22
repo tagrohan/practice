@@ -30,7 +30,7 @@ public class MyLinkedList {
          cHead = track;
       }
       this.head = prev;
-      print();
+//       print();
    }
 
    // it's working fine
