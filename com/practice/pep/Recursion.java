@@ -136,7 +136,7 @@ public class Recursion {
       if (num == 0) {
          return 1;
       }
-      System.out.println(fac);
+      System.out.println(fac);   
       fac = fac * factorial(num - 1);
       return fac;
    }
